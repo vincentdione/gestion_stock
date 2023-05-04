@@ -34,7 +34,7 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gestion-stock:$(date-'%Y%m%d%H%M%S')
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gestion-stock:latest
 
 
       - name: Login to Docker Hub
@@ -49,5 +49,5 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gestion-stock:$(date-'%Y%m%d%H%M%S')
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gestion-stock:latest
       
