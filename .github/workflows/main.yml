@@ -27,12 +27,12 @@ jobs:
         run: |
           mvn clean 
           mvn package -DskipTests
-
-      - name: Build Docker Image
-        uses: actions/build-push-action@v2
-        with:
-          context: .
-          dockerfile: Dockerfile
-          push: false
+#
+#      - name: Build Docker Image
+#        uses: actions/build-push-action@v2
+#        with:
+#          context: .
+#          dockerfile: Dockerfile
+#          push: false
           
       
