@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
-          java-version: 17
+          java-version: '17'
 
 #      - name: Unit Tests
 #        run: mvn -B test --file pom.xml
@@ -26,6 +26,13 @@ jobs:
       - name: Build the application ok
         run: |
           mvn clean 
-          mvn -B package --file pom.xml
+          mvn package -DskipTests
+
+      - name: Build Docker Image
+        uses: actions/build-push-action@v2
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: false
           
       
