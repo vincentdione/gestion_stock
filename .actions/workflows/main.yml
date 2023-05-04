@@ -1,0 +1,31 @@
+name: Build and deploy Gestion stock
+
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    name: Build and deploy Spring boot gestion stock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: 17
+
+      - name: Unit Tests
+        run: mvn -B test --file pom.xml
+
+      - name: Build the application
+        run: |
+          mvn clean 
+          mvn -B package --file pom.xml
+          
+      
