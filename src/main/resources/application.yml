@@ -1,8 +1,19 @@
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+  exposed-headers: "*"
+
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/stock
     username: postgres
     password: postgres
+    #url: ${SPRING_DATASOURCE_URL}
+    #username: ${SPRING_DATASOURCE_USERNAME}
+    #password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,6 +27,9 @@ spring:
 
 server:
   port: 8082
+
+
+
 #springfox:
 #  documentation:
 #    swagger:
@@ -47,6 +61,6 @@ application:
   security:
     jwt:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 60000 # 86400000 # a day
+      expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days

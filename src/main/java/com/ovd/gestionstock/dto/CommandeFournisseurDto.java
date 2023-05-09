@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ovd.gestionstock.models.CommandeFournisseur;
 import com.ovd.gestionstock.models.Fournisseur;
 import com.ovd.gestionstock.models.LigneCommandeFournisseur;
@@ -29,6 +30,7 @@ public class CommandeFournisseurDto {
 
     private FournisseurDto fournisseurDto;
 
+    @JsonIgnore
     private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurDtos = new ArrayList<>();
 
     public CommandeFournisseurDto fromEntity(CommandeFournisseurDto commandeFournisseurDto) {

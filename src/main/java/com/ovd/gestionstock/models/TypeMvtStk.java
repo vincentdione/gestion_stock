@@ -11,5 +11,7 @@ import lombok.NoArgsConstructor;
 
 public enum TypeMvtStk {
     ENTREE,
-    SORTIE
+    SORTIE,
+    CORRECTION_POS,
+    CORRECTION_NEG,
 }

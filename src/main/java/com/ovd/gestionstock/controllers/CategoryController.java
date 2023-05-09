@@ -4,14 +4,14 @@ import com.ovd.gestionstock.dto.CategoryDto;
 import com.ovd.gestionstock.utils.Constants;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
+@PreAuthorize("hasRole('ADMIN')")
 public interface CategoryController {
-
-
     @PostMapping(value = Constants.APP_ROOT+"/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ApiOperation(value = "Enregistrer une catégorie (Ajouter / Modifier)", notes = "Cette Méthode permet d'enregistrer ou modifier une catégorie", response = CategoryDto.class)
 //    @ApiResponses(value = {

@@ -11,6 +11,7 @@ public interface UtilisateurService {
     public void deleteUtilisateur(Long id);
 
     public UtilisateurDto getUtilisateurById(Long id);
+    public UtilisateurDto findByUsername(String username);
 
     public UtilisateurDto createUtilisateur(UtilisateurDto request);
 }

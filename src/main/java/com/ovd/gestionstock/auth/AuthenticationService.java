@@ -3,6 +3,8 @@ package com.ovd.gestionstock.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ovd.gestionstock.config.JwtService;
+import com.ovd.gestionstock.exceptions.ErrorCodes;
+import com.ovd.gestionstock.exceptions.InvalidEntityException;
 import com.ovd.gestionstock.models.Utilisateur;
 import com.ovd.gestionstock.repositories.UtilisateurRepository;
 import com.ovd.gestionstock.token.Token;
@@ -59,8 +61,14 @@ public class AuthenticationService {
             request.getPassword()
         )
     );
-    var user = repository.findByUsername(request.getUsername())
-        .orElseThrow();
+    var userDetails = repository.findByUsername(request.getUsername());
+    if (userDetails.isEmpty()){
+      log.info("----------------------------------");
+      log.info("Username not found");
+      log.info("----------------------------------");
+      throw new InvalidEntityException("Utilisateur not found", ErrorCodes.UTILISATEUR_NOT_FOUND);
+    }
+    Utilisateur user = userDetails.get();
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);

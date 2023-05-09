@@ -10,6 +10,7 @@ import com.ovd.gestionstock.validators.UtilisateurValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public List<UtilisateurDto> getAllUtilisateur() {
+        log.info("---------------getAllUtilisateur-----------------");
+        log.info("---------------getAllUtilisateur-----------------");
         return utilisateurRepository.findAll().stream().map(UtilisateurDto::fromEntity).collect(Collectors.toList());
     }
 
@@ -46,6 +49,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
 
+        return UtilisateurDto.fromEntity(utilisateur.get());
+    }
+
+    @Override
+    public UtilisateurDto findByUsername(String username) {
+        if (!StringUtils.hasLength(username)){
+            log.error("Username est null");
+        }
+         Optional<Utilisateur> utilisateur = utilisateurRepository.findByUsername(username);
         return UtilisateurDto.fromEntity(utilisateur.get());
     }
 

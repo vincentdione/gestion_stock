@@ -1,9 +1,7 @@
 package com.ovd.gestionstock.dto;
 
-import com.ovd.gestionstock.models.Client;
-import com.ovd.gestionstock.models.CommandeClient;
-import com.ovd.gestionstock.models.Entreprise;
-import com.ovd.gestionstock.models.LigneCommandeClient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ovd.gestionstock.models.*;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -31,30 +29,39 @@ public class CommandeClientDto {
 
     private ClientDto clientDto;
 
+    private CommandeEtat etat;
+
+    @JsonIgnore
     private List<LigneCommandeClientDto> ligneCommandeClientDtos = new ArrayList<>();
 
-    public CommandeClientDto fromEntity(CommandeClientDto commandeClientDto) {
-        if (commandeClientDto == null) {
+    public static CommandeClientDto fromEntity(CommandeClient commandeClient) {
+        if (commandeClient == null) {
             return null;
         }
         return  CommandeClientDto.builder()
-                .id(commandeClientDto.getId())
-                .code(commandeClientDto.getCode())
-                .dateCommande(commandeClientDto.getDateCommande())
-                .clientDto(commandeClientDto.getClientDto())
+                .id(commandeClient.getId())
+                .code(commandeClient.getCode())
+                .dateCommande(commandeClient.getDateCommande())
+                .clientDto(ClientDto.fromEntity(commandeClient.getClient()))
+                .etat(commandeClient.getEtat())
                 .build();
     }
 
 
-    public CommandeClient toEntity(CommandeClient commandeClient) {
-        if (commandeClient == null) {
+    public static CommandeClient toEntity(CommandeClientDto commandeClientDto) {
+        if (commandeClientDto == null) {
             return null;
         }
         return  CommandeClient.builder()
-                .id(commandeClient.getId())
-                .code(commandeClient.getCode())
-                .dateCommande(commandeClient.getDateCommande())
+                .id(commandeClientDto.getId())
+                .code(commandeClientDto.getCode())
+                .dateCommande(commandeClientDto.getDateCommande())
+                .etat(commandeClientDto.getEtat())
                 .build();
+    }
+
+    public boolean isCommandeLivree(){
+        return CommandeEtat.LIVREE.equals(this.etat);
     }
 
 }

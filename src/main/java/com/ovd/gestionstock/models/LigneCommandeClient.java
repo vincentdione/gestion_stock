@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -23,6 +24,8 @@ public class LigneCommandeClient {
     @ManyToOne
     @JoinColumn(name = "idArticle")
     private Article article;
+
+    private BigDecimal quantite;
 
     @ManyToOne
     @JoinColumn(name = "idCommandeClient")

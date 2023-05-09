@@ -1,9 +1,6 @@
 package com.ovd.gestionstock.dto;
 
-import com.ovd.gestionstock.models.Article;
-import com.ovd.gestionstock.models.MvtStk;
-import com.ovd.gestionstock.models.Role;
-import com.ovd.gestionstock.models.TypeMvtStk;
+import com.ovd.gestionstock.models.*;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -28,6 +25,9 @@ public class MvtStkDto {
 
     private TypeMvtStk typeMvtStk;
 
+    private SourceMvt sourceMvt;
+
+
     public static MvtStkDto fromEntity(MvtStk mvtStk){
         if(mvtStk == null){
             return null;
@@ -37,6 +37,7 @@ public class MvtStkDto {
                 .dateMvt(mvtStk.getDateMvt())
                 .quantite(mvtStk.getQuantite())
                 .typeMvtStk(mvtStk.getTypeMvtStk())
+                .sourceMvt(mvtStk.getSourceMvt())
                 .build();
     }
 
@@ -49,6 +50,7 @@ public class MvtStkDto {
                 .dateMvt(mvtStkDto.getDateMvt())
                 .quantite(mvtStkDto.getQuantite())
                 .typeMvtStk(mvtStkDto.getTypeMvtStk())
+                .sourceMvt(mvtStkDto.getSourceMvt())
                 .build();
     }
 

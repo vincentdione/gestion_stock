@@ -28,5 +28,6 @@ public class MvtStk {
     private Article article;
 
     private TypeMvtStk typeMvtStk;
+    private SourceMvt sourceMvt;
 
 }

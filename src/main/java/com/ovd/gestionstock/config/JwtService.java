@@ -56,6 +56,7 @@ public class JwtService {
           UserDetails userDetails,
           long expiration
   ) {
+    //extraClaims.put("roles",userDetails.getAuthorities());
     return Jwts
             .builder()
             .setClaims(extraClaims)

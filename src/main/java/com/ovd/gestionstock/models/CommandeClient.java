@@ -28,6 +28,9 @@ public class CommandeClient {
 
     private Instant dateCommande;
 
+    @Enumerated(EnumType.STRING)
+    private CommandeEtat etat;
+
     @ManyToOne
     @JoinColumn(name = "idClient")
     private Client client;

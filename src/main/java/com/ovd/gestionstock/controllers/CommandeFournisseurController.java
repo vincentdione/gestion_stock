@@ -5,11 +5,14 @@ import com.ovd.gestionstock.dto.CommandeFournisseurDto;
 import com.ovd.gestionstock.utils.Constants;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping(Constants.APP_ROOT)
+@PreAuthorize("hasRole('ADMIN')")
+
 public interface CommandeFournisseurController {
 
 

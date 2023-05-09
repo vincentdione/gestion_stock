@@ -1,11 +1,18 @@
 package com.ovd.gestionstock.services.impl;
 
 import com.ovd.gestionstock.dto.ArticleDto;
+import com.ovd.gestionstock.dto.LigneCommandeClientDto;
+import com.ovd.gestionstock.dto.LigneCommandeFournisseurDto;
+import com.ovd.gestionstock.dto.LigneVenteDto;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
 import com.ovd.gestionstock.models.Article;
+import com.ovd.gestionstock.models.LigneCommandeFournisseur;
 import com.ovd.gestionstock.repositories.ArticleRepository;
+import com.ovd.gestionstock.repositories.LigneCommandeClientRepository;
+import com.ovd.gestionstock.repositories.LigneCommandeFournisseurRepository;
+import com.ovd.gestionstock.repositories.LigneVenteRepository;
 import com.ovd.gestionstock.services.ArticleService;
 import com.ovd.gestionstock.validators.ArticleValidator;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +29,10 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final LigneVenteRepository ligneVenteRepository;
+    private final LigneCommandeClientRepository ligneClientRepository;
+    private final LigneCommandeFournisseurRepository ligneFournisseurRepository;
+
 
 
     @Override
@@ -29,6 +40,26 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = articleRepository.findAll();
         List<ArticleDto> articleDto = articles.stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
         return articleDto;
+    }
+
+    @Override
+    public List<LigneVenteDto> findHistoriqueVente(Long idArticle) {
+        return ligneVenteRepository.findAllByArticleId(idArticle).stream().map(LigneVenteDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeClientDto> findHistoriqueCommandeClient(Long idArticle) {
+        return ligneClientRepository.findAllByArticleId(idArticle).stream().map(LigneCommandeClientDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(Long idArticle) {
+        return ligneFournisseurRepository.findAllByArticleId(idArticle).stream().map(LigneCommandeFournisseurDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticleDto> findHistoriqueByIdCatergory(Long idCategory) {
+        return articleRepository.findAllByCategoryId(idCategory).stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override

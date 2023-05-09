@@ -3,14 +3,21 @@ package com.ovd.gestionstock.services;
 import com.ovd.gestionstock.dto.MvtStkDto;
 import com.ovd.gestionstock.models.MvtStk;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface MvtStkService {
 
-    public List<MvtStkDto> getAllMvtStk();
-    public void deleteMvtStk(Long id);
+     List<MvtStkDto> getAllMvtStk();
+     void deleteMvtStk(Long id);
 
-    public MvtStkDto getMvtStkById(Long id);
+     MvtStkDto getMvtStkById(Long id);
 
-    public MvtStkDto createMvtStk(MvtStkDto request);
+     BigDecimal stockReelArticle(Long idArticle);
+
+     List<MvtStkDto> mvtStockArticle(Long idArticle);
+     MvtStkDto entreeMvtStk(MvtStkDto request);
+     MvtStkDto sortieMvtStk(MvtStkDto request);
+     MvtStkDto correctionMvtStkPos(MvtStkDto request);
+     MvtStkDto correctionMvtStkNeg(MvtStkDto request);
 }

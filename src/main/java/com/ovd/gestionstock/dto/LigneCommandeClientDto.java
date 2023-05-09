@@ -2,6 +2,7 @@ package com.ovd.gestionstock.dto;
 
 import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.models.CommandeClient;
+import com.ovd.gestionstock.models.LigneCommandeClient;
 import com.ovd.gestionstock.models.LigneCommandeFournisseur;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -22,21 +23,21 @@ public class LigneCommandeClientDto {
 
     private CommandeClientDto commandeClientDto;
 
-    public static LigneCommandeFournisseurDto fromEntity(LigneCommandeFournisseur ligneCommandeFournisseur){
-        if(ligneCommandeFournisseur == null){
+    public static LigneCommandeClientDto fromEntity(LigneCommandeClient ligneCommande){
+        if(ligneCommande == null){
             return null;
         }
-        return LigneCommandeFournisseurDto.builder()
-                .id(ligneCommandeFournisseur.getId())
+        return LigneCommandeClientDto.builder()
+                .id(ligneCommande.getId())
                 .build();
     }
 
-    public static LigneCommandeFournisseur toEntity(LigneCommandeFournisseurDto ligneCommandeFournisseurDto){
-        if(ligneCommandeFournisseurDto == null){
+    public static LigneCommandeClient toEntity(LigneCommandeClientDto ligneCommande){
+        if(ligneCommande == null){
             return null;
         }
-        return LigneCommandeFournisseur.builder()
-                .id(ligneCommandeFournisseurDto.getId())
+        return LigneCommandeClient.builder()
+                .id(ligneCommande.getId())
                 .build();
     }
 
