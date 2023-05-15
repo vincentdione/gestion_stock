@@ -20,7 +20,7 @@ public interface CommandeClientController {
 
 
     @PostMapping(value = "/commandeClients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CommandeClientDto> save(@RequestBody CommandeClientDto request);
+    public ResponseEntity<CommandeClientDto> saveCommandeClients(@RequestBody CommandeClientDto request);
 
     @PatchMapping(value = "/commandeClients/updateEtat/{idCommande}/{etatCommande}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommandeClientDto> updateEtatCommande(@PathVariable("idCommande") Long idCommande,@PathVariable("etatCommande") CommandeEtat etatCommande);
@@ -43,7 +43,7 @@ public interface CommandeClientController {
     public ResponseEntity<List<CommandeClientDto>> getAllCommandeClients();
 
     @GetMapping(value = "/commandeClients/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CommandeClientDto> getCommandeClientById(@PathVariable("idCommande") Long id);
+    public ResponseEntity<CommandeClientDto> getCommandeClientById(@PathVariable("idCommande") Long idCommande);
 
 
     @GetMapping(value = "/commandeClients/ligneCommande/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)

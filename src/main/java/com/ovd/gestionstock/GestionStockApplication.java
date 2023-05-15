@@ -13,19 +13,27 @@ public class GestionStockApplication {
 		SpringApplication.run(GestionStockApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**")
-						.allowedOrigins("http://localhost:4200")
-						.allowedMethods("GET", "POST", "PUT", "DELETE")
-						.allowedHeaders("*")
-						.allowCredentials(true);
-						//.maxAge(3600);
-			}
-		};
-	}
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/api/**")
+//						.allowedOrigins("http://localhost:4200")
+//						.allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS","PATCH")
+//						.allowedHeaders("Origin","Content-Type","Accept","Authorization")
+//						.exposedHeaders("Authorization")
+//						.allowCredentials(true);
+//						//.maxAge(3600);
+////				registry.addMapping("/**")
+////						.allowedOrigins("*")
+////						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+////						.allowedHeaders("*")
+////						.exposedHeaders("Authorization")
+////						.allowCredentials(true)
+////						.maxAge(3600);
+//			}
+//		};
+//	}
 
 }

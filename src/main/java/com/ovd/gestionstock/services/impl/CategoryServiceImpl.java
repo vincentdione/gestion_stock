@@ -1,15 +1,18 @@
 package com.ovd.gestionstock.services.impl;
 
-import com.ovd.gestionstock.dto.ArticleDto;
 import com.ovd.gestionstock.dto.CategoryDto;
+import com.ovd.gestionstock.dto.SousCategoryDto;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.models.Category;
+import com.ovd.gestionstock.models.SousCategory;
 import com.ovd.gestionstock.repositories.CategoryRepository;
 import com.ovd.gestionstock.services.CategoryService;
 import com.ovd.gestionstock.validators.CategoryValidator;
+import com.ovd.gestionstock.validators.SousCategoryValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,20 +22,25 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CategoryServiceImpl  implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
-    private final CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public List<CategoryDto> getAllCategory() {
         log.info("LISTE DES CATEGORIES +++++++++++++++++++++++ ++++++++++++++++++");
         List<Category> categories = categoryRepository.findAll();
+        if (categories.isEmpty()){
+            log.error("Liste des catégories est vide !!! ");
+        }
         return categories.stream().map(CategoryDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
     public void deleteCategory(Long id) {
         if (id == null){
-            log.error("Id categroy n'existe pas");
+            log.error("Id Souscategroy n'existe pas");
             return;
         }
         categoryRepository.deleteById(id);
@@ -41,7 +49,7 @@ public class CategoryServiceImpl  implements CategoryService {
     @Override
     public CategoryDto getCategoryById(Long id) {
         if (id == null) {
-            log.error("ID n'existe pqs");
+            log.error("ID n'existe pas");
             return null;
         }
         Optional<Category> category = categoryRepository.findById(id);
@@ -52,7 +60,7 @@ public class CategoryServiceImpl  implements CategoryService {
         return  Optional.of(categoryDto).orElseThrow(() ->
                 new EntityNotFoundException(
                         "Aucun article avec l'id  = " +id+ " n'a été trouvé",
-                            ErrorCodes.CATEGORY_NOT_FOUND
+                        ErrorCodes.CATEGORY_NOT_FOUND
                 )
         );
     }

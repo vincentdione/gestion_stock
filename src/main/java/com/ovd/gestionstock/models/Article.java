@@ -31,9 +31,9 @@ public class Article {
 
     private Long idEntreprise;
 
-    @ManyToOne
-    @JoinColumn(name = "idCategory")
-    private Category category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idSousCategory")
+    private SousCategory sousCategory;
 
     @OneToMany(mappedBy = "article")
     private List<LigneVente> ligneVentes = new ArrayList<>();

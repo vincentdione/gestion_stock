@@ -17,7 +17,7 @@ public interface CommandeFournisseurController {
 
 
     @PostMapping(value = "/commandeFournisseurs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CommandeFournisseurDto> save(@RequestBody CommandeFournisseurDto request);
+    public ResponseEntity<CommandeFournisseurDto> saveCommandeFournisseurs(@RequestBody CommandeFournisseurDto request);
 
     @GetMapping(value = "/commandeFournisseurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CommandeFournisseurDto>> getAllCommandeFournisseurs();

@@ -16,7 +16,7 @@ public interface FournisseurController {
 
 
     @PostMapping(value = "/fournisseurs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FournisseurDto> save(@RequestBody FournisseurDto request);
+    public ResponseEntity<FournisseurDto> saveFournisseur(@RequestBody FournisseurDto request);
 
     @GetMapping(value = "/fournisseurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FournisseurDto>> getAllFournisseurs();

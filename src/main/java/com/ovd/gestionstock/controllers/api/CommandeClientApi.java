@@ -5,68 +5,76 @@ import com.ovd.gestionstock.dto.CommandeClientDto;
 import com.ovd.gestionstock.dto.LigneCommandeClientDto;
 import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.services.CommandeClientService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class CommandeClientApi implements CommandeClientController {
+@Tag(name = "commandeClients")
+@RequestMapping("/api/v1/admin")
+public class CommandeClientApi  {
 
     private  final CommandeClientService commandeClientService;
 
-    @Override
-    public ResponseEntity<CommandeClientDto> save(CommandeClientDto request) {
+    @PostMapping(value = "/commandeClients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommandeClientDto> saveCommandeClients(@RequestBody  CommandeClientDto request) {
         return null;
     }
 
-    @Override
-    public ResponseEntity<CommandeClientDto> updateEtatCommande(Long idCommande, CommandeEtat etatCommande) {
+    @PatchMapping(value = "/commandeClients/updateEtat/{idCommande}/{etatCommande}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommandeClientDto> updateEtatCommande(@PathVariable("idCommande") Long idCommande,@PathVariable("etatCommande") CommandeEtat etatCommande) {
         return ResponseEntity.ok(commandeClientService.updateEtatCommande(idCommande, etatCommande));
     }
 
-    @Override
-    public ResponseEntity<CommandeClientDto> updateClient(Long idCommande, Long idClient) {
+    @PatchMapping(value = "/commandeClients/updateClient/{idCommande}/{idClient}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommandeClientDto> updateClient(@PathVariable("idCommande") Long idCommande,@PathVariable("idClient") Long idClient) {
         return ResponseEntity.ok(commandeClientService.updateClient(idCommande,idClient));
     }
 
-    @Override
-    public ResponseEntity<CommandeClientDto> updateQuantiteCommande(Long idCommande, Long idLigneCommande, BigDecimal quantite) {
+    @PatchMapping(value = "/commandeClients/updateQuantite/{idCommande}/{idLigneCommande}/{quantite}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommandeClientDto> updateQuantiteCommande(@PathVariable("idCommande") Long idCommande,
+                                                                    @PathVariable("idLigneCommande") Long idLigneCommande,
+                                                                    @PathVariable("quantite") BigDecimal quantite) {
         return ResponseEntity.ok(commandeClientService.updateQuantieCommande(idCommande,idLigneCommande,quantite));
     }
 
-    @Override
-    public ResponseEntity<CommandeClientDto> updateArticle(Long idCommande, Long idLigneCommande, Long idArticle) {
+    @PatchMapping(value = "/commandeClients/updateArticle/{idCommande}/{idLigneCommande}/{idArticle}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommandeClientDto> updateArticle(@PathVariable("idCommande") Long idCommande,
+                                                           @PathVariable("idLigneCommande") Long idLigneCommande,
+                                                           @PathVariable("idArticle") Long idArticle) {
         return ResponseEntity.ok(commandeClientService.updateArticle(idCommande,idLigneCommande,idArticle));
     }
 
-    @Override
+    @GetMapping(value = "/commandeClients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CommandeClientDto>> getAllCommandeClients() {
 
         return null;
     }
 
-    @Override
-    public ResponseEntity<CommandeClientDto> getCommandeClientById(Long id) {
+    @GetMapping(value = "/commandeClients/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommandeClientDto> getCommandeClientById(@PathVariable("idCommande") Long idCommande) {
         return null;
     }
 
-    @Override
-    public ResponseEntity<List<LigneCommandeClientDto>> findAllLignesCommandesClientByCommandeClientId(Long idCommande) {
+    @GetMapping(value = "/commandeClients/ligneCommande/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<LigneCommandeClientDto>> findAllLignesCommandesClientByCommandeClientId(@PathVariable("idCommande") Long idCommande) {
         return ResponseEntity.ok(commandeClientService.findAllLignesCommandesClientByCommandeClientId(idCommande));
     }
 
-    @Override
-    public ResponseEntity<Void> deleteCommandeClient(Long id) {
+    @DeleteMapping(value = "/commandeClients/delete/{idCommande}")
+    public ResponseEntity<Void> deleteCommandeClient(@PathVariable("idCommande") Long idCommande) {
 
         return ResponseEntity.ok().build();
     }
 
-    @Override
-    public ResponseEntity<CommandeClientDto> deleteArticle(Long idCommande, Long idLigneCommande) {
+    @DeleteMapping(value = "/commandeClients/deleteArticle/{idCommande}/{idLigneCommande}")
+    public ResponseEntity<CommandeClientDto> deleteArticle(@PathVariable("idCommande") Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande) {
         return ResponseEntity.ok(commandeClientService.deleteArticle(idCommande,idLigneCommande));
     }
 }

@@ -15,7 +15,7 @@ public interface ArticleService {
      List<LigneVenteDto> findHistoriqueVente(Long idArticle);
      List<LigneCommandeClientDto> findHistoriqueCommandeClient(Long idArticle);
      List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(Long idArticle);
-     List<ArticleDto> findHistoriqueByIdCatergory(Long idCategory);
+     List<ArticleDto> findHistoriqueByIdSousCatergory(Long idCategory);
      void deleteArticle(Long id);
 
      ArticleDto getArticleById(Long id);

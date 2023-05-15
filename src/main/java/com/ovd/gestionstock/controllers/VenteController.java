@@ -15,7 +15,7 @@ public interface VenteController {
 
 
     @PostMapping(value = "/ventes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VenteDto> save(@RequestBody VenteDto request);
+    public ResponseEntity<VenteDto> saveVente(@RequestBody VenteDto request);
 
     @GetMapping(value = "/ventes/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<VenteDto>> getAllVentes();

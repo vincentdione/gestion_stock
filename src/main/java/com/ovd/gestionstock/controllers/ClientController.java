@@ -16,17 +16,17 @@ public interface ClientController {
 
 
     @PostMapping(value = "/clients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClientDto> save(@RequestBody ClientDto request);
+    public ResponseEntity<ClientDto> saveClient(@RequestBody ClientDto request);
 
     @GetMapping(value = "/clients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ClientDto>> getAllClients();
 
     @GetMapping(value = "/clients/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClientDto> getClientById(@PathVariable("idClient") Long id);
+    public ResponseEntity<ClientDto> getClientById(@PathVariable("idClient") Long idClient);
 
 
     @DeleteMapping(value = "/clients/delete/{idClient}")
-    public ResponseEntity deleteClient(@PathVariable("idClient") Long id);
+    public ResponseEntity deleteClient(@PathVariable("idClient") Long idClient);
 
 
 }

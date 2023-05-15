@@ -1,9 +1,6 @@
 package com.ovd.gestionstock.dto;
 
 import com.ovd.gestionstock.models.Article;
-import com.ovd.gestionstock.models.Category;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +22,7 @@ public class ArticleDto {
     private BigDecimal prixUnitaireTtc;
     private String photo;
 
-    private CategoryDto categoryDto;
+    private SousCategoryDto sousCategoryDto;
 
     public static ArticleDto fromEntity (Article article){
         if (article == null){
@@ -39,6 +36,7 @@ public class ArticleDto {
                 .prixUnitaireHt(article.getPrixUnitaireHt())
                 .tauxTval(article.getTauxTval())
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
+                .sousCategoryDto(SousCategoryDto.fromEntity(article.getSousCategory()))
                 .photo(article.getPhoto())
                 .build();
 
@@ -56,6 +54,7 @@ public class ArticleDto {
                 .prixUnitaireHt(articleDto.getPrixUnitaireHt())
                 .tauxTval(articleDto.getTauxTval())
                 .prixUnitaireTtc(articleDto.getPrixUnitaireTtc())
+                .sousCategory(SousCategoryDto.toEntity(articleDto.getSousCategoryDto()))
                 .photo(articleDto.getPhoto())
                 .build();
 

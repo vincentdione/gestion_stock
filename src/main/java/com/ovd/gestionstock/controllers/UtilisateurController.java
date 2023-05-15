@@ -19,7 +19,7 @@ public interface UtilisateurController {
 
     @PreAuthorize("hasAuthority('admin:create')")
     @PostMapping(value = "/utilisateurs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UtilisateurDto> save(@RequestBody UtilisateurDto request);
+    public ResponseEntity<UtilisateurDto> saveUser(@RequestBody UtilisateurDto request);
 
     @PreAuthorize("hasAuthority('admin:read')")
     @GetMapping(value = "/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,7 +37,7 @@ public interface UtilisateurController {
     @PreAuthorize("hasAuthority('admin:delete')")
     @Hidden
     @DeleteMapping(value = "/utilisateurs/delete/{idUtilisateur}")
-    public ResponseEntity deleteUtilisateur(@PathVariable("idUtilisateur") Long id);
+    public ResponseEntity deleteUtilisateur(@PathVariable("idUtilisateur") Long idUtilisateur);
 
 
 }

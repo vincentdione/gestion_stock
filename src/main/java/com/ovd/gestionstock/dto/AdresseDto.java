@@ -1,7 +1,6 @@
 package com.ovd.gestionstock.dto;
 
 import com.ovd.gestionstock.models.Adresse;
-import com.ovd.gestionstock.models.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

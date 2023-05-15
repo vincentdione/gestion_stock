@@ -2,46 +2,52 @@ package com.ovd.gestionstock.controllers.api;
 
 import com.ovd.gestionstock.controllers.CategoryController;
 import com.ovd.gestionstock.dto.CategoryDto;
+import com.ovd.gestionstock.dto.SousCategoryDto;
 import com.ovd.gestionstock.services.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class CategoryApi implements CategoryController {
+@RequestMapping("/api/v1/admin")
+@PreAuthorize("hasRole('ADMIN')")
+@Tag(name = "categories")
+public class CategoryApi {
 
     private final CategoryService categoryService;
 
-    @Override
-    public ResponseEntity<CategoryDto> save(CategoryDto request) {
-
+    @PreAuthorize("hasAuthority('admin:create')")
+    @PostMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto request) {
         return ResponseEntity.ok(categoryService.createCategory(request));
+
     }
 
-    @Override
+    @PreAuthorize("hasAuthority('admin:read')")
+    @GetMapping(value = "/categories/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CategoryDto>> getAllCategorys() {
-
         return ResponseEntity.ok(categoryService.getAllCategory());
     }
 
-    @Override
-    public ResponseEntity<CategoryDto> getCategoryById(Long id) {
-
-        return ResponseEntity.ok(categoryService.getCategoryById(id));
+    @GetMapping(value = "/categories/{idCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable("idCategory") Long idCategory) {
+        return ResponseEntity.ok(categoryService.getCategoryById(idCategory));
     }
-
-    @Override
-    public ResponseEntity<CategoryDto> getCategoryByNom(String nom) {
+    @GetMapping(value = "/categories/{nom}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CategoryDto> getCategoryByNom(@PathVariable("nom") String nom) {
         return null;
     }
 
-    @Override
-    public ResponseEntity deleteCategory(Long id) {
-
-        categoryService.deleteCategory(id);
+    @DeleteMapping(value = "/categories/delete/{idCategory}")
+    public ResponseEntity deleteCategory(@PathVariable("idCategory") Long idCategory) {
+        categoryService.deleteCategory(idCategory);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,7 +1,6 @@
 package com.ovd.gestionstock.validators;
 
 import com.ovd.gestionstock.dto.ArticleDto;
-import com.ovd.gestionstock.dto.CategoryDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class ArticleValidator {
         }
 
 
-        if(articleDto.getCategoryDto() == null){
+        if(articleDto.getSousCategoryDto() == null){
             errors.add("Veuillez renseigner la catégorie de l'article");
         }
 

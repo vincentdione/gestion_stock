@@ -16,7 +16,7 @@ public interface EntrepriseController {
 
 
     @PostMapping(value = "/entreprises", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntrepriseDto> save(@RequestBody EntrepriseDto request);
+    public ResponseEntity<EntrepriseDto> saveEntreprise(@RequestBody EntrepriseDto request);
 
     @GetMapping(value = "/entreprises/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EntrepriseDto>> getAllEntreprises();

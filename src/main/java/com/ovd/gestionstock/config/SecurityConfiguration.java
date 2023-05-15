@@ -12,6 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 import static com.ovd.gestionstock.models.Permission.*;
 import static com.ovd.gestionstock.models.Role.ADMIN;
@@ -33,6 +39,7 @@ public class SecurityConfiguration {
     http
         .csrf()
         .disable()
+            .cors().and()
         .authorizeHttpRequests()
         .requestMatchers(
                 "/api/v1/auth/**",
@@ -63,7 +70,6 @@ public class SecurityConfiguration {
         .requestMatchers(PUT, "/api/v1/**").hasAuthority(ADMIN_UPDATE.name())
         .requestMatchers(DELETE, "/api/v1/**").hasAuthority(ADMIN_DELETE.name())
 
-
         .anyRequest()
           .authenticated()
         .and()
@@ -71,13 +77,43 @@ public class SecurityConfiguration {
           .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authenticationProvider(authenticationProvider)
+
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-        .logout()
+          //  .cors()
+            .logout()
         .logoutUrl("/api/v1/auth/logout")
         .addLogoutHandler(logoutHandler)
         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+
     ;
 
     return http.build();
   }
+
+
+//  @Bean
+//  CorsConfigurationSource corsConfigurationSource()
+//  {
+//    CorsConfiguration configuration = new CorsConfiguration();
+//    configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+//    configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
+//    configuration.setAllowedHeaders(Arrays.asList("*"));
+//    configuration.setAllowCredentials(true);
+//    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//    source.registerCorsConfiguration("/**", configuration);
+//    return source;
+//  }
+
+//  @Bean
+//  public CorsFilter corsFilter(){
+//     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//     final CorsConfiguration config = new CorsConfiguration();
+//     config.setAllowCredentials(true);
+//     config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+//     config.setAllowedHeaders(Arrays.asList("Origin","Content-Type","Accept","Authorization"));
+//     config.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
+//     source.registerCorsConfiguration("/**", config);
+//     return  new CorsFilter(source);
+//  }
+
 }

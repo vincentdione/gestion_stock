@@ -1,9 +1,8 @@
 package com.ovd.gestionstock.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.models.Category;
-import jakarta.persistence.OneToMany;
+import com.ovd.gestionstock.models.SousCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,8 +23,8 @@ public class CategoryDto {
 
     private String designation;
 
-    @JsonIgnore
-    private List<ArticleDto> articleDtos = new ArrayList<>();
+//    @JsonIgnore
+//    private List<SousCategoryDto> sousCategoryDtos = new ArrayList<>();
 
 
     public static CategoryDto fromEntity(Category category) {
@@ -45,13 +44,12 @@ public class CategoryDto {
             return null;
         }
 
-        Category category = new Category();
-        category.setId(categoryDto.getId());
-        category.setCode(categoryDto.getCode());
-        category.setDesignation(categoryDto.getDesignation());
+        Category Category = new Category();
+        Category.setId(categoryDto.getId());
+        Category.setCode(categoryDto.getCode());
+        Category.setDesignation(categoryDto.getDesignation());
 
-        return category;
+        return Category;
     }
-
 
 }

@@ -101,6 +101,14 @@ public class AuthenticationService {
     tokenRepository.saveAll(validUserTokens);
   }
 
+  public void findUserByToken(Token token){
+     if (token == null){
+       log.error("Token est null");
+       throw new InvalidEntityException("Token n'est pas valide",ErrorCodes.UTILISATEUR_NOT_FOUND);
+     }
+
+  }
+
   public void refreshToken(
           HttpServletRequest request,
           HttpServletResponse response

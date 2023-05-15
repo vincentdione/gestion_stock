@@ -3,6 +3,7 @@ package com.ovd.gestionstock.controllers.api;
 import com.ovd.gestionstock.controllers.EntrepriseController;
 import com.ovd.gestionstock.dto.EntrepriseDto;
 import com.ovd.gestionstock.services.EntrepriseService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +13,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "entreprises")
 public class EntrepriseApi implements EntrepriseController{
 
     private final EntrepriseService entrepriseService;
 
     @Override
-    public ResponseEntity<EntrepriseDto> save(EntrepriseDto request) {
+    public ResponseEntity<EntrepriseDto> saveEntreprise(EntrepriseDto request) {
         return ResponseEntity.ok(entrepriseService.createEntreprise(request));
     }
 

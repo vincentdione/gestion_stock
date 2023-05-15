@@ -58,8 +58,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> findHistoriqueByIdCatergory(Long idCategory) {
-        return articleRepository.findAllByCategoryId(idCategory).stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
+    public List<ArticleDto> findHistoriqueByIdSousCatergory(Long idCategory) {
+        return articleRepository.findAllBySousCategoryId(idCategory).stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override

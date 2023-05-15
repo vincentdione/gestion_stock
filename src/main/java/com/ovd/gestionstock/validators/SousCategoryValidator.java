@@ -1,18 +1,17 @@
 package com.ovd.gestionstock.validators;
 
-import com.ovd.gestionstock.dto.CategoryDto;
 import com.ovd.gestionstock.dto.SousCategoryDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryValidator {
+public class SousCategoryValidator {
 
-    public static List<String> validate(CategoryDto categoryDto){
+    public static List<String> validate(SousCategoryDto sousCategoryDto){
         List<String> errors = new ArrayList<>();
 
-        if(categoryDto == null || !StringUtils.hasLength(categoryDto.getCode())){
+        if(sousCategoryDto == null || !StringUtils.hasLength(sousCategoryDto.getCode())){
             errors.add("Veuillez renseigner le code de la catégorie");
         }
         return errors;

@@ -3,6 +3,7 @@ package com.ovd.gestionstock.controllers.api;
 import com.ovd.gestionstock.controllers.FournisseurController;
 import com.ovd.gestionstock.dto.FournisseurDto;
 import com.ovd.gestionstock.services.FournisseurService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +12,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "fournisseurs")
 public class FournisseurApi implements FournisseurController {
 
     private final FournisseurService fournisseurService;
 
     @Override
-    public ResponseEntity<FournisseurDto> save(FournisseurDto request) {
+    public ResponseEntity<FournisseurDto> saveFournisseur(FournisseurDto request) {
         return ResponseEntity.ok(fournisseurService.createFournisseur(request));
     }
 

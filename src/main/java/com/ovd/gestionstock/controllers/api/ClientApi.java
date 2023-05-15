@@ -3,42 +3,46 @@ package com.ovd.gestionstock.controllers.api;
 import com.ovd.gestionstock.controllers.ClientController;
 import com.ovd.gestionstock.dto.ClientDto;
 import com.ovd.gestionstock.services.ClientService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class ClientApi implements ClientController {
+@Tag(name = "clients")
+@RequestMapping("/api/v1/admin")
+
+public class ClientApi {
 
     private final ClientService clientService;
 
-    @Override
-    public ResponseEntity<ClientDto> save(ClientDto request) {
+    @PostMapping(value = "/clients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClientDto> saveClient(@RequestBody ClientDto request) {
 
         return ResponseEntity.ok(clientService.createClient(request));
     }
 
-    @Override
+    @GetMapping(value = "/clients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ClientDto>> getAllClients() {
 
         return ResponseEntity.ok(clientService.getAllClient());
     }
 
-    @Override
-    public ResponseEntity<ClientDto> getClientById(Long id) {
+    @GetMapping(value = "/clients/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClientDto> getClientById(@PathVariable("idClient") Long idClient) {
 
-        return  ResponseEntity.ok(clientService.getClientById(id));
+        return  ResponseEntity.ok(clientService.getClientById(idClient));
     }
 
-
-    @Override
-    public ResponseEntity deleteClient(Long id) {
-            clientService.deleteClient(id);
+    @DeleteMapping(value = "/clients/delete/{idClient}")
+    public ResponseEntity deleteClient(@PathVariable("idClient") Long idClient) {
+            clientService.deleteClient(idClient);
             return ResponseEntity.ok().build();
     }
 }

@@ -7,16 +7,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
 @Entity
-@Table(name = "CATEGORIES")
+@Table(name = "SOUSCATEGORIES")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+public class SousCategory implements Serializable {
 
     @Id
     @GeneratedValue
@@ -26,6 +27,11 @@ public class Category {
 
     private String designation;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SousCategory> sousCategories = new ArrayList<>();
+    @OneToMany(mappedBy = "sousCategory", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Article> articles = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idcategory")
+    private Category category;
+
 }

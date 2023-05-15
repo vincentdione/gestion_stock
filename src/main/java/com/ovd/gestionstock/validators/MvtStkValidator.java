@@ -1,8 +1,6 @@
 package com.ovd.gestionstock.validators;
 
-import com.ovd.gestionstock.dto.CategoryDto;
 import com.ovd.gestionstock.dto.MvtStkDto;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article,Long> {
 
-    List<Article> findAllByCategoryId(Long idCategory);
+    List<Article> findAllBySousCategoryId(Long idSousCategory);
 }
