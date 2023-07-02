@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(Constants.APP_ROOT)
-@PreAuthorize("hasRole('ADMIN')")
-
 public interface FournisseurController {
 
 

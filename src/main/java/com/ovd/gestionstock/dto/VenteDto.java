@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.Date;
+import java.util.List;
 
 @Builder
 @Data
@@ -19,33 +21,41 @@ public class VenteDto {
 
     private String code;
 
-    private Instant dateVente;
+    private Date dateVente;
 
     private String commentaire;
 
-    public static VenteDto fromEntity(Ventes ventes){
-        if(ventes == null){
+    private List<LigneVenteDto> ligneVentes;
+
+    private Long idEntreprise;
+
+    private ModePayementDto modePayement;
+
+    public static VenteDto fromEntity(Ventes vente) {
+        if (vente == null) {
             return null;
         }
         return VenteDto.builder()
-                .id(ventes.getId())
-                .code(ventes.getCode())
-                .dateVente(ventes.getDateVente())
-                .commentaire(ventes.getCommentaire())
+                .id(vente.getId())
+                .code(vente.getCode())
+                .commentaire(vente.getCommentaire())
+                .dateVente(vente.getDateVente())
+                .idEntreprise(vente.getId())
+                .modePayement(ModePayementDto.fromEntity(vente.getModePayement()))
                 .build();
     }
 
-
-    public static Ventes toEntity(VenteDto venteDto){
-        if(venteDto == null){
+    public static Ventes toEntity(VenteDto dto) {
+        if (dto == null) {
             return null;
         }
-        return Ventes.builder()
-                .id(venteDto.getId())
-                .code(venteDto.getCode())
-                .dateVente(venteDto.getDateVente())
-                .commentaire(venteDto.getCommentaire())
-                .build();
+        Ventes ventes = new Ventes();
+        ventes.setId(dto.getId());
+        ventes.setCode(dto.getCode());
+        ventes.setCommentaire(dto.getCommentaire());
+         ventes.setDateVente(dto.getDateVente());
+        ventes.setIdEntreprise(dto.getIdEntreprise());
+        ventes.setModePayement(ModePayementDto.toEntity(dto.getModePayement()));
+        return ventes;
     }
-
 }

@@ -27,7 +27,13 @@ public class MvtStk {
     @JoinColumn(name = "idArticle")
     private Article article;
 
+    @Enumerated(EnumType.STRING)
     private TypeMvtStk typeMvtStk;
+
+    @Enumerated(EnumType.STRING)
     private SourceMvt sourceMvt;
+
+    private Long idEntreprise;
+
 
 }

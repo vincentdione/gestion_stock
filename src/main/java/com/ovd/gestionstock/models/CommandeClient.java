@@ -6,9 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -17,6 +20,8 @@ import java.util.List;
 @Table(name = "COMMANDE_CLIENTS")
 @AllArgsConstructor
 @NoArgsConstructor
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CommandeClient {
 
     @Id
@@ -26,7 +31,7 @@ public class CommandeClient {
     private String code;
 
 
-    private Instant dateCommande;
+    private Date dateCommande;
 
     @Enumerated(EnumType.STRING)
     private CommandeEtat etat;
@@ -38,6 +43,8 @@ public class CommandeClient {
     @OneToMany(mappedBy = "commandeClient")
     private List<LigneCommandeClient> ligneCommandeClients = new ArrayList<>();
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idModePayement")
+    private ModePayement modePayement;
 
 }

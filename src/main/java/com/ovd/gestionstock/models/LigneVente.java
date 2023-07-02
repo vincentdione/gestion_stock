@@ -28,7 +28,12 @@ public class LigneVente {
     private BigDecimal quantite;
     private BigDecimal prixUnitaire;
 
+    private Long idEntreprise;
+
     @ManyToOne
     private Article article;
+
+    @ManyToOne
+    private Unite unite;
 
 }

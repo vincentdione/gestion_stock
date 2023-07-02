@@ -27,11 +27,21 @@ public class CommandeFournisseur {
 
     private Instant dateCommande;
 
+    @Enumerated(EnumType.STRING)
+    private  CommandeEtat etatCommande;
+
+    private Long idEntreprise;
+
+
     @ManyToOne
     @JoinColumn(name = "idFournisseur")
     private Fournisseur fournisseur;
 
     @OneToMany(mappedBy = "commandeFournisseur")
     private List<LigneCommandeFournisseur> ligneCommandeFournisseurs = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idModePayement")
+    private ModePayement modePayement;
 
 }

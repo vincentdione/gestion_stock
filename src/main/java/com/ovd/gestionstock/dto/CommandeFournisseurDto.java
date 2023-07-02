@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.models.CommandeFournisseur;
 import com.ovd.gestionstock.models.Fournisseur;
 import com.ovd.gestionstock.models.LigneCommandeFournisseur;
@@ -30,22 +31,30 @@ public class CommandeFournisseurDto {
 
     private FournisseurDto fournisseurDto;
 
-    @JsonIgnore
+    private CommandeEtat etatCommande;
+
+    private Long idEntreprise;
+    private ModePayementDto modePayement;
+
+
     private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurDtos = new ArrayList<>();
 
-    public CommandeFournisseurDto fromEntity(CommandeFournisseurDto commandeFournisseurDto) {
-        if (commandeFournisseurDto == null) {
+    public static CommandeFournisseurDto fromEntity(CommandeFournisseur commandeFournisseur) {
+        if (commandeFournisseur == null) {
             return null;
         }
         return  CommandeFournisseurDto.builder()
-                .id(commandeFournisseurDto.getId())
-                .code(commandeFournisseurDto.getCode())
-                .dateCommande(commandeFournisseurDto.getDateCommande())
-                .fournisseurDto(commandeFournisseurDto.getFournisseurDto())
+                .id(commandeFournisseur.getId())
+                .code(commandeFournisseur.getCode())
+                .dateCommande(commandeFournisseur.getDateCommande())
+                .fournisseurDto(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
+                .etatCommande(commandeFournisseur.getEtatCommande())
+                .idEntreprise(commandeFournisseur.getIdEntreprise())
+                .modePayement(ModePayementDto.fromEntity(commandeFournisseur.getModePayement()))
                 .build();
     }
 
-    public CommandeFournisseur toEntity(CommandeFournisseur commandeFournisseur) {
+    public static CommandeFournisseur toEntity(CommandeFournisseurDto commandeFournisseur) {
         if (commandeFournisseur == null) {
             return null;
         }
@@ -53,8 +62,13 @@ public class CommandeFournisseurDto {
                 .id(commandeFournisseur.getId())
                 .code(commandeFournisseur.getCode())
                 .dateCommande(commandeFournisseur.getDateCommande())
-                .fournisseur(commandeFournisseur.getFournisseur())
+                .fournisseur(FournisseurDto.toEntity(commandeFournisseur.getFournisseurDto()))
+                .etatCommande(commandeFournisseur.getEtatCommande())
+                .idEntreprise(commandeFournisseur.getIdEntreprise())
+                .modePayement(ModePayementDto.toEntity(commandeFournisseur.getModePayement()))
                 .build();
     }
-
+    public boolean isCommandeLivree(){
+        return CommandeEtat.LIVREE.equals(this.etatCommande);
+    }
 }

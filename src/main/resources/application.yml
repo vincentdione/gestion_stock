@@ -5,29 +5,95 @@ cors:
   allowed-headers: "*"
   exposed-headers: "*"
 
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/stock
     username: postgres
     password: postgres
-    #url: ${SPRING_DATASOURCE_URL}
-    #username: ${SPRING_DATASOURCE_USERNAME}
-    #password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+      show-sql: true
+      properties:
+        hibernate.format_sql: true
+        hibernate.cache.use_second_level_cache: true
+        hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  cache:
+    provider: org.hibernate.cache.EhCacheProvider
 
 server:
   port: 8082
 
+
+
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/stock
+#    username: postgres
+#    password: postgres
+#    #url: ${SPRING_DATASOURCE_URL}
+#    #username: ${SPRING_DATASOURCE_USERNAME}
+#    #password: ${SPRING_DATASOURCE_PASSWORD}
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        cache:
+#          use_second_level_cache: true
+#          region:
+#            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+#          ehcache:
+#            config: classpath:ehcache.xml
+#
+#    database: postgresql
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#
+#server:
+#  port: 8082
+#
+
+
+#cors:
+#  allowed-origins: "*"
+#  allowed-methods: "*"
+#  allowed-headers: "*"
+#  exposed-headers: "*"
+#
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/stock
+#    username: postgres
+#    password: postgres
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#      format_sql: true
+#      cache:
+#        use_second_level_cache: true
+#        region:
+#          factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+#        use_query_cache: true
+#    properties:
+#      javax:
+#        persistence:
+#          sharedCache:
+#            mode: ENABLE_SELECTIVE
+#    database: postgresql
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#
+#server:
+#  port: 8082
 
 
 #springfox:

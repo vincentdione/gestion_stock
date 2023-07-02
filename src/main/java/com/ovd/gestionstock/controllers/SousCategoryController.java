@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@PreAuthorize("hasRole('ADMIN')")
 public interface SousCategoryController {
     @PostMapping(value = Constants.APP_ROOT+"/souscategories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ApiOperation(value = "Enregistrer une catégorie (Ajouter / Modifier)", notes = "Cette Méthode permet d'enregistrer ou modifier une catégorie", response = CategoryDto.class)

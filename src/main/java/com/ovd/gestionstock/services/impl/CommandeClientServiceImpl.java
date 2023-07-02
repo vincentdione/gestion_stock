@@ -47,9 +47,15 @@ public class CommandeClientServiceImpl implements CommandeClientService {
     @Override
     public void deleteCommandeClient(Long id) {
         if (id == null){
-            log.error("ID is null");
+            log.error("Commande Client ID is NULL");
             return;
         }
+        List<LigneCommandeClient> ligneCommandeClients = ligneClientRepository.findAllByCommandeClientId(id);
+        if (!ligneCommandeClients.isEmpty()) {
+            throw new InvalidEntityException("Impossible de supprimer une commande client deja utilisee",
+                    ErrorCodes.COMMANDE_FOURNISSEUR_ALREADY_IN_USE);
+        }
+
         commandeClientRepository.deleteById(id);
     }
 
@@ -94,43 +100,50 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             throw new InvalidEntityException("la commande client n'est pas valide", ErrorCodes.COMMANDE_CLIENT_NOT_FOUND,errors);
         }
 
-        Optional<Client> client = clientRepository.findById(request.getClientDto().getId());
-        if(client.isPresent()){
-            log.warn("Ce client avec ID {} n'a pas été trouvé "+request.getClientDto().getId());
-            throw new EntityNotFoundException("Aucun client avec l'ID " + request.getClientDto().getId() +"n'a été trouvé dans la base",ErrorCodes.CLIENT_NOT_FOUND);
-        }
+        System.out.println(request);
 
         if (request.getId() != null && request.isCommandeLivree()){
             log.warn("Commande déja LIVREE");
             throw new InvalidEntityException("Cette commande ne peut pas etre modifiée,elle est déja livrée",ErrorCodes.COMMANDE_CLIENT_NON_MODIFIABLE);
         }
 
+
+        Optional<Client> client = clientRepository.findById(request.getClientDto().getId());
+        if(!client.isPresent()){
+            log.warn("Ce client avec ID {} n'a pas été trouvé "+request.getClientDto().getId());
+            throw new EntityNotFoundException("Aucun client avec l'ID " + request.getClientDto().getId() +"n'a été trouvé dans la base",ErrorCodes.CLIENT_NOT_FOUND);
+        }
+
+
         List<String> articleErrors = new ArrayList<>();
-            request.getLigneCommandeClientDtos().forEach(lignCmt ->{
-             if (lignCmt.getArticleDto() != null){
-                 Optional<Article> article = articleRepository.findById(lignCmt.getArticleDto().getId());
-                 if (article.isEmpty()){
-                     articleErrors.add("L'article avec L'ID "+lignCmt.getArticleDto().getId() + "n'existe pas");
+        if (request.getLigneCommandeClients() != null) {
+            request.getLigneCommandeClients().forEach(ligCmdClt -> {
+                if (ligCmdClt.getArticle() != null) {
+                    Optional<Article> article = articleRepository.findById(ligCmdClt.getArticle().getId());
+                    if (article.isEmpty()) {
+                        articleErrors.add("L'article avec l'ID " + ligCmdClt.getArticle().getId() + " n'existe pas");
+                    }
+                } else {
+                    articleErrors.add("Impossible d'enregister une commande avec un aticle NULL");
+                }
+            });
+        }
 
-                 }
-                 else {
-                    articleErrors.add("Impossible d'enregistrer une commande avec ID null");
-                 }
-             }
-        });
-
-            if(!articleErrors.isEmpty()){
-                log.warn("Erreur pas d'articles");
-                throw new InvalidEntityException("Article n'existe pas dans la BDD",ErrorCodes.ARTICLE_NOT_FOUND);
-            }
+        if (!articleErrors.isEmpty()) {
+            log.warn("");
+            throw new InvalidEntityException("Article n'existe pas dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND, articleErrors);
+        }
 
             CommandeClient savedCom = commandeClientRepository.save(CommandeClientDto.toEntity(request));
 
-            if (request.getLigneCommandeClientDtos() != null) {
-                request.getLigneCommandeClientDtos().forEach(ligneCmt ->{
+            if (request.getLigneCommandeClients() != null) {
+                request.getLigneCommandeClients().forEach(ligneCmt ->{
                     LigneCommandeClient ligneCommandeClient = LigneCommandeClientDto.toEntity(ligneCmt);
                     ligneCommandeClient.setCommandeClient(savedCom);
-                    ligneClientRepository.save(ligneCommandeClient);
+                    LigneCommandeClient savedLigneCmd = ligneClientRepository.save(ligneCommandeClient);
+
+                    effectuerSortie(savedLigneCmd);
+
                 });
             }
 
@@ -144,7 +157,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
         CommandeClientDto commandeClientDto = checkEtatCommande(idCommande);
         findLigneCommandeClient(idLigneCommande);
         ligneClientRepository.deleteById(idLigneCommande);
-        return null;
+        return commandeClientDto;
     }
 
     @Override
@@ -280,17 +293,21 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
     private void updateMvtStk(Long idCommande){
         List<LigneCommandeClient> ligneCommandeClients = ligneClientRepository.findAllByCommandeClientId(idCommande);
-        ligneCommandeClients.forEach(lig ->{
-            MvtStkDto sortieStock = MvtStkDto.builder()
-                    .article(ArticleDto.fromEntity(lig.getArticle()))
-                    .dateMvt(Instant.now())
-                    .typeMvtStk(TypeMvtStk.SORTIE)
-                    .sourceMvt(SourceMvt.COMMANDE_CLIENT)
-                    .quantite(lig.getQuantite())
-                    .build();
-            mvtStkService.sortieMvtStk(sortieStock);
+        ligneCommandeClients.forEach(lig -> {
+            effectuerSortie(lig);
         });
     }
 
+    private void effectuerSortie(LigneCommandeClient lig) {
+        MvtStkDto mvtStkDto = MvtStkDto.builder()
+                .article(ArticleDto.fromEntity(lig.getArticle()))
+                .dateMvt(Instant.now())
+                .typeMvtStk(TypeMvtStk.SORTIE)
+                .sourceMvt(SourceMvt.COMMANDE_CLIENT)
+                .quantite(lig.getQuantite())
+                .idEntreprise(lig.getIdEntreprise())
+                .build();
+        mvtStkService.sortieMvtStk(mvtStkDto);
+    }
 
 }

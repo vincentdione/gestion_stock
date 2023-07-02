@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Builder
@@ -25,15 +26,16 @@ public class CommandeClientDto {
     private String code;
 
 
-    private Instant dateCommande;
+    private Date dateCommande;
 
     private ClientDto clientDto;
 
     private CommandeEtat etat;
+    private ModePayementDto modePayement;
 
-    @JsonIgnore
-    private List<LigneCommandeClientDto> ligneCommandeClientDtos = new ArrayList<>();
 
+    //    private List<LigneCommandeClientDto> ligneCommandeClientDtos = new ArrayList<>();
+    private List<LigneCommandeClientDto> ligneCommandeClients;
     public static CommandeClientDto fromEntity(CommandeClient commandeClient) {
         if (commandeClient == null) {
             return null;
@@ -44,6 +46,7 @@ public class CommandeClientDto {
                 .dateCommande(commandeClient.getDateCommande())
                 .clientDto(ClientDto.fromEntity(commandeClient.getClient()))
                 .etat(commandeClient.getEtat())
+                .modePayement(ModePayementDto.fromEntity(commandeClient.getModePayement()))
                 .build();
     }
 
@@ -56,7 +59,9 @@ public class CommandeClientDto {
                 .id(commandeClientDto.getId())
                 .code(commandeClientDto.getCode())
                 .dateCommande(commandeClientDto.getDateCommande())
+                .client(ClientDto.toEntity(commandeClientDto.getClientDto()))
                 .etat(commandeClientDto.getEtat())
+                .modePayement(ModePayementDto.toEntity(commandeClientDto.getModePayement()))
                 .build();
     }
 

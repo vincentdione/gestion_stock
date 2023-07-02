@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@RequestMapping(Constants.APP_ROOT)
-@PreAuthorize("hasRole('ADMIN')")
-
 public interface CommandeClientController {
 
 

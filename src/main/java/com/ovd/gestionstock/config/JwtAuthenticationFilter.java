@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.config;
 
 
+import com.ovd.gestionstock.services.auth.ApplicationUserDetailsService;
 import com.ovd.gestionstock.token.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -39,6 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
     final String userEmail;
+    final String idEntreprise = null;
     if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
       filterChain.doFilter(request, response);
       return;

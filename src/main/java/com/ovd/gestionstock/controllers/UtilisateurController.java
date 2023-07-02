@@ -10,12 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/admin")
-@PreAuthorize("hasRole('ADMIN')")
 public interface UtilisateurController {
-
-
 
     @PreAuthorize("hasAuthority('admin:create')")
     @PostMapping(value = "/utilisateurs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

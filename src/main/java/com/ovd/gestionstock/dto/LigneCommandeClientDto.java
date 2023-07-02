@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.models.CommandeClient;
 import com.ovd.gestionstock.models.LigneCommandeClient;
@@ -11,6 +12,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -19,26 +22,42 @@ public class LigneCommandeClientDto {
 
     private Long id;
 
-    private ArticleDto articleDto;
+    private ArticleDto article;
 
-    private CommandeClientDto commandeClientDto;
+    @JsonIgnore
+    private CommandeClientDto commandeClient;
 
-    public static LigneCommandeClientDto fromEntity(LigneCommandeClient ligneCommande){
-        if(ligneCommande == null){
+    private BigDecimal quantite;
+
+    private BigDecimal prixUnitaire;
+
+    private Long idEntreprise;
+
+    public static LigneCommandeClientDto fromEntity(LigneCommandeClient ligneCommandeClient) {
+        if (ligneCommandeClient == null) {
             return null;
         }
         return LigneCommandeClientDto.builder()
-                .id(ligneCommande.getId())
+                .id(ligneCommandeClient.getId())
+                .article(ArticleDto.fromEntity(ligneCommandeClient.getArticle()))
+                .quantite(ligneCommandeClient.getQuantite())
+                .prixUnitaire(ligneCommandeClient.getPrixUnitaire())
+                .idEntreprise(ligneCommandeClient.getIdEntreprise())
                 .build();
     }
 
-    public static LigneCommandeClient toEntity(LigneCommandeClientDto ligneCommande){
-        if(ligneCommande == null){
+    public static LigneCommandeClient toEntity(LigneCommandeClientDto dto) {
+        if (dto == null) {
             return null;
         }
-        return LigneCommandeClient.builder()
-                .id(ligneCommande.getId())
-                .build();
+
+        LigneCommandeClient ligneCommandeClient = new LigneCommandeClient();
+        ligneCommandeClient.setId(dto.getId());
+        ligneCommandeClient.setArticle(ArticleDto.toEntity(dto.getArticle()));
+        ligneCommandeClient.setPrixUnitaire(dto.getPrixUnitaire());
+        ligneCommandeClient.setQuantite(dto.getQuantite());
+        ligneCommandeClient.setIdEntreprise(dto.getIdEntreprise());
+        return ligneCommandeClient;
     }
 
 }

@@ -34,6 +34,12 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
+  public String extractIdEntreprise(String token) {
+    final Claims claims = extractAllClaims(token);
+
+    return claims.get("idEntreprise", String.class);
+  }
+
   public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }

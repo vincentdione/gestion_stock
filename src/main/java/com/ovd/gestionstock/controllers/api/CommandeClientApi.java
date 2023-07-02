@@ -24,7 +24,8 @@ public class CommandeClientApi  {
 
     @PostMapping(value = "/commandeClients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommandeClientDto> saveCommandeClients(@RequestBody  CommandeClientDto request) {
-        return null;
+        commandeClientService.createCommandeClient(request);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping(value = "/commandeClients/updateEtat/{idCommande}/{etatCommande}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +55,7 @@ public class CommandeClientApi  {
     @GetMapping(value = "/commandeClients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CommandeClientDto>> getAllCommandeClients() {
 
-        return null;
+        return ResponseEntity.ok(commandeClientService.getAllCommandeClient());
     }
 
     @GetMapping(value = "/commandeClients/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)

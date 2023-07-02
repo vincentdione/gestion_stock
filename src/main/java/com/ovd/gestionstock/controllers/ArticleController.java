@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RequestMapping("/api/v1")
-@PreAuthorize("hasRole('ADMIN')")
 public interface ArticleController {
-
     @PostMapping(value = "/articles", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArticleDto> saveArticle(@RequestBody ArticleDto request);
 

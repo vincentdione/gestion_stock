@@ -6,6 +6,7 @@ import com.ovd.gestionstock.services.EntrepriseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "entreprises")
+@RequestMapping("/api/v1/admin")
 public class EntrepriseApi implements EntrepriseController{
 
     private final EntrepriseService entrepriseService;

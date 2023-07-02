@@ -43,6 +43,7 @@ public class FournisseurDto {
                 .prenom(fournisseur.getPrenom())
                 .email(fournisseur.getEmail())
                 .numTel(fournisseur.getNumTel())
+                .adresseDto(AdresseDto.fromEntity(fournisseur.getAdresse()))
                 .photo(fournisseur.getPhoto())
                 .build();
     }
@@ -57,6 +58,7 @@ public class FournisseurDto {
                 .prenom(fournisseurDto.getPrenom())
                 .email(fournisseurDto.getEmail())
                 .numTel(fournisseurDto.getNumTel())
+                .adresse(AdresseDto.toEntity(fournisseurDto.getAdresseDto()))
                 .photo(fournisseurDto.getPhoto())
                 .build();
     }

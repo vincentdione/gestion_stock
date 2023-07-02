@@ -10,6 +10,7 @@ import com.ovd.gestionstock.services.ClientService;
 import com.ovd.gestionstock.validators.ClientValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
 
     @Override
+    @Cacheable("clients")
     public List<ClientDto> getAllClient() {
         return clientRepository.findAll().stream().map(ClientDto::fromEntity).collect(Collectors.toList());
     }

@@ -27,6 +27,9 @@ public class MvtStkDto {
 
     private SourceMvt sourceMvt;
 
+    private Long idEntreprise;
+
+
 
     public static MvtStkDto fromEntity(MvtStk mvtStk){
         if(mvtStk == null){
@@ -38,6 +41,8 @@ public class MvtStkDto {
                 .quantite(mvtStk.getQuantite())
                 .typeMvtStk(mvtStk.getTypeMvtStk())
                 .sourceMvt(mvtStk.getSourceMvt())
+                .article(ArticleDto.fromEntity(mvtStk.getArticle()))
+                .idEntreprise(mvtStk.getIdEntreprise())
                 .build();
     }
 
@@ -50,7 +55,9 @@ public class MvtStkDto {
                 .dateMvt(mvtStkDto.getDateMvt())
                 .quantite(mvtStkDto.getQuantite())
                 .typeMvtStk(mvtStkDto.getTypeMvtStk())
+                .article(ArticleDto.toEntity(mvtStkDto.getArticle()))
                 .sourceMvt(mvtStkDto.getSourceMvt())
+                .idEntreprise(mvtStkDto.getIdEntreprise())
                 .build();
     }
 

@@ -1,5 +1,7 @@
 package com.ovd.gestionstock.controllers;
 
+import com.ovd.gestionstock.dto.LigneCommandeClientDto;
+import com.ovd.gestionstock.dto.LigneVenteDto;
 import com.ovd.gestionstock.dto.VenteDto;
 import com.ovd.gestionstock.utils.Constants;
 import org.springframework.http.MediaType;
@@ -9,11 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(Constants.APP_ROOT)
-@PreAuthorize("hasRole('ADMIN')")
 public interface VenteController {
-
-
     @PostMapping(value = "/ventes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VenteDto> saveVente(@RequestBody VenteDto request);
 
@@ -22,6 +20,12 @@ public interface VenteController {
 
     @GetMapping(value = "/ventes/{idVente}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VenteDto> getVenteById(@PathVariable("idVente") Long id);
+
+    @GetMapping(value = "/ventes/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VenteDto> getVenteByCode(@PathVariable("code") String code);
+
+    @GetMapping(value = "/ventes/ligneVente/{idVente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<LigneVenteDto>> findAllLigneVenteByVenteId(@PathVariable("idVente") Long idVente);
 
 
     @DeleteMapping(value = "/ventes/delete/{idVente}")

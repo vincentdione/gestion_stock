@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.services;
 
+import com.ovd.gestionstock.dto.LigneVenteDto;
 import com.ovd.gestionstock.dto.VenteDto;
 import com.ovd.gestionstock.models.Ventes;
 
@@ -11,6 +12,9 @@ public interface VenteService {
     public void deleteVentes(Long id);
 
     public VenteDto getVentesById(Long id);
+
+    List<LigneVenteDto> findAllLigneVentesByVenteId(Long id);
+    VenteDto findByCode(String code);
 
     public VenteDto createVentes(VenteDto request);
 }

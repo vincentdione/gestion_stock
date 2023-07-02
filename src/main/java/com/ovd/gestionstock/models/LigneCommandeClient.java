@@ -27,6 +27,13 @@ public class LigneCommandeClient {
 
     private BigDecimal quantite;
 
+
+    @Column(name = "prixunitaire")
+    private BigDecimal prixUnitaire;
+
+    @Column(name = "identreprise")
+    private Long idEntreprise;
+
     @ManyToOne
     @JoinColumn(name = "idCommandeClient")
     private CommandeClient commandeClient;

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @Entity
@@ -22,6 +24,17 @@ public class LigneCommandeFournisseur {
     @ManyToOne
     @JoinColumn(name = "idArticle")
     private Article article;
+
+    private Long idEntreprise;
+
+    private BigDecimal quantite;
+
+
+    @Column(name = "prixunitaire")
+    private BigDecimal prixUnitaire;
+
+
+
 
     @ManyToOne
     @JoinColumn(name = "idCommandeFournisseur")

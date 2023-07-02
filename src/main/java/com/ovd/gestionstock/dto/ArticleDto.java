@@ -1,12 +1,14 @@
 package com.ovd.gestionstock.dto;
 
 import com.ovd.gestionstock.models.Article;
+import com.ovd.gestionstock.models.Unite;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Builder
 @Data
@@ -23,6 +25,7 @@ public class ArticleDto {
     private String photo;
 
     private SousCategoryDto sousCategoryDto;
+//    private UniteDto unite;
 
     public static ArticleDto fromEntity (Article article){
         if (article == null){
@@ -37,9 +40,9 @@ public class ArticleDto {
                 .tauxTval(article.getTauxTval())
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
                 .sousCategoryDto(SousCategoryDto.fromEntity(article.getSousCategory()))
+//                .unite(UniteDto.fromEntity(article.getUnite()))
                 .photo(article.getPhoto())
                 .build();
-
     }
 
     public static Article toEntity (ArticleDto articleDto){
@@ -55,6 +58,7 @@ public class ArticleDto {
                 .tauxTval(articleDto.getTauxTval())
                 .prixUnitaireTtc(articleDto.getPrixUnitaireTtc())
                 .sousCategory(SousCategoryDto.toEntity(articleDto.getSousCategoryDto()))
+//                .unite(UniteDto.toEntity(articleDto.getUnite()))
                 .photo(articleDto.getPhoto())
                 .build();
 
