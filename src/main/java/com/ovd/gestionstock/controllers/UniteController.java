@@ -16,6 +16,9 @@ public interface UniteController {
     @GetMapping(value = "/unites/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UniteDto>> getAllUnites();
 
+    @GetMapping(value = "/unites/article/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UniteDto>> getAllUniteByArticle(@PathVariable("idArticle") Long idArticle);
+
     @GetMapping(value = "/unites/{idUnite}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UniteDto> getUniteById(@PathVariable("idUnite") Long idUnite);
     @GetMapping(value = "/unites/{nom}", produces = MediaType.APPLICATION_JSON_VALUE)

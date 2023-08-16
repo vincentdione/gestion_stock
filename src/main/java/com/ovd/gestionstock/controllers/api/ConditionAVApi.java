@@ -35,6 +35,11 @@ public class ConditionAVApi implements ConditionAVController {
     }
 
     @Override
+    public ResponseEntity<List<ConditionAVDto>> getAllConditionWithDistincts() {
+        return ResponseEntity.ok(conditionAVService.getAllConditionAVWithDistinct());
+    }
+
+    @Override
     public ResponseEntity<ConditionAVDto> getConditionById(Long idCondition) {
         return ResponseEntity.ok(conditionAVService.getConditionAVById(idCondition));
     }

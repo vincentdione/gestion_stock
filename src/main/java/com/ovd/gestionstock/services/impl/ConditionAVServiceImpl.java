@@ -6,16 +6,16 @@ import com.ovd.gestionstock.dto.UniteDto;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
 import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.models.ConditionAV;
+import com.ovd.gestionstock.models.Unite;
 import com.ovd.gestionstock.repositories.ConditionAVRepository;
+import com.ovd.gestionstock.repositories.UniteRepository;
 import com.ovd.gestionstock.services.ConditionAVService;
 import com.ovd.gestionstock.validators.ConditionAValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,10 +24,26 @@ import java.util.stream.Collectors;
 public class ConditionAVServiceImpl implements ConditionAVService {
 
     private final ConditionAVRepository conditionAVRepository;
+    private final UniteRepository uniteRepository;
 
     @Override
     public List<ConditionAVDto> getAllConditionAV() {
         return conditionAVRepository.findAll().stream().map(ConditionAVDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ConditionAVDto> getAllConditionAVWithDistinct() {
+        List<ConditionAVDto> allConditionAVs =  conditionAVRepository.findAll().stream().map(ConditionAVDto::fromEntity).collect(Collectors.toList());
+        Map<Long, ConditionAVDto> uniqueArticlesMap = new LinkedHashMap<>();
+
+        for (ConditionAVDto conditionAVDto : allConditionAVs) {
+            Long articleId = conditionAVDto.getArticle().getId();
+            if (!uniqueArticlesMap.containsKey(articleId)) {
+                uniqueArticlesMap.put(articleId, conditionAVDto);
+            }
+        }
+
+        return new ArrayList<>(uniqueArticlesMap.values());
     }
 
     @Override
@@ -56,6 +72,7 @@ public class ConditionAVServiceImpl implements ConditionAVService {
     public List<ConditionAVDto> findAllByIdArticle(Long idArticle) {
         return null;
     }
+
 
     @Override
     public ConditionAVDto createConditionAV(ConditionAVDto dto) {

@@ -15,6 +15,9 @@ public interface ConditionAVController {
     @GetMapping(value = "/conditions/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ConditionAVDto>> getAllConditions();
 
+    @GetMapping(value = "/conditions/distinct/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConditionAVDto>> getAllConditionWithDistincts();
+
     @GetMapping(value = "/conditions/{idCondition}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ConditionAVDto> getConditionById(@PathVariable("idCondition") Long idCondition);
     @GetMapping(value = "/conditions/{nom}", produces = MediaType.APPLICATION_JSON_VALUE)

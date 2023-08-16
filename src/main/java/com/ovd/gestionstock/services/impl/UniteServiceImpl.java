@@ -3,7 +3,9 @@ package com.ovd.gestionstock.services.impl;
 import com.ovd.gestionstock.dto.UniteDto;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
+import com.ovd.gestionstock.models.ConditionAV;
 import com.ovd.gestionstock.models.Unite;
+import com.ovd.gestionstock.repositories.ConditionAVRepository;
 import com.ovd.gestionstock.repositories.UniteRepository;
 import com.ovd.gestionstock.services.UniteService;
 import com.ovd.gestionstock.validators.UniteValidator;
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,7 +24,7 @@ import java.util.stream.Collectors;
 public class UniteServiceImpl implements UniteService {
 
     private final UniteRepository uniteRepository;
-
+    private final ConditionAVRepository conditionAVRepository;
     @Override
     public List<UniteDto> getAllUnite() {
         return uniteRepository.findAll().stream().map(UniteDto::fromEntity).collect(Collectors.toList());
@@ -51,8 +54,18 @@ public class UniteServiceImpl implements UniteService {
 
     @Override
     public List<UniteDto> findAllByIdArticle(Long idArticle) {
+        List<Unite> unites = new ArrayList<>();
 
-        return null;
+        List<ConditionAV> conditionAVs = conditionAVRepository.findByArticleId(idArticle);
+
+        for (ConditionAV conditionAV : conditionAVs) {
+            Unite unite = conditionAV.getUnite();
+            if (unite != null) {
+                unites.add(unite);
+            }
+        }
+
+        return unites.stream().map(UniteDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override

@@ -32,6 +32,11 @@ public class UniteApi  implements UniteController {
     }
 
     @Override
+    public ResponseEntity<List<UniteDto>> getAllUniteByArticle(Long idArticle) {
+        return ResponseEntity.ok(uniteService.findAllByIdArticle(idArticle));
+    }
+
+    @Override
     public ResponseEntity<UniteDto> getUniteById(Long idUnite) {
         return ResponseEntity.ok(uniteService.getUniteById(idUnite));
     }
