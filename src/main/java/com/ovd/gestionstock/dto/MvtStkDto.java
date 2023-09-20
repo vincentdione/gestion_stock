@@ -28,6 +28,8 @@ public class MvtStkDto {
     private SourceMvt sourceMvt;
 
     private Long idEntreprise;
+    private String unite;
+
 
 
 
@@ -43,6 +45,7 @@ public class MvtStkDto {
                 .sourceMvt(mvtStk.getSourceMvt())
                 .article(ArticleDto.fromEntity(mvtStk.getArticle()))
                 .idEntreprise(mvtStk.getIdEntreprise())
+                .unite(mvtStk.getUnite())
                 .build();
     }
 
@@ -58,6 +61,7 @@ public class MvtStkDto {
                 .article(ArticleDto.toEntity(mvtStkDto.getArticle()))
                 .sourceMvt(mvtStkDto.getSourceMvt())
                 .idEntreprise(mvtStkDto.getIdEntreprise())
+                .unite(mvtStkDto.getUnite())
                 .build();
     }
 

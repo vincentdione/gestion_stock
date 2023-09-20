@@ -27,6 +27,8 @@ public class LigneCommandeClient {
 
     private BigDecimal quantite;
 
+    private String unite;
+
 
     @Column(name = "prixunitaire")
     private BigDecimal prixUnitaire;

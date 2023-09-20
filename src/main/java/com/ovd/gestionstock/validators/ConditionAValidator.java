@@ -16,8 +16,9 @@ public class ConditionAValidator {
 //            errors.add("Veuillez renseigner le nom de l'unité");
 //        }
 
-        if(dto == null || Double.valueOf(dto.getPrice()) == null){
-            errors.add("Veuillez renseigner le nom de l'unité");
+        if(dto == null || dto.getPrixUnitaireTtc() == null || dto.getTauxTval() == null || dto.getPrixUnitaireTtc() == null ){
+
+            errors.add("Veuillez renseigner les champs requis");
         }
 
         return errors;

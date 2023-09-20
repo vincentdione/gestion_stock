@@ -306,6 +306,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
                 .sourceMvt(SourceMvt.COMMANDE_CLIENT)
                 .quantite(lig.getQuantite())
                 .idEntreprise(lig.getIdEntreprise())
+                .unite(lig.getUnite())
                 .build();
         mvtStkService.sortieMvtStk(mvtStkDto);
     }

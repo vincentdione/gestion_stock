@@ -1,8 +1,10 @@
 package com.ovd.gestionstock.services.impl;
 
+import com.ovd.gestionstock.dto.ArticleDto;
 import com.ovd.gestionstock.dto.MvtStkDto;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
+import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.models.TypeMvtStk;
 import com.ovd.gestionstock.repositories.MvtStkRepository;
 import com.ovd.gestionstock.services.ArticleService;
@@ -13,7 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +45,26 @@ public class MvtStkServiceImpl implements MvtStkService {
     @Override
     public MvtStkDto getMvtStkById(Long id) {
         return null;
+    }
+
+    @Override
+    public Map<String, BigDecimal> stockReelArticleByUnite(Long idArticle) {
+        if (idArticle == null) {
+            log.warn("ID article est null");
+            return Collections.emptyMap();
+        }
+
+        ArticleDto article = articleService.getArticleById(idArticle);
+        List<Object[]> stockReelByUnite = mvtStkRepository.stockReelArticleByUnite(idArticle);
+
+        Map<String, BigDecimal> stockByUnite = new HashMap<>();
+        for (Object[] result : stockReelByUnite) {
+            String unite = (String) result[0];
+            BigDecimal sumQuantite = (BigDecimal) result[1];
+            stockByUnite.put(unite, sumQuantite);
+        }
+
+        return stockByUnite;
     }
 
     @Override
@@ -78,6 +103,36 @@ public class MvtStkServiceImpl implements MvtStkService {
     public MvtStkDto correctionMvtStkNeg(MvtStkDto request) {
 
        return  sortieNegative(request, TypeMvtStk.CORRECTION_NEG);
+    }
+
+    @Override
+    public BigDecimal stockVenduArticle(Long idArticle) {
+        // Recherche de la somme de la quantité pour les mouvements de stock de type "SORTIE"
+        BigDecimal stockVendu = mvtStkRepository.sumQuantiteByTypeMvtStkAndArticleId(TypeMvtStk.SORTIE, idArticle);
+
+        if (stockVendu == null) {
+            stockVendu = BigDecimal.ZERO;
+        }
+
+        return stockVendu;
+    }
+
+    @Override
+    public Map<String, BigDecimal> stockVenduArticleByUnite(Long idArticle, String type) {
+
+        TypeMvtStk typeMvtStk = TypeMvtStk.valueOf(type);
+        List<Object[]> stockVenduByUnite = mvtStkRepository.sumQuantiteByTypeMvtStkAndArticleIdGroupByUnite(typeMvtStk, idArticle);
+
+        Map<String, BigDecimal> stockVenduMap = new HashMap<>();
+
+        for (Object[] row : stockVenduByUnite) {
+            String unite = (String) row[0];
+            BigDecimal quantite = (BigDecimal) row[1];
+
+            stockVenduMap.put(unite, quantite);
+        }
+
+        return stockVenduMap;
     }
 
     private MvtStkDto entreePositive(TypeMvtStk typeMvtStk,MvtStkDto request){

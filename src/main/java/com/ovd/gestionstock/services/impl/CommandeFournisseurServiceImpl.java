@@ -318,6 +318,7 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
                 .sourceMvt(SourceMvt.COMMANDE_FOURNISSEUR)
                 .quantite(lig.getQuantite())
                 .idEntreprise(lig.getIdEntreprise())
+                .unite(lig.getUnite())
                 .build();
 
         mvtStkService.entreeMvtStk(mvtStkDto);

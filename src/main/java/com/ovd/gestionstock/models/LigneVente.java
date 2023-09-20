@@ -30,10 +30,11 @@ public class LigneVente {
 
     private Long idEntreprise;
 
+    private String unite;
+
+
     @ManyToOne
     private Article article;
 
-    @ManyToOne
-    private Unite unite;
 
 }

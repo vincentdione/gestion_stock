@@ -139,6 +139,7 @@ public class VenteServiceImpl implements VenteService {
                 .sourceMvt(SourceMvt.VENTE)
                 .quantite(lig.getQuantite())
                 .idEntreprise(lig.getIdEntreprise())
+                .unite(lig.getUnite())
                 .build();
         mvtStkService.sortieMvtStk(mvtStkDto);
     }

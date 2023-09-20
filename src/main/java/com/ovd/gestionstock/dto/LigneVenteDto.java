@@ -26,7 +26,7 @@ public class LigneVenteDto {
     private BigDecimal prixUnitaire;
 
     private ArticleDto article;
-    private UniteDto unite;
+    private String unite;
 
     public static LigneVenteDto fromEntity(LigneVente ligneVente){
         if(ligneVente == null){
@@ -37,7 +37,7 @@ public class LigneVenteDto {
                 .quantite(ligneVente.getQuantite())
                 .prixUnitaire(ligneVente.getPrixUnitaire())
                 .article(ArticleDto.fromEntity(ligneVente.getArticle()))
-                .unite(UniteDto.fromEntity(ligneVente.getUnite()))
+                .unite(ligneVente.getUnite())
                 .build();
     }
 
@@ -50,7 +50,7 @@ public class LigneVenteDto {
                 .quantite(ligneVenteDto.getQuantite())
                 .prixUnitaire(ligneVenteDto.getPrixUnitaire())
                 .article(ArticleDto.toEntity(ligneVenteDto.getArticle()))
-                .unite(UniteDto.toEntity(ligneVenteDto.getUnite()))
+                .unite(ligneVenteDto.getUnite())
                 .build();
     }
 

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "CONDITION_AV")
 @Data
@@ -19,7 +21,11 @@ public class ConditionAV {
     private Long id;
 
 
-    private double price;
+    private BigDecimal quantite;
+
+    private BigDecimal prixUnitaireHt;
+    private BigDecimal tauxTval;
+    private BigDecimal prixUnitaireTtc;
 
     // Autres attributs de la conditionnement
 

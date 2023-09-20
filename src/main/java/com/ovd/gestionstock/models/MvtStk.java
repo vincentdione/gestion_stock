@@ -34,6 +34,7 @@ public class MvtStk {
     private SourceMvt sourceMvt;
 
     private Long idEntreprise;
+    private String unite;
 
 
 }

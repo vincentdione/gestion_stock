@@ -74,14 +74,14 @@ public class Article {
         return unites;
     }
 
-    public double getPrixForUnite(Unite unite) {
-        for (ConditionAV condition : conditions) {
-            if (condition.getUnite().equals(unite)) {
-                return condition.getPrice();
-            }
-        }
-        return 0;
-    }
+//    public double getPrixForUnite(Unite unite) {
+//        for (ConditionAV condition : conditions) {
+//            if (condition.getUnite().equals(unite)) {
+//                return condition.getPrice();
+//            }
+//        }
+//        return 0;
+//    }
 
 
 //    public Unite getUnitForSale() {

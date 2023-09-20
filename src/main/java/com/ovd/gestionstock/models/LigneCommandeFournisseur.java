@@ -27,6 +27,8 @@ public class LigneCommandeFournisseur {
 
     private Long idEntreprise;
 
+    private String unite;
+
     private BigDecimal quantite;
 
 

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -16,8 +18,11 @@ public class ConditionAVDto {
     private Long id;
 
 
-    private double price;
+    private BigDecimal quantite;
 
+    private BigDecimal prixUnitaireHt;
+    private BigDecimal tauxTval;
+    private BigDecimal prixUnitaireTtc;
     private UniteDto unite;
     private ArticleDto article;
 
@@ -29,7 +34,10 @@ public class ConditionAVDto {
         return ConditionAVDto.builder()
                 .id(conditionAV.getId())
       //          .quantity(conditionAV.getQuantity())
-                .price(conditionAV.getPrice())
+                .prixUnitaireHt(conditionAV.getPrixUnitaireHt())
+                .tauxTval(conditionAV.getTauxTval())
+                .prixUnitaireTtc(conditionAV.getPrixUnitaireTtc())
+                .quantite(conditionAV.getQuantite())
                 .unite(UniteDto.fromEntity(conditionAV.getUnite()))
                 .article(ArticleDto.fromEntity(conditionAV.getArticle()))
                 .build();
@@ -43,7 +51,10 @@ public class ConditionAVDto {
         return ConditionAV.builder()
                 .id(conditionAV.getId())
      //           .quantity(conditionAV.getQuantity())
-                .price(conditionAV.getPrice())
+                .prixUnitaireHt(conditionAV.getPrixUnitaireHt())
+                .tauxTval(conditionAV.getTauxTval())
+                .prixUnitaireTtc(conditionAV.getPrixUnitaireTtc())
+                .quantite(conditionAV.getQuantite())
                 .unite(UniteDto.toEntity(conditionAV.getUnite()))
                 .article(ArticleDto.toEntity(conditionAV.getArticle()))
                 .build();
