@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface VenteController {
@@ -32,4 +33,6 @@ public interface VenteController {
     public ResponseEntity deleteVente(@PathVariable("idVente") Long id);
 
 
+    @GetMapping(value = "montant-total", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BigDecimal>  getMontantTotalVentes();
 }

@@ -32,4 +32,5 @@ public interface CommandeFournisseurService {
     List<LigneCommandeFournisseurDto> findAllLignesCommandesFournisseurByCommandeFournisseurId(Long idCommande);
 
     void delete(Long id);
+    void deleteCommande(Long id);
 }

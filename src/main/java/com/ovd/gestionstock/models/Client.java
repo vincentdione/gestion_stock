@@ -34,7 +34,11 @@ public class Client {
     private Adresse adresse;
 
     private String photo;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String numTel;
 
     private Long idEntreprise;

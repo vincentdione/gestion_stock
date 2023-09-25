@@ -121,6 +121,9 @@ public class MvtStkServiceImpl implements MvtStkService {
     public Map<String, BigDecimal> stockVenduArticleByUnite(Long idArticle, String type) {
 
         TypeMvtStk typeMvtStk = TypeMvtStk.valueOf(type);
+        log.info("==========================================================================================");
+        log.info(type);
+        log.info("==========================================================================================");
         List<Object[]> stockVenduByUnite = mvtStkRepository.sumQuantiteByTypeMvtStkAndArticleIdGroupByUnite(typeMvtStk, idArticle);
 
         Map<String, BigDecimal> stockVenduMap = new HashMap<>();

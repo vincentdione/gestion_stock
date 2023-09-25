@@ -25,9 +25,11 @@ import java.util.List;
 public class CommandeClient {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "code_seq")
+    @SequenceGenerator(name = "code_seq", sequenceName = "SEQ_COMMANDE_CLIENT", allocationSize = 1)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String code;
 
 
@@ -46,5 +48,14 @@ public class CommandeClient {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idModePayement")
     private ModePayement modePayement;
+
+    @PrePersist
+    private void generateCode() {
+        if (this.code == null) {
+            // Générez le code au format "CMD-FN000000X" en utilisant la séquence
+            String sequenceValue = String.format("%07d", this.id);
+            this.code = "CMD-CL" + sequenceValue;
+        }
+    }
 
 }

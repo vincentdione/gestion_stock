@@ -4,6 +4,7 @@ import com.ovd.gestionstock.dto.LigneVenteDto;
 import com.ovd.gestionstock.dto.VenteDto;
 import com.ovd.gestionstock.models.Ventes;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface VenteService {
@@ -14,7 +15,12 @@ public interface VenteService {
     public VenteDto getVentesById(Long id);
 
     List<LigneVenteDto> findAllLigneVentesByVenteId(Long id);
+
     VenteDto findByCode(String code);
 
     public VenteDto createVentes(VenteDto request);
+
+    BigDecimal getMontantTotalVentes(List<Ventes> ventes);
+
+
 }

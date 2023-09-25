@@ -12,7 +12,7 @@ public class CommandeFournisseurValidator {
     public static List<String> validate(CommandeFournisseurDto dto){
         List<String> errors = new ArrayList<>();
 
-        if(dto == null || !StringUtils.hasLength(dto.getCode())){
+        if(dto == null || dto.getFournisseurDto().getId() == null){
             errors.add("Veuillez renseigner le code de l'article");
         }
 

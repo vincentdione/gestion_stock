@@ -30,7 +30,11 @@ public class Fournisseur {
     private Adresse adresse;
 
     private String photo;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String numTel;
 
     @OneToMany(mappedBy = "fournisseur")

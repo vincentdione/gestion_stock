@@ -12,7 +12,7 @@ public class CommandeClientValidator {
     public static List<String> validate(CommandeClientDto commandeClientDto){
         List<String> errors = new ArrayList<>();
 
-        if(commandeClientDto == null || !StringUtils.hasLength(commandeClientDto.getCode())){
+        if(commandeClientDto == null || commandeClientDto.getClientDto().getId() == null){
             errors.add("Veuillez renseigner le code de l'article");
         }
 

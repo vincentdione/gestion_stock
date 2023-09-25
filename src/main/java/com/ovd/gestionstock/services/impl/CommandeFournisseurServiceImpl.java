@@ -15,6 +15,7 @@ import com.ovd.gestionstock.validators.ArticleValidator;
 import com.ovd.gestionstock.validators.CommandeFournisseurValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +24,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +37,9 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     private final FournisseurRepository fournisseurRepository;
     private final ArticleRepository articleRepository;
     private final MvtStkService mvtStkService;
+    private final JdbcTemplate jdbcTemplate;
+
+    // private final AtomicLong codeCounter = new AtomicLong(0);
 
 
 //    public CommandeFournisseurServiceImpl(CommandeFournisseurRepository commandeFournisseurRepository,
@@ -91,7 +96,15 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             throw new InvalidEntityException("Article n'existe pas dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND, articleErrors);
         }
         dto.setDateCommande(Instant.now());
+
+        Long nextVal = jdbcTemplate.queryForObject("SELECT nextval('SEQ_COMMANDE_FOURNISSEUR')", Long.class);
+        String code = "CMD-FN" + String.format("%07d", nextVal);
+
+        dto.setCode(code);
+
         CommandeFournisseur savedCmdFrs = commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(dto));
+//        String uniqueId = generateUniqueCode();
+//        dto.setCode(uniqueId);
 
         if (dto.getLigneCommandeFournisseurDtos() != null) {
             dto.getLigneCommandeFournisseurDtos().forEach(ligCmdFrs -> {
@@ -106,6 +119,13 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
 
         return CommandeFournisseurDto.fromEntity(savedCmdFrs);
     }
+
+//    private String generateUniqueCode() {
+//        long code = codeCounter.incrementAndGet();
+//        String uniqueId = "CMD-CL" + String.format("%05d", code); // Formatage pour obtenir un code à 5 chiffres
+//        return uniqueId;
+//    }
+
 
     @Override
     public CommandeFournisseurDto findById(Long id) {
@@ -153,12 +173,31 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             log.error("Commande fournisseur ID is NULL");
             return;
         }
+
         List<LigneCommandeFournisseur> ligneCommandeFournisseurs = ligneCommandeFournisseurRepository.findAllByCommandeFournisseurId(id);
         if (!ligneCommandeFournisseurs.isEmpty()) {
             throw new InvalidEntityException("Impossible de supprimer une commande fournisseur deja utilisee",
                     ErrorCodes.COMMANDE_FOURNISSEUR_ALREADY_IN_USE);
         }
         commandeFournisseurRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteCommande(Long id) {
+        if (id == null) {
+            log.error("Commande fournisseur ID is NULL");
+            return;
+        }
+        Optional<CommandeFournisseur> commandeFournisseur = commandeFournisseurRepository.findById(id);
+        if (!commandeFournisseur.isPresent()){
+            System.out.println("Commande n'existe pas !!!");
+            return;
+        }
+
+        if(commandeFournisseur.get().getEtatCommande().equals(CommandeEtat.EN_PREPARATION)){
+            commandeFournisseurRepository.deleteById(id);
+        }
+
     }
 
     @Override

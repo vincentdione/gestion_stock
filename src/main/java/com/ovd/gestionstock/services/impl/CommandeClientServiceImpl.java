@@ -13,6 +13,7 @@ import com.ovd.gestionstock.validators.CommandeClientValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -21,6 +22,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +39,9 @@ public class CommandeClientServiceImpl implements CommandeClientService {
     private final LigneCommandeClientRepository ligneClientRepository;
 
     private final MvtStkService mvtStkService;
+    private final JdbcTemplate jdbcTemplate;
+
+
 
     @Override
     public List<CommandeClientDto> getAllCommandeClient() {
@@ -95,6 +100,8 @@ public class CommandeClientServiceImpl implements CommandeClientService {
     public void createCommandeClient(CommandeClientDto request) {
         List<String> errors = CommandeClientValidator.validate(request);
 
+
+
         if(!errors.isEmpty()){
             log.error("Vérifier les champs obligatoires !");
             throw new InvalidEntityException("la commande client n'est pas valide", ErrorCodes.COMMANDE_CLIENT_NOT_FOUND,errors);
@@ -134,6 +141,11 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             throw new InvalidEntityException("Article n'existe pas dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND, articleErrors);
         }
 
+        Long nextVal = jdbcTemplate.queryForObject("SELECT nextval('SEQ_COMMANDE_CLIENT')", Long.class);
+        String code = "CMD-CLI" + String.format("%07d", nextVal);
+
+        request.setCode(code);
+
             CommandeClient savedCom = commandeClientRepository.save(CommandeClientDto.toEntity(request));
 
             if (request.getLigneCommandeClients() != null) {
@@ -149,6 +161,8 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
             CommandeClientDto.fromEntity(savedCom);
     }
+
+
 
     @Override
     public CommandeClientDto deleteArticle(Long idCommande, Long idLigneCommande) {

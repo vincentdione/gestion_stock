@@ -12,7 +12,7 @@ public class VenteValidator {
     public static List<String> validate(VenteDto venteDto){
         List<String> errors = new ArrayList<>();
 
-        if(venteDto == null || !StringUtils.hasLength(venteDto.getCode())){
+        if(venteDto == null){
             errors.add("Veuillez renseigner le code");
         }
         return errors;

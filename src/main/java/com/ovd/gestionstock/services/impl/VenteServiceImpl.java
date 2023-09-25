@@ -17,9 +17,11 @@ import com.ovd.gestionstock.validators.UtilisateurValidator;
 import com.ovd.gestionstock.validators.VenteValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class VenteServiceImpl implements VenteService {
     private final LigneVenteRepository ligneVenteRepository;
 
     private final MvtStkService mvtStkService;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public List<VenteDto> getAllVentes() {
@@ -77,6 +80,8 @@ public class VenteServiceImpl implements VenteService {
         return ligneVenteRepository.findAllByVenteId(id).stream().map(LigneVenteDto::fromEntity).collect(Collectors.toList());
     }
 
+
+
     @Override
     public VenteDto findByCode(String code) {
         if (!StringUtils.hasLength(code)) {
@@ -115,6 +120,11 @@ public class VenteServiceImpl implements VenteService {
             throw new InvalidEntityException("Un ou plusieurs articles n'ont pas ete trouve dans la BDD", ErrorCodes.VENTE_NOT_VALID, errors);
         }
 
+        Long nextVal = jdbcTemplate.queryForObject("SELECT nextval('SEQ_COMMANDE_VENTE')", Long.class);
+        String code = "CMD-VEN" + String.format("%07d", nextVal);
+
+        dto.setCode(code);
+
         Ventes savedVentes = venteRepository.save(VenteDto.toEntity(dto));
 
         log.error("savedVentes  " +savedVentes);
@@ -124,12 +134,36 @@ public class VenteServiceImpl implements VenteService {
                 LigneVente ligneVente = LigneVenteDto.toEntity(ligneVenteDto);
                 ligneVente.setVente(savedVentes);
                 ligneVenteRepository.save(ligneVente);
-                log.error("lignevente === " + ligneVente);
                 updateMvtStk(ligneVente);
             });
         }
         return VenteDto.fromEntity(savedVentes);
     }
+
+    @Override
+    public BigDecimal getMontantTotalVentes(List<Ventes> ventes) {
+        BigDecimal venteTotal = BigDecimal.ZERO;
+
+        for (Ventes vente : ventes) {
+            List<LigneVente> ligneVentes = ligneVenteRepository.findAllByVenteId(vente.getId());
+            if (ligneVentes != null) {
+                for (LigneVente ligneVente : ligneVentes) {
+                    if (ligneVente.getPrixUnitaire() != null && ligneVente.getQuantite() != null) {
+                        BigDecimal prixUnitaire = new BigDecimal(String.valueOf(ligneVente.getPrixUnitaire()));
+                        BigDecimal quantite = new BigDecimal(String.valueOf(ligneVente.getQuantite()));
+                        BigDecimal montantLigne = prixUnitaire.multiply(quantite);
+                        venteTotal = venteTotal.add(montantLigne);
+
+                    }
+                }
+            }
+        }
+        log.info(String.valueOf(venteTotal));
+        return venteTotal;
+
+    }
+
+
 
     private void updateMvtStk(LigneVente lig) {
         MvtStkDto mvtStkDto = MvtStkDto.builder()

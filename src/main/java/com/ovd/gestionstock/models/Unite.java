@@ -21,6 +21,8 @@ public class Unite {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(unique = true)
     private String nom;
     private String designation;
 

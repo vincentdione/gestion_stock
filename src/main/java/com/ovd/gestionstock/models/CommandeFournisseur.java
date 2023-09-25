@@ -20,9 +20,11 @@ import java.util.List;
 public class CommandeFournisseur {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "code_seq")
+    @SequenceGenerator(name = "code_seq", sequenceName = "SEQ_COMMANDE_FOURNISSEUR", allocationSize = 1)
     private Long id;
 
+    @Column(unique = true)
     private String code;
 
     private Instant dateCommande;
@@ -43,5 +45,14 @@ public class CommandeFournisseur {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idModePayement")
     private ModePayement modePayement;
+
+    @PrePersist
+    private void generateCode() {
+        if (this.code == null) {
+            // Générez le code au format "CMD-FN000000X" en utilisant la séquence
+            String sequenceValue = String.format("%07d", this.id);
+            this.code = "CMD-FN" + sequenceValue;
+        }
+    }
 
 }
