@@ -4,6 +4,7 @@ import com.ovd.gestionstock.dto.CommandeClientDto;
 import com.ovd.gestionstock.dto.LigneCommandeClientDto;
 import com.ovd.gestionstock.models.CommandeClient;
 import com.ovd.gestionstock.models.CommandeEtat;
+import com.ovd.gestionstock.models.CommandeFournisseur;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,4 +27,9 @@ public interface CommandeClientService {
     CommandeClientDto updateClient(Long idCommande, Long idClient);
     CommandeClientDto updateArticle(Long idCommande, Long idLigneCommande,Long idNewArticle);
     CommandeClientDto updateQuantieCommande(Long idCommande, Long idLigneCommande, BigDecimal quantity);
+    BigDecimal getMontantTotalComClient(List<CommandeClient> commandes);
+
+    List<CommandeClientDto> getCommandesByClient(String nom, String email, String codeCommande);
+
+
 }

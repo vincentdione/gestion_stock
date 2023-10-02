@@ -65,4 +65,35 @@ public class ClientServiceImpl implements ClientService {
 
         return ClientDto.fromEntity(savedClient);
     }
+
+    @Override
+    public List<ClientDto> searchClients(String nom, String prenom, String email, String numTel) {
+        List<Client> clients;
+        if (nom != null && prenom != null && email != null && numTel != null) {
+            clients =  clientRepository.findByNomAndPrenomAndEmailAndNumTel(nom, prenom, email, numTel);
+        } else if (nom != null && prenom != null) {
+            clients =  clientRepository.findByNomAndPrenom(nom, prenom);
+        } else if (email != null) {
+            clients =  clientRepository.findByEmail(email);
+        }
+        else if (nom != null && email != null) {
+            clients =  clientRepository.findByNomAndEmail(nom,email);
+        }
+        else if (nom != null && numTel != null) {
+            clients =  clientRepository.findByNomAndNumTel(nom,numTel);
+        }
+        else if (email != null) {
+            clients =  clientRepository.findByEmail(email);
+        }
+        else if (numTel != null) {
+            clients =  clientRepository.findByNumTel(numTel);
+        } else {
+            // Gérer le cas où aucun critère n'est spécifié
+            clients = clientRepository.findAll();
+        }
+
+        return clients.stream().map(ClientDto::fromEntity).collect(Collectors.toList());
+    }
+
+
 }

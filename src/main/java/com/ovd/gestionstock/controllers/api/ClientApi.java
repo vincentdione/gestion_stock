@@ -2,6 +2,7 @@ package com.ovd.gestionstock.controllers.api;
 
 import com.ovd.gestionstock.controllers.ClientController;
 import com.ovd.gestionstock.dto.ClientDto;
+import com.ovd.gestionstock.models.Client;
 import com.ovd.gestionstock.services.ClientService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -45,4 +46,14 @@ public class ClientApi {
             clientService.deleteClient(idClient);
             return ResponseEntity.ok().build();
     }
+
+    @GetMapping(value="/search/clients", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ClientDto> searchClients(
+            @RequestParam(required = false) String nom,
+            @RequestParam(required = false) String prenom,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String numTel) {
+        return clientService.searchClients(nom, prenom, email, numTel);
+    }
+
 }

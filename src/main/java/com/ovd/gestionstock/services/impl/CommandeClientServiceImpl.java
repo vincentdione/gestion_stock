@@ -265,6 +265,54 @@ public class CommandeClientServiceImpl implements CommandeClientService {
         return commandeClient;
     }
 
+    @Override
+    public BigDecimal getMontantTotalComClient(List<CommandeClient> commandes) {
+        BigDecimal venteTotal = BigDecimal.ZERO;
+
+        for (CommandeClient commande : commandes) {
+            List<LigneCommandeClient> ligneCommandes = ligneClientRepository.findAllByCommandeClientId(commande.getId());
+            if (ligneCommandes != null) {
+                for (LigneCommandeClient ligne : ligneCommandes) {
+                    if (ligne.getPrixUnitaire() != null && ligne.getQuantite() != null) {
+                        BigDecimal prixUnitaire = new BigDecimal(String.valueOf(ligne.getPrixUnitaire()));
+                        BigDecimal quantite = new BigDecimal(String.valueOf(ligne.getQuantite()));
+                        BigDecimal montantLigne = prixUnitaire.multiply(quantite);
+                        venteTotal = venteTotal.add(montantLigne);
+
+                    }
+                }
+            }
+        }
+        log.info(String.valueOf(venteTotal));
+        return venteTotal;
+    }
+
+    @Override
+    public List<CommandeClientDto> getCommandesByClient(String nom, String email, String codeCommande) {
+        if (nom != null && email != null && codeCommande != null) {
+            return commandeClientRepository.findByClientNomAndClientEmailAndCode(nom, email, codeCommande)
+                    .stream()
+                    .map(CommandeClientDto::fromEntity)
+                    .collect(Collectors.toList());
+        } else if (nom != null && email != null) {
+            return commandeClientRepository.findByClientNomAndClientEmail(nom, email)
+                    .stream()
+                    .map(CommandeClientDto::fromEntity)
+                    .collect(Collectors.toList());
+        } else if (codeCommande != null) {
+            return commandeClientRepository.findByCode(codeCommande)
+                    .stream()
+                    .map(CommandeClientDto::fromEntity)
+                    .collect(Collectors.toList());
+        } else {
+            // Gérer le cas où aucun critère n'est spécifié
+            return commandeClientRepository.findAll()
+                    .stream()
+                    .map(CommandeClientDto::fromEntity)
+                    .collect(Collectors.toList());
+        }
+    }
+
     private Optional<LigneCommandeClient> findLigneCommandeClient(Long idLigneCommande) {
         Optional<LigneCommandeClient> ligneCommandeClientOptional = ligneClientRepository.findById(idLigneCommande);
         if (ligneCommandeClientOptional.isEmpty()){

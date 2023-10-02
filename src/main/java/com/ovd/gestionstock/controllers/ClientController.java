@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.controllers;
 
 import com.ovd.gestionstock.dto.ClientDto;
+import com.ovd.gestionstock.models.Client;
 import com.ovd.gestionstock.utils.Constants;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +27,11 @@ public interface ClientController {
     @DeleteMapping(value = "/clients/delete/{idClient}")
     public ResponseEntity deleteClient(@PathVariable("idClient") Long idClient);
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Client>> rechercherClients( @RequestParam(required = false) String nom,
+                                                           @RequestParam(required = false) String prenom,
+                                                           @RequestParam(required = false) String email,
+                                                           @RequestParam(required = false) String numTel);
 
-}
+
+    }

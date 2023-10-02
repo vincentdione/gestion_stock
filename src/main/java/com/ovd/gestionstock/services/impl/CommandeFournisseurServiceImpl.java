@@ -201,6 +201,54 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     }
 
     @Override
+    public BigDecimal getMontantTotalComFournisseur(List<CommandeFournisseur> commandes) {
+        BigDecimal venteTotal = BigDecimal.ZERO;
+
+        for (CommandeFournisseur commande : commandes) {
+            List<LigneCommandeFournisseur> ligneCommandes = ligneCommandeFournisseurRepository.findAllByCommandeFournisseurId(commande.getId());
+            if (ligneCommandes != null) {
+                for (LigneCommandeFournisseur ligne : ligneCommandes) {
+                    if (ligne.getPrixUnitaire() != null && ligne.getQuantite() != null) {
+                        BigDecimal prixUnitaire = new BigDecimal(String.valueOf(ligne.getPrixUnitaire()));
+                        BigDecimal quantite = new BigDecimal(String.valueOf(ligne.getQuantite()));
+                        BigDecimal montantLigne = prixUnitaire.multiply(quantite);
+                        venteTotal = venteTotal.add(montantLigne);
+
+                    }
+                }
+            }
+        }
+        log.info(String.valueOf(venteTotal));
+        return venteTotal;
+    }
+
+    @Override
+    public List<CommandeFournisseurDto> getCommandesByFournisseur(String nom, String email, String codeCommande) {
+        if (nom != null && email != null && codeCommande != null) {
+            return commandeFournisseurRepository.findByFournisseurNomAndFournisseurEmailAndCode(nom, email, codeCommande)
+                    .stream()
+                    .map(CommandeFournisseurDto::fromEntity)
+                    .collect(Collectors.toList());
+        } else if (nom != null && email != null) {
+            return commandeFournisseurRepository.findByFournisseurNomAndFournisseurEmail(nom, email)
+                    .stream()
+                    .map(CommandeFournisseurDto::fromEntity)
+                    .collect(Collectors.toList());
+        } else if (codeCommande != null) {
+            return commandeFournisseurRepository.findByCode(codeCommande)
+                    .stream()
+                    .map(CommandeFournisseurDto::fromEntity)
+                    .collect(Collectors.toList());
+        } else {
+            // Gérer le cas où aucun critère n'est spécifié
+            return commandeFournisseurRepository.findAll()
+                    .stream()
+                    .map(CommandeFournisseurDto::fromEntity)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
     public CommandeFournisseurDto updateEtatCommande(Long idCommande, CommandeEtat etatCommande) {
         checkIdCommande(idCommande);
         if (!StringUtils.hasLength(String.valueOf(etatCommande))) {

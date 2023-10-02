@@ -55,5 +55,12 @@ public interface CommandeClientController {
     @DeleteMapping(value = "/commandeClients/deleteArticle/{idCommande}/{idLigneCommande}")
     ResponseEntity<CommandeClientDto> deleteArticle(@PathVariable("idCommande") Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande);
 
+//    @GetMapping(value = "montant-total", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<BigDecimal>  getMontantTotalComClient();
 
+    @GetMapping(value = "/commandeClients/search/commandes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CommandeClientDto> getCommandesByClient(
+            @RequestParam(required = false) String nom,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String codeCommande);
 }

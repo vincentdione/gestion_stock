@@ -55,5 +55,7 @@ public interface CommandeFournisseurController {
     @DeleteMapping(value = "/commandeFournisseurs/deleteArticle/{idCommande}/{idLigneCommande}")
     ResponseEntity<CommandeFournisseurDto> deleteFournisseurArticle(@PathVariable("idCommande") Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande);
 
+    @GetMapping(value = "montant-total-fournisseur", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BigDecimal>  getMontantTotalComFournisseur();
 
 }

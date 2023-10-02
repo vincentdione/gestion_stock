@@ -1,9 +1,11 @@
 package com.ovd.gestionstock.services;
 
+import com.ovd.gestionstock.dto.CommandeClientDto;
 import com.ovd.gestionstock.dto.CommandeFournisseurDto;
 import com.ovd.gestionstock.dto.LigneCommandeFournisseurDto;
 import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.models.CommandeFournisseur;
+import com.ovd.gestionstock.models.Ventes;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,4 +35,9 @@ public interface CommandeFournisseurService {
 
     void delete(Long id);
     void deleteCommande(Long id);
+
+    BigDecimal getMontantTotalComFournisseur(List<CommandeFournisseur> commandes);
+
+    List<CommandeFournisseurDto> getCommandesByFournisseur(String nom, String email, String codeCommande);
+
 }

@@ -13,4 +13,6 @@ public interface ClientService {
     public ClientDto getClientById(Long id);
 
     public ClientDto createClient(ClientDto client);
+
+    List<ClientDto> searchClients(String nom, String prenom, String email, String numTel);
 }

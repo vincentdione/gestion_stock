@@ -2,6 +2,7 @@ package com.ovd.gestionstock.controllers.api;
 
 import com.ovd.gestionstock.controllers.CommandeClientController;
 import com.ovd.gestionstock.dto.CommandeClientDto;
+import com.ovd.gestionstock.dto.CommandeFournisseurDto;
 import com.ovd.gestionstock.dto.LigneCommandeClientDto;
 import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.services.CommandeClientService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -78,4 +80,25 @@ public class CommandeClientApi  {
     public ResponseEntity<CommandeClientDto> deleteArticle(@PathVariable("idCommande") Long idCommande,@PathVariable("idLigneCommande") Long idLigneCommande) {
         return ResponseEntity.ok(commandeClientService.deleteArticle(idCommande,idLigneCommande));
     }
+
+    @GetMapping(value = "montant-total-client", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BigDecimal> getMontantTotalComClient() {
+        List<CommandeClientDto> commandes = commandeClientService.getAllCommandeClient();
+        if(!commandes.isEmpty()){
+            return ResponseEntity.ok(commandeClientService.getMontantTotalComClient(commandes.stream().map(CommandeClientDto::toEntity).collect(Collectors.toList())));
+        }
+        else {
+            System.out.println("pas de Commandes trouvées !!!");
+            return null;
+        }
+    }
+
+    @GetMapping(value="/search/comClients", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CommandeClientDto>> getCommandesByClient(
+            @RequestParam(required = false) String nom,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String codeCommande) {
+        return ResponseEntity.ok(commandeClientService.getCommandesByClient(nom, email, codeCommande));
+    }
+
 }
