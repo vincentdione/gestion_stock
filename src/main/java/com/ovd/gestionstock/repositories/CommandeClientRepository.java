@@ -14,4 +14,8 @@ public interface CommandeClientRepository extends JpaRepository<CommandeClient,L
     List<CommandeClient> findByClientNomAndClientEmailAndCode(String nom, String email, String codeCommande);
 
     List<CommandeClient> findByClientNomAndClientEmail(String nom, String email);
+
+    Optional<CommandeClient> findByClientNom(String nom);
+
+    Optional<CommandeClient> findByClientEmail(String email);
 }

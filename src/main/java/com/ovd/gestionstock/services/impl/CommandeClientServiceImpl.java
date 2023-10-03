@@ -13,6 +13,7 @@ import com.ovd.gestionstock.validators.CommandeClientValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -289,28 +290,45 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
     @Override
     public List<CommandeClientDto> getCommandesByClient(String nom, String email, String codeCommande) {
+        System.out.println("******************************************************************");
+        System.out.println("codeCommande"+codeCommande);
+        System.out.println("nom"+nom);
+        System.out.println("email"+email);
+        List<CommandeClient> commandeClients = null;
         if (nom != null && email != null && codeCommande != null) {
-            return commandeClientRepository.findByClientNomAndClientEmailAndCode(nom, email, codeCommande)
-                    .stream()
-                    .map(CommandeClientDto::fromEntity)
-                    .collect(Collectors.toList());
+            commandeClients = commandeClientRepository.findByClientNomAndClientEmailAndCode(nom, email, codeCommande);
         } else if (nom != null && email != null) {
-            return commandeClientRepository.findByClientNomAndClientEmail(nom, email)
-                    .stream()
-                    .map(CommandeClientDto::fromEntity)
-                    .collect(Collectors.toList());
+            commandeClients = commandeClientRepository.findByClientNomAndClientEmail(nom, email);
         } else if (codeCommande != null) {
-            return commandeClientRepository.findByCode(codeCommande)
-                    .stream()
-                    .map(CommandeClientDto::fromEntity)
-                    .collect(Collectors.toList());
-        } else {
-            // Gérer le cas où aucun critère n'est spécifié
-            return commandeClientRepository.findAll()
-                    .stream()
-                    .map(CommandeClientDto::fromEntity)
-                    .collect(Collectors.toList());
+            Optional<CommandeClient> optionalCommandeClient  = commandeClientRepository.findByCode(codeCommande);
+            CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
+
+            commandeClients.add(commandeClient);
         }
+        else if (nom != null) {
+            Optional<CommandeClient> optionalCommandeClient  = commandeClientRepository.findByClientNom(nom);
+            CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
+
+            commandeClients.add(commandeClient);
+        }
+        else if (email != null) {
+            Optional<CommandeClient> optionalCommandeClient  = commandeClientRepository.findByClientEmail(email);
+            CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
+
+            commandeClients.add(commandeClient);
+        }
+        else {
+            // Gérer le cas où aucun critère n'est spécifié
+            commandeClients = commandeClientRepository.findAll();
+
+        }
+        System.out.println("taille "+commandeClients.size());
+        System.out.println("******************************************************************");
+
+        return commandeClients
+                .stream()
+                .map(CommandeClientDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     private Optional<LigneCommandeClient> findLigneCommandeClient(Long idLigneCommande) {
