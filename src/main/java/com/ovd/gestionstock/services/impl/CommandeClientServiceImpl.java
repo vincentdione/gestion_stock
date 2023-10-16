@@ -294,30 +294,49 @@ public class CommandeClientServiceImpl implements CommandeClientService {
         System.out.println("codeCommande"+codeCommande);
         System.out.println("nom"+nom);
         System.out.println("email"+email);
-        List<CommandeClient> commandeClients = null;
+        List<CommandeClient> commandeClients = new ArrayList<>();
         if (nom != null && email != null && codeCommande != null) {
             commandeClients = commandeClientRepository.findByClientNomAndClientEmailAndCode(nom, email, codeCommande);
         } else if (nom != null && email != null) {
             commandeClients = commandeClientRepository.findByClientNomAndClientEmail(nom, email);
-        } else if (codeCommande != null) {
+        } else if (codeCommande != null && nom == null && email == null) {
+            System.out.println(" codeCommande != null && nom == null && email == null ");
             Optional<CommandeClient> optionalCommandeClient  = commandeClientRepository.findByCode(codeCommande);
-            CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
-
-            commandeClients.add(commandeClient);
+           // CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
+            if (optionalCommandeClient.isPresent()) {
+                commandeClients.add(optionalCommandeClient.get());
+            }
+            else {
+                System.out.println(" pas de commandes avec ce code !!!");
+            }
         }
-        else if (nom != null) {
+        else if (nom != null && codeCommande == null && email == null) {
+            System.out.println(" nom != null && codeCommande == null && email == null ");
+
             Optional<CommandeClient> optionalCommandeClient  = commandeClientRepository.findByClientNom(nom);
-            CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
-
-            commandeClients.add(commandeClient);
+            //CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
+            if (optionalCommandeClient.isPresent()) {
+                commandeClients.add(optionalCommandeClient.get());
+            }
+            else {
+                System.out.println(" pas de commandes avec ce nom !!!");
+            }
         }
-        else if (email != null) {
-            Optional<CommandeClient> optionalCommandeClient  = commandeClientRepository.findByClientEmail(email);
-            CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
+        else if (email != null && codeCommande == null && nom == null) {
+            System.out.println(" email != null && codeCommande == null && nom == null");
 
-            commandeClients.add(commandeClient);
+            Optional<CommandeClient> optionalCommandeClient  = commandeClientRepository.findByClientEmail(email);
+            //CommandeClient commandeClient = optionalCommandeClient.orElse(new CommandeClient());
+
+            if (optionalCommandeClient.isPresent()) {
+                commandeClients.add(optionalCommandeClient.get());
+            }
+            else {
+                System.out.println(" pas de commandes avec cet email !!!");
+            }
         }
         else {
+            System.out.println(" ENTRE ICI !!!!!!!!!!!");
             // Gérer le cas où aucun critère n'est spécifié
             commandeClients = commandeClientRepository.findAll();
 

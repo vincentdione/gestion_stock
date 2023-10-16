@@ -30,6 +30,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.17.0</version> <!-- Assurez-vous de spécifier la version appropriée -->
+		</dependency>
 
 <!--		<dependency>-->
 <!--			<groupId>org.flywaydb</groupId>-->
