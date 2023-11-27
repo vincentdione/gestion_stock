@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 public class CommandeClientServiceImpl implements CommandeClientService {
 
     private final CommandeClientRepository commandeClientRepository;
+    private final LivraisonRepository livraisonRepository;
 
     private final ClientRepository clientRepository;
 
@@ -144,10 +145,13 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
         Long nextVal = jdbcTemplate.queryForObject("SELECT nextval('SEQ_COMMANDE_CLIENT')", Long.class);
         String code = "CMD-CLI" + String.format("%07d", nextVal);
+        String codeLivraison = "LIV" + String.format("%07d", nextVal);
 
         request.setCode(code);
 
             CommandeClient savedCom = commandeClientRepository.save(CommandeClientDto.toEntity(request));
+
+
 
             if (request.getLigneCommandeClients() != null) {
                 request.getLigneCommandeClients().forEach(ligneCmt ->{
@@ -159,6 +163,11 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
                 });
             }
+            LivraisonDto livraisonDto = new LivraisonDto();
+            livraisonDto.setEtat(LivraisonEtat.EN_COURS);
+            livraisonDto.setCode(codeLivraison);
+            livraisonDto.setCommandeClient(savedCom);
+            livraisonRepository.save(LivraisonDto.toEntity(livraisonDto));
 
             CommandeClientDto.fromEntity(savedCom);
     }
