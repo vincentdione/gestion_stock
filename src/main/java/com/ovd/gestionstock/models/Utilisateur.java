@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ovd.gestionstock.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -52,6 +53,10 @@ public class Utilisateur implements UserDetails {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Token> tokens;
+
+    @OneToMany(mappedBy = "utilisateur")
+    @JsonManagedReference
+    private List<Livraison> livraisons;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

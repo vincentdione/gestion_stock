@@ -11,7 +11,10 @@ public interface LivraisonService {
 
      LivraisonDto getLivraisonById(Long id);
 
+     LivraisonDto updateStatut(Long id,String etat);
 
+     LivraisonDto affecterLivraison(Long livraisonId);
 
-
+     public List<LivraisonDto> voirLivraisonsUtilisateurEnCours();
+     List<LivraisonDto> getLivraisonsByStatut(String statut);
 }

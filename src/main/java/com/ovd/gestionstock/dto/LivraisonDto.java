@@ -1,13 +1,10 @@
 package com.ovd.gestionstock.dto;
 
+import com.ovd.gestionstock.models.Adresse;
 import com.ovd.gestionstock.models.CommandeClient;
 import com.ovd.gestionstock.models.Livraison;
 import com.ovd.gestionstock.models.LivraisonEtat;
-import com.ovd.gestionstock.models.MvtStk;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.ovd.gestionstock.models.Utilisateur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +24,10 @@ public class LivraisonDto {
 
     private Date dateLivraison;
     private LivraisonEtat etat;
-    private CommandeClient commandeClient;
+    private CommandeClientDto commandeClient;
+    private Adresse adresse;
+    private UtilisateurDto utilisateur;
+
 
 
 
@@ -41,7 +41,9 @@ public class LivraisonDto {
                 .code(livraison.getCode())
                 .dateLivraison(livraison.getDateLivraison())
                 .etat(livraison.getEtat())
-                .commandeClient(livraison.getCommandeClient())
+                .adresse(livraison.getAdresse())
+                .commandeClient(CommandeClientDto.fromEntity(livraison.getCommandeClient()))
+                .utilisateur(UtilisateurDto.fromEntity(livraison.getUtilisateur()))
                 .build();
     }
 
@@ -55,7 +57,9 @@ public class LivraisonDto {
                 .code(dto.getCode())
                 .dateLivraison(dto.getDateLivraison())
                 .etat(dto.getEtat())
-                .commandeClient(dto.getCommandeClient())
+                .adresse(dto.getAdresse())
+                .commandeClient(CommandeClientDto.toEntity(dto.getCommandeClient()))
+                .utilisateur(UtilisateurDto.toEntity(dto.getUtilisateur()))
                 .build();
     }
 

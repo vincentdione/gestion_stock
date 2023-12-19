@@ -166,7 +166,7 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             LivraisonDto livraisonDto = new LivraisonDto();
             livraisonDto.setEtat(LivraisonEtat.EN_COURS);
             livraisonDto.setCode(codeLivraison);
-            livraisonDto.setCommandeClient(savedCom);
+            livraisonDto.setCommandeClient(CommandeClientDto.fromEntity(savedCom));
             livraisonRepository.save(LivraisonDto.toEntity(livraisonDto));
 
             CommandeClientDto.fromEntity(savedCom);

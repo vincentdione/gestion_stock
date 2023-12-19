@@ -1,5 +1,7 @@
 package com.ovd.gestionstock.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +31,21 @@ public class Livraison {
     @Enumerated(EnumType.STRING)
     private LivraisonEtat etat;
 
+
+    @Embedded
+    private Adresse adresse;
+
     @ManyToOne
     @JoinColumn(name = "idCommandeClient")
+    @JsonBackReference
     private CommandeClient commandeClient;
+
+    @ManyToOne
+    @JoinColumn(name = "idUtilisateur")
+    @JsonBackReference
+    private Utilisateur utilisateur;
+
+
 
 
     @PrePersist

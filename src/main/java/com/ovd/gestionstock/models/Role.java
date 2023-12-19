@@ -18,6 +18,7 @@ import static com.ovd.gestionstock.models.Permission.*;
 public enum Role {
 
     USER(Collections.emptySet()),
+    LIVREUR(Collections.emptySet()),
     ADMIN(
             Set.of(
                     ADMIN_READ,
@@ -38,7 +39,6 @@ public enum Role {
                     MANAGER_CREATE
             )
     )
-
     ;
 
     @Getter

@@ -1,11 +1,8 @@
 package com.ovd.gestionstock.controllers.api;
 
 import com.ovd.gestionstock.controllers.LivraisonController;
-import com.ovd.gestionstock.controllers.ModePayementController;
 import com.ovd.gestionstock.dto.LivraisonDto;
-import com.ovd.gestionstock.dto.ModePayementDto;
 import com.ovd.gestionstock.services.LivraisonService;
-import com.ovd.gestionstock.services.ModePayementService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,16 +23,37 @@ public class LivraisonApi implements LivraisonController {
 
     @Override
     public ResponseEntity<List<LivraisonDto>> getAllLivraisons() {
-        return null;
+        return ResponseEntity.ok(service.getAllLivraisons());
     }
 
     @Override
     public ResponseEntity<LivraisonDto> getLivraisonById(Long idLivraison) {
-        return null;
+        return ResponseEntity.ok(service.getLivraisonById(idLivraison));
     }
 
     @Override
     public ResponseEntity deleteLivraison(Long idLivraison) {
-        return null;
+        service.deleteLivraison(idLivraison);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<LivraisonDto> updateStatut(Long id, String etat) {
+        return ResponseEntity.ok(service.updateStatut(id,etat));
+    }
+
+    @Override
+    public ResponseEntity<LivraisonDto> affecterLivraison(Long livraisonId) {
+        return ResponseEntity.ok(service.affecterLivraison(livraisonId));
+    }
+
+    @Override
+    public ResponseEntity<List<LivraisonDto>> voirLivraisonsUtilisateurEnCours() {
+        return ResponseEntity.ok(service.voirLivraisonsUtilisateurEnCours());
+    }
+
+    @Override
+    public ResponseEntity<List<LivraisonDto>> getLivraisonsByStatut(String statut) {
+        return ResponseEntity.ok(service.getLivraisonsByStatut(statut));
     }
 }
