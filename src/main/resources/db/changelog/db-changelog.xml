@@ -1,36 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-<!--    <changeSet id="createClientSequence" author="OVD" runOnChange="true">-->
-<!--        <sql>ALTER SEQUENCE SEQ_COMMANDE_CLIENT TO SEQ_COMMANDE_CLIENT_OLD;CREATE SEQUENCE SEQ_COMMANDE_CLIENT-->
-<!--            START WITH 10-->
-<!--            INCREMENT BY 1-->
-<!--            CACHE 1-->
-<!--        NO CYCLE;</sql>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet id="createFournisseurSequence" author="OVD" runOnChange="true">-->
-<!--        <sql>ALTER SEQUENCE SEQ_COMMANDE_FOURNISSEUR TO SEQ_COMMANDE_FOURNISSEUR_OLD;CREATE SEQUENCE SEQ_COMMANDE_FOURNISSEUR-->
-<!--            START WITH 10-->
-<!--            INCREMENT BY 1-->
-<!--            CACHE 1-->
-<!--        NO CYCLE;</sql>-->
-<!--    </changeSet>-->
-
-    <changeSet id="modifyClientSequence" author="OVD" runOnChange="true">
-        <sql>ALTER SEQUENCE SEQ_COMMANDE_CLIENT RESTART WITH 10;</sql>
+    <changeSet id="createClientSequence" author="OVD" runOnChange="true">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM pg_sequences WHERE schemaname = 'public' AND sequencename = 'seq_commande_client';
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            ALTER SEQUENCE SEQ_COMMANDE_CLIENT RENAME TO SEQ_COMMANDE_CLIENT_OLD;
+            CREATE SEQUENCE SEQ_COMMANDE_CLIENT
+            START WITH 10
+            INCREMENT BY 1
+            CACHE 1
+            NO CYCLE;
+        </sql>
     </changeSet>
 
-    <changeSet id="modifyFournisseurSequence" author="OVD" runOnChange="true">
-        <sql>ALTER SEQUENCE SEQ_COMMANDE_FOURNISSEUR RESTART WITH 10;</sql>
+    <changeSet id="createFournisseurSequence" author="OVD" runOnChange="true">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM pg_sequences WHERE schemaname = 'public' AND sequencename = 'seq_commande_fournisseur';
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            ALTER SEQUENCE SEQ_COMMANDE_FOURNISSEUR RENAME TO SEQ_COMMANDE_FOURNISSEUR_OLD;
+            CREATE SEQUENCE SEQ_COMMANDE_FOURNISSEUR
+            START WITH 10
+            INCREMENT BY 1
+            CACHE 1
+            NO CYCLE;
+        </sql>
     </changeSet>
-    <changeSet id="modifyVenteSequence" author="OVD" runOnChange="true">
-        <sql>ALTER SEQUENCE SEQ_COMMANDE_VENTE RESTART WITH 10;</sql>
-    </changeSet>
-
-
 
 </databaseChangeLog>
