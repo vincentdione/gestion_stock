@@ -1,5 +1,55 @@
 services:
-  db:
+
+  ## Prometheus
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - db-network
+
+  ## Tempo
+  tempo:
+    image: grafana/tempo
+    container_name: tempo
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./docker/tempo/tempo.yaml:/etc/tempo.yaml:ro
+      - ./docker/tempo/tempo-data:/tmp/tempo
+    ports:
+      - "3200:3200" # Tempo
+      - "9411:9411" # zipkin
+    networks:
+      - db-network
+
+  loki:
+    image: grafana/loki:main
+    container_name: loki
+    command: [ "-config.file=/etc/loki/local-config.yaml" ]
+    ports:
+      - "3100:3100"
+    networks:
+      - db-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker/grafana:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - db-network
+
+  postgres:
     container_name: postgres
     image: postgres:14.1
     environment:
@@ -8,8 +58,8 @@ services:
       POSTGRES_DB: stock
       PGDATA: /data/postgres
     volumes:
-      - db:/data/postgres
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db-volume:/data/postgres
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./logs:/var/log/postgresql
     ports:
       - "5432:5432"
@@ -19,34 +69,62 @@ services:
       timeout: 30s
       retries: 3
     networks:
-      - db
+      - db-network
     restart: unless-stopped
 
   backup:
-    image: ubuntu
+    image: postgres:14.1
+    container_name: postgres-backup
     volumes:
-      - db:/var/lib/postgresql/data
-      - ./myData:/backup
-    command: sh -c "pg_dump -U postgres -F c stock > /backup/stock.dump"
+      - db-volume:/var/lib/postgresql/data
+      - ./backup:/backup
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: stock
+    command: sh -c "pg_dump -U postgres -F c stock > /backup/stock_$(date +%F).dump"
+    networks:
+      - db-network
+    depends_on:
+      - postgres
+    restart: "no"
+
+
 
   stock-api:
     container_name: stock-api
-    image: ousmanevincent/gestion-stock
+    #image: ousmanevincent/gestion-stock
+    build: ./
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/stock
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/stock
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      LOG_PATH: /var/log/myapp/myapp.log
-      JAVA_OPTS: "-Dlog4j.configuration=file:/app/log4j.properties"
+      LOG_PATH: /var/log/myapp
+      SPRING_APPLICATION_NAME: stock-api
     ports:
       - "8082:8082"
     volumes:
       - ./logs:/var/log/myapp
     networks:
-      - db
+      - db-network
     depends_on:
-      - db
-    restart: unless-stopped
+      - postgres
+      - loki
+      - tempo
+    restart: always
+
+
+  init-user:
+    image: curlimages/curl:7.85.0
+    container_name: init-user
+    depends_on:
+      - stock-api
+    volumes:
+      - ./init/init.sh:/init.sh
+    entrypoint: [ "/bin/sh", "-c", "/init.sh" ]
+    networks:
+      - db-network
+    restart: "no"
 #  stock-client:
 #    container_name: stock-client
 #    image: ousmanevincent/gestion-stock-client
@@ -61,11 +139,11 @@ services:
 #    restart: unless-stopped
 
 networks:
-  db:
+  db-network:
     driver: bridge
 
 volumes:
-  db:
+  db-volume:
 
 
 #services:

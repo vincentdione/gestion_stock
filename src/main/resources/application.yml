@@ -11,15 +11,19 @@ spring:
     active: ${ACTIVE_PROFILE:dev}
 
   liquibase:
-    url: jdbc:postgresql://localhost:5432/${POSTGRES_SQL_DB}
-    user: ${POSTGRES_SQL_USERNAME}
-    password: ${POSTGRES_SQL_PASSWORD}
+#    url: jdbc:postgresql://${POSTGRES_SQL_HOST}:${POSTGRES_SQL_PORT}/${POSTGRES_SQL_DB}
+#    user: ${POSTGRES_SQL_USERNAME}
+#    password: ${POSTGRES_SQL_PASSWORD}
     change-log: classpath:db/changelog/db-changelog.xml
 
   datasource:
-    url: jdbc:postgresql://${POSTGRES_SQL_HOST}:${POSTGRES_SQL_PORT}/${POSTGRES_SQL_DB}
-    username: ${POSTGRES_SQL_USERNAME}
-    password: ${POSTGRES_SQL_PASSWORD}
+#    url: jdbc:postgresql://${POSTGRES_SQL_HOST}:${POSTGRES_SQL_PORT}/${POSTGRES_SQL_DB}
+#    username: ${POSTGRES_SQL_USERNAME}
+#    password: ${POSTGRES_SQL_PASSWORD}
+    url: jdbc:postgresql://postgres:5432/stock
+    username: postgres
+    password: postgres
+
   jpa:
     generate-ddl: true
     show-sql: true
@@ -53,8 +57,36 @@ spring:
     verify:
       host: ${VERIFY_EMAIL_HOST}
 
+  tracing:
+    sampling:
+      probability: 1.0
+
+    logging:
+      pattern:
+        correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  zipkin:
+    tracing:
+      endpoint: "http://tempo:9411/api/v2/spans"
+  endpoint:
+    health:
+      show:
+        details: always
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+
 server:
   port: ${SERVER_PORT:8080}
+
 
 
 
