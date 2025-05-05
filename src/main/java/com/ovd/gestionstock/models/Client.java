@@ -41,6 +41,7 @@ public class Client {
     @Column(unique = true)
     private String numTel;
 
+    @Column(name = "id_entreprise", nullable = false)
     private Long idEntreprise;
 
 

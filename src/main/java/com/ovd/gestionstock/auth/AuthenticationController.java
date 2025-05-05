@@ -33,9 +33,7 @@ public class AuthenticationController {
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request
   ) {
-    log.info("---------------------------------");
-    log.info("Credentials == "+request);
-    log.info("---------------------------------");
+    System.out.println("+++++++++++++++authenticate++++++++++++++++++");
     return ResponseEntity.ok(service.authenticate(request));
   }
 

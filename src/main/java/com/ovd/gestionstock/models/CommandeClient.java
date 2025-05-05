@@ -49,6 +49,9 @@ public class CommandeClient {
     @JoinColumn(name = "idModePayement")
     private ModePayement modePayement;
 
+    @Column(name = "id_entreprise", nullable = false)
+    private Long idEntreprise;
+
     @PrePersist
     private void generateCode() {
         if (this.code == null) {

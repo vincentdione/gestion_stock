@@ -46,6 +46,8 @@ public class Livraison {
     private Utilisateur utilisateur;
 
 
+    @Column(name = "id_entreprise", nullable = false)
+    private Long idEntreprise;
 
 
     @PrePersist

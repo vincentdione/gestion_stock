@@ -25,6 +25,7 @@ public class LigneCommandeFournisseur {
     @JoinColumn(name = "idArticle")
     private Article article;
 
+    @Column(name = "id_entreprise", nullable = false)
     private Long idEntreprise;
 
     private String unite;

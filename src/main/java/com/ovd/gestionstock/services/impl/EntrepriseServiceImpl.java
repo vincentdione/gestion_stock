@@ -31,7 +31,10 @@ public class EntrepriseServiceImpl implements EntrepriseService {
 
     @Override
     public List<EntrepriseDto> getAllEntreprise() {
-        return entrepriseRepository.findAll().stream().map(EntrepriseDto::fromEntity).collect(Collectors.toList());
+        return entrepriseRepository.findAll()
+                .stream()
+                .map(EntrepriseDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
 

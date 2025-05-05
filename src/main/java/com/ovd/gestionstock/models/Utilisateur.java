@@ -26,7 +26,7 @@ import java.util.List;
 public class Utilisateur implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -57,6 +57,8 @@ public class Utilisateur implements UserDetails {
     @OneToMany(mappedBy = "utilisateur")
     @JsonManagedReference
     private List<Livraison> livraisons;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

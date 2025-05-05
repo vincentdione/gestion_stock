@@ -1,17 +1,37 @@
-#Database
-POSTGRES_SQL_USERNAME: postgres
-POSTGRES_SQL_PASSWORD: postgres
-POSTGRES_SQL_HOST: 192.168.1.216
-POSTGRES_SQL_PORT: 5432
-POSTGRES_SQL_DB: gp
+##Database
+#POSTGRES_SQL_USERNAME: postgres
+#POSTGRES_SQL_PASSWORD: postgres
+#POSTGRES_SQL_HOST: localhost
+#POSTGRES_SQL_PORT: 5432
+#POSTGRES_SQL_DB: stock_test
+#
+##Server
+#SERVER_PORT: 7000
+#ACTIVE_PROFILE: test
+#
+##Email Config
+#EMAIL_HOST: smtp.gmail.com
+#EMAIL_PORT: 587
+#EMAIL_ID: <YOUR EMAIL ADDRESS>
+#EMAIL_PASSWORD: <YOUR PASSWORD>
+#VERIFY_EMAIL_HOST: http://localhost:${SERVER_PORT}
 
-#Server
-SERVER_PORT: 7000
-ACTIVE_PROFILE: test
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
 
-#Email Config
-EMAIL_HOST: smtp.gmail.com
-EMAIL_PORT: 587
-EMAIL_ID: <YOUR EMAIL ADDRESS>
-EMAIL_PASSWORD: <YOUR PASSWORD>
-VERIFY_EMAIL_HOST: http://localhost:${SERVER_PORT}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

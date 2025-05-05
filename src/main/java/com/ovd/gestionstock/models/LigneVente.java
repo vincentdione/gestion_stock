@@ -28,6 +28,7 @@ public class LigneVente {
     private BigDecimal quantite;
     private BigDecimal prixUnitaire;
 
+    @Column(name = "id_entreprise", nullable = false)
     private Long idEntreprise;
 
     private String unite;

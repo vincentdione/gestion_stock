@@ -19,13 +19,15 @@ import java.util.List;
 public class Entreprise {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nom;
     private String description;
     private String codeFiscal;
     private String siteWeb;
+    private boolean active = true;
+
 
     @Embedded
     private Adresse adresse;

@@ -1,0 +1,21 @@
+<changeSet id="insertUsers" author="OVD" runOnChange="true">
+    <insert tableName="utilisateurs">
+        <!-- Ne pas spécifier de colonne 'id' pour laisser la DB générer un identifiant automatiquement -->
+        <column name="username" value="ovd"/>
+        <column name="password" value="$2b$12$wORxF0l.TRsFaiyreOhSgOFtdSedYetyXcX.KFP8L8HyDxNiD0bga"/>
+        <column name="email" value="ovd@example.com"/>
+        <column name="nom" value="OvdNom"/>
+        <column name="prenom" value="OvdPrenom"/>
+        <column name="datedenaissance" valueDate="1990-01-01"/>
+        <column name="role" value="ADMIN"/>
+    </insert>
+    <insert tableName="utilisateurs">
+        <column name="username" value="prince"/>
+        <column name="password" value="$2b$12$wORxF0l.TRsFaiyreOhSgOFtdSedYetyXcX.KFP8L8HyDxNiD0bga"/>
+        <column name="email" value="prince@example.com"/>
+        <column name="nom" value="PrinceNom"/>
+        <column name="prenom" value="PrincePrenom"/>
+        <column name="datedenaissance" valueDate="1992-02-02"/>
+        <column name="role" value="MANAGER"/>
+    </insert>
+</changeSet>

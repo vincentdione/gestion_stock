@@ -1,0 +1,90 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ConditionAVRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.ovd.gestionstock.repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: ConditionAVRepository (com.ovd.gestionstock.repositories)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ConditionAVRepository$MockitoMock$zXhLe6sp</td>
+  </tr>
+  <tr>
+    <td class="name">ConditionAVRepository$MockitoMock$zXhLe6sp$auxiliary$NooVzpEk</td>
+  </tr>
+  <tr>
+    <td class="name">ConditionAVRepository$MockitoMock$zXhLe6sp$auxiliary$RVkUlVBe</td>
+  </tr>
+  <tr>
+    <td class="name">ConditionAVRepository$MockitoMock$zXhLe6sp$auxiliary$YmrneChW</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.ovd.gestionstock.repositories;
+&nbsp;
+&nbsp;import com.ovd.gestionstock.models.ConditionAV;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface ConditionAVRepository extends JpaRepository&lt;ConditionAV,Long&gt; {
+&nbsp;    List&lt;ConditionAV&gt; findByArticleId(Long articleId);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-08-17 21:52</div>
+</div>
+</body>
+</html>

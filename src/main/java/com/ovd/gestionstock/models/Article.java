@@ -32,6 +32,7 @@ public class Article {
     private BigDecimal prixUnitaireTtc;
     private String photo;
 
+    @Column(name = "id_entreprise", nullable = false)
     private Long idEntreprise;
 
     @ManyToOne(fetch = FetchType.LAZY)

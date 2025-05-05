@@ -32,6 +32,7 @@ public class CommandeFournisseur {
     @Enumerated(EnumType.STRING)
     private  CommandeEtat etatCommande;
 
+    @Column(name = "id_entreprise", nullable = false)
     private Long idEntreprise;
 
 

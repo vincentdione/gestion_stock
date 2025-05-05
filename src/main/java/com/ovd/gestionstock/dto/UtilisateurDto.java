@@ -44,6 +44,7 @@ public class UtilisateurDto {
                 .email(utilisateur.getEmail())
                 .adresse(AdresseDto.fromEntity(utilisateur.getAdresse()))
                 .prenom(utilisateur.getPrenom())
+                .password(utilisateur.getPassword())
                 .username(utilisateur.getUsername())
                 .dateDeNaissance(utilisateur.getDateDeNaissance())
                 .entrepriseDto(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))

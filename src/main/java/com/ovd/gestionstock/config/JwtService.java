@@ -1,19 +1,23 @@
 package com.ovd.gestionstock.config;
 
+import com.ovd.gestionstock.models.Utilisateur;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -48,6 +52,11 @@ public class JwtService {
       Map<String, Object> extraClaims,
       UserDetails userDetails
   ) {
+    // Ajout du rôle et de l'entreprise
+    if (userDetails instanceof Utilisateur) {
+      Utilisateur user = (Utilisateur) userDetails;
+      extraClaims.put("entrepriseId", user.getEntreprise().getId());
+    }
     return buildToken(extraClaims, userDetails, jwtExpiration);
   }
 

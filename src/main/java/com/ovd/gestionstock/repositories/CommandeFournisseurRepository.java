@@ -12,7 +12,7 @@ public interface CommandeFournisseurRepository extends JpaRepository<CommandeFou
 
     Optional<CommandeFournisseur> findCommandeFournisseurByCode(String code);
 
-    List<CommandeClient> findAllByFournisseurId(Long id);
+    List<CommandeFournisseur> findAllByFournisseurId(Long id);
 
     List<CommandeFournisseur> findByFournisseurNomAndFournisseurEmailAndCode(String nom, String email, String codeCommande);
 

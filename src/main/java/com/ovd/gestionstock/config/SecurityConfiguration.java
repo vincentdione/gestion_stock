@@ -12,12 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import java.util.Arrays;
 
 import static com.ovd.gestionstock.models.Permission.*;
 import static com.ovd.gestionstock.models.Role.ADMIN;
@@ -33,10 +27,12 @@ public class SecurityConfiguration {
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
   private final LogoutHandler logoutHandler;
+  private final TenantFilter tenantFilter;
 
 
 
-    @Bean
+
+  @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .csrf()
@@ -81,12 +77,15 @@ public class SecurityConfiguration {
         .authenticationProvider(authenticationProvider)
 
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-          //  .cors()
+            .addFilterAfter(tenantFilter, JwtAuthenticationFilter.class)
+            //  .cors()
             .logout()
         .logoutUrl("/api/v1/auth/logout")
         .addLogoutHandler(logoutHandler)
-        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-
+            .logoutSuccessHandler((request, response, authentication) -> {
+              SecurityContextHolder.clearContext();
+              TenantContext.clear();
+            })
     ;
 
     return http.build();

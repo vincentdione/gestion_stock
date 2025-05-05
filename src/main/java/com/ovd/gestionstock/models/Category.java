@@ -29,4 +29,7 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SousCategory> sousCategories = new ArrayList<>();
+
+    @Column(name = "id_entreprise", nullable = false)
+    private Long idEntreprise;
 }

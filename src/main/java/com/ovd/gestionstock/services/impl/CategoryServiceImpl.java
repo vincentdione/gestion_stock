@@ -24,12 +24,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<CategoryDto> getAllCategory() {
-        log.info("LISTE DES CATEGORIES +++++++++++++++++++++++ ++++++++++++++++++");
         List<Category> categories = categoryRepository.findAll();
         if (categories.isEmpty()){
             log.error("Liste des catégories est vide !!! ");

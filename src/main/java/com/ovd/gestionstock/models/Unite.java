@@ -26,6 +26,9 @@ public class Unite {
     private String nom;
     private String designation;
 
+    @Column(name = "id_entreprise", nullable = false)
+    private Long idEntreprise;
+
 //    @OneToMany(mappedBy = "unite", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Article> articles = new ArrayList<>();
 

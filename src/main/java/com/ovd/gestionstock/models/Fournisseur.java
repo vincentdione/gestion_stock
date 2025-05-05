@@ -40,4 +40,7 @@ public class Fournisseur {
     @OneToMany(mappedBy = "fournisseur")
     private List<CommandeFournisseur> commandeFournisseurs = new ArrayList<>();
 
+    @Column(name = "id_entreprise", nullable = false)
+    private Long idEntreprise;
+
 }

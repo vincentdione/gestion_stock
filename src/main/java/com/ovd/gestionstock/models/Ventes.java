@@ -32,7 +32,8 @@ public class Ventes {
     private Date dateVente;
 
     private String commentaire;
-    @Column(name = "identreprise")
+
+    @Column(name = "id_entreprise", nullable = false)
     private Long idEntreprise;
 
     @OneToMany(mappedBy = "vente")

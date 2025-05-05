@@ -35,4 +35,7 @@ public class SousCategory implements Serializable {
     @JoinColumn(name = "idcategory")
     private Category category;
 
+    @Column(name = "id_entreprise", nullable = false)
+    private Long idEntreprise;
+
 }

@@ -26,6 +26,9 @@ public class ModePayement {
     private String code;
     private String designation;
 
+    @Column(name = "id_entreprise", nullable = false)
+    private Long idEntreprise;
+
     @OneToMany(mappedBy = "modePayement", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ventes> ventes = new ArrayList<>();
 

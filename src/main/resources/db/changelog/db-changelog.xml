@@ -2,36 +2,119 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="createClientSequence" author="OVD" runOnChange="true">
-        <preConditions onFail="CONTINUE">
-            <sqlCheck expectedResult="1">
-                SELECT COUNT(*) FROM pg_sequences WHERE schemaname = 'public' AND sequencename = 'seq_commande_client';
-            </sqlCheck>
-        </preConditions>
-        <sql>
-            ALTER SEQUENCE SEQ_COMMANDE_CLIENT RENAME TO SEQ_COMMANDE_CLIENT_OLD;
-            CREATE SEQUENCE SEQ_COMMANDE_CLIENT
-            START WITH 10
-            INCREMENT BY 1
-            CACHE 1
-            NO CYCLE;
-        </sql>
-    </changeSet>
+<!--    <include file="db/changelog/db-changelog-data.xml"/>-->
 
-    <changeSet id="createFournisseurSequence" author="OVD" runOnChange="true">
-        <preConditions onFail="CONTINUE">
-            <sqlCheck expectedResult="1">
-                SELECT COUNT(*) FROM pg_sequences WHERE schemaname = 'public' AND sequencename = 'seq_commande_fournisseur';
-            </sqlCheck>
-        </preConditions>
-        <sql>
-            ALTER SEQUENCE SEQ_COMMANDE_FOURNISSEUR RENAME TO SEQ_COMMANDE_FOURNISSEUR_OLD;
-            CREATE SEQUENCE SEQ_COMMANDE_FOURNISSEUR
-            START WITH 10
-            INCREMENT BY 1
-            CACHE 1
-            NO CYCLE;
-        </sql>
-    </changeSet>
+    <!-- Ajout de la colonne idEntreprise dans la table utilisateurs -->
+<!--    <changeSet id="add-idEntreprise-column" author="OVD">-->
+<!--        <addColumn tableName="utilisateurs">-->
+<!--            <column name="idEntreprise" type="BIGINT"/>-->
+<!--        </addColumn>-->
+<!--    </changeSet>-->
+<!--    &lt;!&ndash; Création des entreprises kaydeco et ndiolfouta &ndash;&gt;-->
+<!--    <changeSet id="insertEntreprises" author="OVD" runOnChange="true">-->
+<!--        <insert tableName="entreprises">-->
+<!--            <column name="id" value="1"/>-->
+<!--            <column name="nom" value="kaydeco"/>-->
+<!--            <column name="description" value="Entreprise de décoration"/>-->
+<!--            <column name="code_fiscal" value="KAY12345"/>-->
+<!--            <column name="site_web" value="www.kaydeco.com"/>-->
+<!--            <column name="email" value="contact@kaydeco.com"/>-->
+<!--            <column name="num_tel" value="123456789"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="entreprises">-->
+<!--            <column name="id" value="2"/>-->
+<!--            <column name="nom" value="ndiolfouta"/>-->
+<!--            <column name="description" value="Entreprise de production"/>-->
+<!--            <column name="code_fiscal" value="NDI98765"/>-->
+<!--            <column name="site_web" value="www.ndiolfouta.com"/>-->
+<!--            <column name="email" value="contact@ndiolfouta.com"/>-->
+<!--            <column name="num_tel" value="987654321"/>-->
+<!--        </insert>-->
+<!--    </changeSet>-->
+
+<!--    &lt;!&ndash; Insertion des utilisateurs ovd et prince avec leur entreprise respective &ndash;&gt;-->
+<!--    <changeSet id="insertUsersWithEntreprise" author="OVD" runOnChange="true">-->
+<!--        <insert tableName="utilisateurs">-->
+<!--            <column name="id" value="1"/>-->
+<!--            <column name="username" value="ovd"/>-->
+<!--            <column name="password" value="$2b$12$wORxF0l.TRsFaiyreOhSgOFtdSedYetyXcX.KFP8L8HyDxNiD0bga"/>-->
+<!--            <column name="email" value="ovd@example.com"/>-->
+<!--            <column name="nom" value="OvdNom"/>-->
+<!--            <column name="prenom" value="OvdPrenom"/>-->
+<!--            <column name="datedenaissance" valueDate="1990-01-01"/>-->
+<!--            <column name="role" value="ADMIN"/>-->
+<!--            &lt;!&ndash; Association avec kaydeco &ndash;&gt;-->
+<!--            <column name="idEntreprise" valueComputed="(SELECT id FROM entreprises WHERE nom = 'kaydeco')"/>-->
+<!--        </insert>-->
+
+<!--        <insert tableName="utilisateurs">-->
+<!--            <column name="id" value="2"/>-->
+<!--            <column name="username" value="prince"/>-->
+<!--            <column name="password" value="$2b$12$wORxF0l.TRsFaiyreOhSgOFtdSedYetyXcX.KFP8L8HyDxNiD0bga"/>-->
+<!--            <column name="email" value="prince@example.com"/>-->
+<!--            <column name="nom" value="PrinceNom"/>-->
+<!--            <column name="prenom" value="PrincePrenom"/>-->
+<!--            <column name="datedenaissance" valueDate="1992-02-02"/>-->
+<!--            <column name="role" value="MANAGER"/>-->
+<!--            &lt;!&ndash; Association avec ndiolfouta &ndash;&gt;-->
+<!--            <column name="idEntreprise" valueComputed="(SELECT id FROM entreprises WHERE nom = 'ndiolfouta')"/>-->
+<!--        </insert>-->
+<!--    </changeSet>-->
+
+
+    <!--    <changeSet id="createClientSequence" author="OVD" runOnChange="true">-->
+<!--        <preConditions onFail="CONTINUE">-->
+<!--            <sqlCheck expectedResult="1">-->
+<!--                SELECT COUNT(*) FROM pg_sequences WHERE schemaname = 'public' AND sequencename = 'seq_commande_client';-->
+<!--            </sqlCheck>-->
+<!--        </preConditions>-->
+<!--        <sql>-->
+<!--            ALTER SEQUENCE SEQ_COMMANDE_CLIENT RENAME TO SEQ_COMMANDE_CLIENT_OLD;-->
+<!--            CREATE SEQUENCE SEQ_COMMANDE_CLIENT-->
+<!--            START WITH 10-->
+<!--            INCREMENT BY 1-->
+<!--            CACHE 1-->
+<!--            NO CYCLE;-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="createFournisseurSequence" author="OVD" runOnChange="true">-->
+<!--        <preConditions onFail="CONTINUE">-->
+<!--            <sqlCheck expectedResult="1">-->
+<!--                SELECT COUNT(*) FROM pg_sequences WHERE schemaname = 'public' AND sequencename = 'seq_commande_fournisseur';-->
+<!--            </sqlCheck>-->
+<!--        </preConditions>-->
+<!--        <sql>-->
+<!--            ALTER SEQUENCE SEQ_COMMANDE_FOURNISSEUR RENAME TO SEQ_COMMANDE_FOURNISSEUR_OLD;-->
+<!--            CREATE SEQUENCE SEQ_COMMANDE_FOURNISSEUR-->
+<!--            START WITH 10-->
+<!--            INCREMENT BY 1-->
+<!--            CACHE 1-->
+<!--            NO CYCLE;-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+<!--    &lt;!&ndash; Insertion des utilisateurs ovd et prince &ndash;&gt;-->
+<!--    <changeSet id="insertUsers" author="OVD" runOnChange="true">-->
+<!--        <insert tableName="utilisateurs">-->
+<!--            &lt;!&ndash; Pas besoin de spécifier l'ID &ndash;&gt;-->
+<!--            <column name="username" value="ovd"/>-->
+<!--            <column name="password" value="$2b$12$wORxF0l.TRsFaiyreOhSgOFtdSedYetyXcX.KFP8L8HyDxNiD0bga"/>-->
+<!--            <column name="email" value="ovd@example.com"/>-->
+<!--            <column name="nom" value="OvdNom"/>-->
+<!--            <column name="prenom" value="OvdPrenom"/>-->
+<!--            <column name="datedenaissance" valueDate="1990-01-01"/>-->
+<!--            <column name="role" value="ADMIN"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="utilisateurs">-->
+<!--            <column name="username" value="prince"/>-->
+<!--            <column name="password" value="$2b$12$wORxF0l.TRsFaiyreOhSgOFtdSedYetyXcX.KFP8L8HyDxNiD0bga"/>-->
+<!--            <column name="email" value="prince@example.com"/>-->
+<!--            <column name="nom" value="PrinceNom"/>-->
+<!--            <column name="prenom" value="PrincePrenom"/>-->
+<!--            <column name="datedenaissance" valueDate="1992-02-02"/>-->
+<!--            <column name="role" value="MANAGER"/>-->
+<!--        </insert>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>
