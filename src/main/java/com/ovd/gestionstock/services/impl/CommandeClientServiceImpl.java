@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.services.impl;
 
+import com.ovd.gestionstock.config.TenantContext;
 import com.ovd.gestionstock.dto.*;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
@@ -8,12 +9,11 @@ import com.ovd.gestionstock.models.*;
 import com.ovd.gestionstock.repositories.*;
 import com.ovd.gestionstock.services.CommandeClientService;
 import com.ovd.gestionstock.services.MvtStkService;
+import com.ovd.gestionstock.services.TenantSecurityService;
 import com.ovd.gestionstock.validators.ArticleValidator;
 import com.ovd.gestionstock.validators.CommandeClientValidator;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,7 +23,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +41,8 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
     private final MvtStkService mvtStkService;
     private final JdbcTemplate jdbcTemplate;
-
+    private final TenantSecurityService tenantSecurityService;
+    private final TenantContext tenantContext;
 
 
     @Override
@@ -98,31 +98,36 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
 
 
-    @Override
     public void createCommandeClient(CommandeClientDto request) {
         List<String> errors = CommandeClientValidator.validate(request);
 
+        System.out.println("+++++++++++++++++++" + request);
 
-
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             log.error("Vérifier les champs obligatoires !");
-            throw new InvalidEntityException("la commande client n'est pas valide", ErrorCodes.COMMANDE_CLIENT_NOT_FOUND,errors);
+            throw new InvalidEntityException(
+                    "La commande client n'est pas valide",
+                    ErrorCodes.COMMANDE_CLIENT_NOT_FOUND,
+                    errors
+            );
         }
 
-        System.out.println(request);
-
-        if (request.getId() != null && request.isCommandeLivree()){
-            log.warn("Commande déja LIVREE");
-            throw new InvalidEntityException("Cette commande ne peut pas etre modifiée,elle est déja livrée",ErrorCodes.COMMANDE_CLIENT_NON_MODIFIABLE);
+        if (request.getId() != null && request.isCommandeLivree()) {
+            log.warn("Commande déjà LIVREE");
+            throw new InvalidEntityException(
+                    "Cette commande ne peut pas être modifiée, elle est déjà livrée",
+                    ErrorCodes.COMMANDE_CLIENT_NON_MODIFIABLE
+            );
         }
-
 
         Optional<Client> client = clientRepository.findById(request.getClientDto().getId());
-        if(!client.isPresent()){
-            log.warn("Ce client avec ID {} n'a pas été trouvé "+request.getClientDto().getId());
-            throw new EntityNotFoundException("Aucun client avec l'ID " + request.getClientDto().getId() +"n'a été trouvé dans la base",ErrorCodes.CLIENT_NOT_FOUND);
+        if (!client.isPresent()) {
+            log.warn("Ce client avec ID {} n'a pas été trouvé " + request.getClientDto().getId());
+            throw new EntityNotFoundException(
+                    "Aucun client avec l'ID " + request.getClientDto().getId() + " n'a été trouvé dans la base",
+                    ErrorCodes.CLIENT_NOT_FOUND
+            );
         }
-
 
         List<String> articleErrors = new ArrayList<>();
         if (request.getLigneCommandeClients() != null) {
@@ -133,14 +138,24 @@ public class CommandeClientServiceImpl implements CommandeClientService {
                         articleErrors.add("L'article avec l'ID " + ligCmdClt.getArticle().getId() + " n'existe pas");
                     }
                 } else {
-                    articleErrors.add("Impossible d'enregister une commande avec un aticle NULL");
+                    articleErrors.add("Impossible d'enregistrer une commande avec un article NULL");
                 }
             });
         }
 
         if (!articleErrors.isEmpty()) {
             log.warn("");
-            throw new InvalidEntityException("Article n'existe pas dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND, articleErrors);
+            throw new InvalidEntityException(
+                    "Article n'existe pas dans la BDD",
+                    ErrorCodes.ARTICLE_NOT_FOUND,
+                    articleErrors
+            );
+        }
+
+        // Gestion du tenant
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
         }
 
         Long nextVal = jdbcTemplate.queryForObject("SELECT nextval('SEQ_COMMANDE_CLIENT')", Long.class);
@@ -149,27 +164,27 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
         request.setCode(code);
 
-            CommandeClient savedCom = commandeClientRepository.save(CommandeClientDto.toEntity(request));
+        CommandeClient commande = CommandeClientDto.toEntity(request);
+        commande.setIdEntreprise(currentTenant); // Affecter le tenant à la commande
 
+        CommandeClient savedCom = commandeClientRepository.save(commande);
 
+        if (request.getLigneCommandeClients() != null) {
+            request.getLigneCommandeClients().forEach(ligneCmt -> {
+                LigneCommandeClient ligneCommandeClient = LigneCommandeClientDto.toEntity(ligneCmt);
+                ligneCommandeClient.setCommandeClient(savedCom);
+                ligneCommandeClient.setIdEntreprise(currentTenant); // Affecter le tenant à chaque ligne
+                LigneCommandeClient savedLigneCmd = ligneClientRepository.save(ligneCommandeClient);
+                effectuerSortie(savedLigneCmd);
+            });
+        }
 
-            if (request.getLigneCommandeClients() != null) {
-                request.getLigneCommandeClients().forEach(ligneCmt ->{
-                    LigneCommandeClient ligneCommandeClient = LigneCommandeClientDto.toEntity(ligneCmt);
-                    ligneCommandeClient.setCommandeClient(savedCom);
-                    LigneCommandeClient savedLigneCmd = ligneClientRepository.save(ligneCommandeClient);
-
-                    effectuerSortie(savedLigneCmd);
-
-                });
-            }
-            LivraisonDto livraisonDto = new LivraisonDto();
-            livraisonDto.setEtat(LivraisonEtat.EN_COURS);
-            livraisonDto.setCode(codeLivraison);
-            livraisonDto.setCommandeClient(CommandeClientDto.fromEntity(savedCom));
-            livraisonRepository.save(LivraisonDto.toEntity(livraisonDto));
-
-            CommandeClientDto.fromEntity(savedCom);
+        LivraisonDto livraisonDto = new LivraisonDto();
+        livraisonDto.setEtat(LivraisonEtat.EN_COURS);
+        livraisonDto.setCode(codeLivraison);
+        livraisonDto.setCommandeClient(CommandeClientDto.fromEntity(savedCom));
+        livraisonDto.setIdEntreprise(currentTenant);
+        livraisonRepository.save(LivraisonDto.toEntity(livraisonDto));
     }
 
 

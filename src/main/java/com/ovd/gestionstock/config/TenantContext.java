@@ -1,22 +1,26 @@
 package com.ovd.gestionstock.config;
 
+import org.springframework.stereotype.Component;
+
+
+@Component
 public class TenantContext {
     private static final ThreadLocal<Long> CURRENT_TENANT = new ThreadLocal<>();
     private static final ThreadLocal<String> CURRENT_USER = new ThreadLocal<>();
 
-    public static Long getCurrentTenant() {
+    public Long getCurrentTenant() {  // Remove static
         return CURRENT_TENANT.get();
     }
 
-    public static void setCurrentTenant(Long tenantId) {
+    public void setCurrentTenant(Long tenantId) {  // Remove static
         CURRENT_TENANT.set(tenantId);
     }
 
-    public static String getCurrentUser() {
+    public String getCurrentUser() {  // Remove static
         return CURRENT_USER.get();
     }
 
-    public static void setCurrentUser(String username) {
+    public void setCurrentUser(String username) {  // Remove static
         CURRENT_USER.set(username);
     }
 

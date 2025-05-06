@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ConditionAVRepository extends JpaRepository<ConditionAV,Long> {
+public interface ConditionAVRepository extends TenantAwareRepository<ConditionAV,Long> {
     List<ConditionAV> findByArticleId(Long articleId);
 }

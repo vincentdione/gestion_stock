@@ -34,8 +34,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public List<UtilisateurDto> getAllUtilisateur() {
-        log.info("---------------getAllUtilisateur-----------------");
-        log.info("---------------getAllUtilisateur-----------------");
         return utilisateurRepository.findAll().stream().map(UtilisateurDto::fromEntity).collect(Collectors.toList());
     }
 

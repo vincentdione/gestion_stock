@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.services.impl;
 
+import com.ovd.gestionstock.config.TenantContext;
 import com.ovd.gestionstock.dto.*;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
@@ -11,6 +12,7 @@ import com.ovd.gestionstock.repositories.FournisseurRepository;
 import com.ovd.gestionstock.repositories.LigneCommandeFournisseurRepository;
 import com.ovd.gestionstock.services.CommandeFournisseurService;
 import com.ovd.gestionstock.services.MvtStkService;
+import com.ovd.gestionstock.services.TenantSecurityService;
 import com.ovd.gestionstock.validators.ArticleValidator;
 import com.ovd.gestionstock.validators.CommandeFournisseurValidator;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +40,8 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     private final ArticleRepository articleRepository;
     private final MvtStkService mvtStkService;
     private final JdbcTemplate jdbcTemplate;
-
+    private final TenantSecurityService tenantSecurityService;
+    private final TenantContext tenantContext;
     // private final AtomicLong codeCounter = new AtomicLong(0);
 
 
@@ -59,7 +62,6 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
 
         System.out.println(dto);
 
-
         if (!errors.isEmpty()) {
             log.error("Commande fournisseur n'est pas valide");
             throw new InvalidEntityException("La commande fournisseur n'est pas valide", ErrorCodes.COMMANDE_FOURNISSEUR_NOT_VALID, errors);
@@ -72,12 +74,11 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
         Optional<Fournisseur> fournisseur = fournisseurRepository.findById(dto.getFournisseurDto().getId());
         if (fournisseur.isEmpty()) {
             log.warn("Fournisseur with ID {} was not found in the DB", dto.getFournisseurDto().getId());
-            throw new EntityNotFoundException("Aucun fournisseur avec l'ID" + dto.getFournisseurDto().getId() + " n'a ete trouve dans la BDD",
+            throw new EntityNotFoundException("Aucun fournisseur avec l'ID " + dto.getFournisseurDto().getId() + " n'a été trouvé dans la BDD",
                     ErrorCodes.FOURNISSEUR_NOT_FOUND);
         }
 
         List<String> articleErrors = new ArrayList<>();
-
         if (dto.getLigneCommandeFournisseurDtos() != null) {
             dto.getLigneCommandeFournisseurDtos().forEach(ligCmdFrs -> {
                 if (ligCmdFrs.getArticle() != null) {
@@ -86,31 +87,38 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
                         articleErrors.add("L'article avec l'ID " + ligCmdFrs.getArticle().getId() + " n'existe pas");
                     }
                 } else {
-                    articleErrors.add("Impossible d'enregister une commande avec un aticle NULL");
+                    articleErrors.add("Impossible d'enregistrer une commande avec un article NULL");
                 }
             });
         }
 
         if (!articleErrors.isEmpty()) {
-            log.warn("");
+            log.warn("Erreurs sur les articles : {}", articleErrors);
             throw new InvalidEntityException("Article n'existe pas dans la BDD", ErrorCodes.ARTICLE_NOT_FOUND, articleErrors);
         }
+
         dto.setDateCommande(Instant.now());
 
         Long nextVal = jdbcTemplate.queryForObject("SELECT nextval('SEQ_COMMANDE_FOURNISSEUR')", Long.class);
         String code = "CMD-FN" + String.format("%07d", nextVal);
-
         dto.setCode(code);
 
+        // 🔹 Récupérer le tenant courant
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        // 🔹 Définir le tenant dans la commande fournisseur
+        dto.setIdEntreprise(currentTenant);
+
         CommandeFournisseur savedCmdFrs = commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(dto));
-//        String uniqueId = generateUniqueCode();
-//        dto.setCode(uniqueId);
 
         if (dto.getLigneCommandeFournisseurDtos() != null) {
             dto.getLigneCommandeFournisseurDtos().forEach(ligCmdFrs -> {
                 LigneCommandeFournisseur ligneCommandeFournisseur = LigneCommandeFournisseurDto.toEntity(ligCmdFrs);
                 ligneCommandeFournisseur.setCommandeFournisseur(savedCmdFrs);
-                ligneCommandeFournisseur.setIdEntreprise(savedCmdFrs.getIdEntreprise());
+                ligneCommandeFournisseur.setIdEntreprise(currentTenant); // 🔹 Appliquer également ici
                 LigneCommandeFournisseur saveLigne = ligneCommandeFournisseurRepository.save(ligneCommandeFournisseur);
 
                 effectuerEntree(saveLigne);

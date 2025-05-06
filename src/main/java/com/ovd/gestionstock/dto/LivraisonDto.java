@@ -27,7 +27,7 @@ public class LivraisonDto {
     private CommandeClientDto commandeClient;
     private Adresse adresse;
     private UtilisateurDto utilisateur;
-
+    private Long idEntreprise;
 
 
 
@@ -42,6 +42,7 @@ public class LivraisonDto {
                 .dateLivraison(livraison.getDateLivraison())
                 .etat(livraison.getEtat())
                 .adresse(livraison.getAdresse())
+                .idEntreprise(livraison.getIdEntreprise())
                 .commandeClient(CommandeClientDto.fromEntity(livraison.getCommandeClient()))
                 .utilisateur(UtilisateurDto.fromEntity(livraison.getUtilisateur()))
                 .build();
@@ -58,6 +59,7 @@ public class LivraisonDto {
                 .dateLivraison(dto.getDateLivraison())
                 .etat(dto.getEtat())
                 .adresse(dto.getAdresse())
+                .idEntreprise(dto.getIdEntreprise())
                 .commandeClient(CommandeClientDto.toEntity(dto.getCommandeClient()))
                 .utilisateur(UtilisateurDto.toEntity(dto.getUtilisateur()))
                 .build();

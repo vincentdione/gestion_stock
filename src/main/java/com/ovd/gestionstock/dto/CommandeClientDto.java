@@ -33,6 +33,8 @@ public class CommandeClientDto {
     private CommandeEtat etat;
     private ModePayementDto modePayement;
 
+    private Long idEntreprise;
+
 
     //    private List<LigneCommandeClientDto> ligneCommandeClientDtos = new ArrayList<>();
     private List<LigneCommandeClientDto> ligneCommandeClients;
@@ -45,6 +47,7 @@ public class CommandeClientDto {
                 .code(commandeClient.getCode())
                 .dateCommande(commandeClient.getDateCommande())
                 .clientDto(ClientDto.fromEntity(commandeClient.getClient()))
+                .idEntreprise(commandeClient.getIdEntreprise())
                 .etat(commandeClient.getEtat())
                 .modePayement(ModePayementDto.fromEntity(commandeClient.getModePayement()))
                 .build();
@@ -60,6 +63,7 @@ public class CommandeClientDto {
                 .code(commandeClientDto.getCode())
                 .dateCommande(commandeClientDto.getDateCommande())
                 .client(ClientDto.toEntity(commandeClientDto.getClientDto()))
+                .idEntreprise(commandeClientDto.getIdEntreprise())
                 .etat(commandeClientDto.getEtat())
                 .modePayement(ModePayementDto.toEntity(commandeClientDto.getModePayement()))
                 .build();

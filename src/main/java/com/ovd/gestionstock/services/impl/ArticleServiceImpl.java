@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.services.impl;
 
+import com.ovd.gestionstock.config.TenantContext;
 import com.ovd.gestionstock.dto.ArticleDto;
 import com.ovd.gestionstock.dto.LigneCommandeClientDto;
 import com.ovd.gestionstock.dto.LigneCommandeFournisseurDto;
@@ -14,6 +15,7 @@ import com.ovd.gestionstock.repositories.LigneCommandeClientRepository;
 import com.ovd.gestionstock.repositories.LigneCommandeFournisseurRepository;
 import com.ovd.gestionstock.repositories.LigneVenteRepository;
 import com.ovd.gestionstock.services.ArticleService;
+import com.ovd.gestionstock.services.TenantSecurityService;
 import com.ovd.gestionstock.validators.ArticleValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,8 @@ public class ArticleServiceImpl implements ArticleService {
     private final LigneVenteRepository ligneVenteRepository;
     private final LigneCommandeClientRepository ligneClientRepository;
     private final LigneCommandeFournisseurRepository ligneFournisseurRepository;
-
+    private final TenantSecurityService tenantSecurityService;
+    private final TenantContext tenantContext;
 
 
     @Override
@@ -98,7 +101,9 @@ public class ArticleServiceImpl implements ArticleService {
             throw  new InvalidEntityException("Les infos de l'article ne sont pas valides", ErrorCodes.ARTICLE_NOT_FOUND,errors);
         }
 
-        Article article = articleRepository.save(ArticleDto.toEntity(articleDto));
+        Article article = ArticleDto.toEntity(articleDto);
+        article.setIdEntreprise(tenantContext.getCurrentTenant());
+        articleRepository.save(article);
 
         return ArticleDto.fromEntity(article);
 

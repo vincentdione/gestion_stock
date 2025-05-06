@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface CommandeClientRepository extends JpaRepository<CommandeClient,Long> {
+public interface CommandeClientRepository extends TenantAwareRepository<CommandeClient,Long> {
 
     Optional<CommandeClient> findByCode(String code);
 

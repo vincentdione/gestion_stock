@@ -35,8 +35,6 @@ public class Utilisateur implements UserDetails {
     private String nom;
     private String prenom;
 
-
-
     @Column(name = "datedenaissance")
     private Instant dateDeNaissance;
 

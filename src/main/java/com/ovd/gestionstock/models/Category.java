@@ -22,7 +22,6 @@ public class Category {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
     private String code;
 
     private String designation;

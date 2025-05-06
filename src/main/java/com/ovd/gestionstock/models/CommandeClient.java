@@ -32,7 +32,6 @@ public class CommandeClient {
     @Column(unique = true, nullable = false)
     private String code;
 
-
     private Date dateCommande;
 
     @Enumerated(EnumType.STRING)

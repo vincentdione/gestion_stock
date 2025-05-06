@@ -23,6 +23,7 @@ import java.io.IOException;
 public class TenantFilter extends OncePerRequestFilter {
 
     private final UtilisateurRepository utilisateurRepository;
+    private final TenantContext tenantContext;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -70,8 +71,8 @@ public class TenantFilter extends OncePerRequestFilter {
                     user.getEntreprise().isActive());
 
             // Définition du contexte tenant
-            TenantContext.setCurrentTenant(user.getEntreprise().getId());
-            TenantContext.setCurrentUser(username);
+            tenantContext.setCurrentTenant(user.getEntreprise().getId());
+            tenantContext.setCurrentUser(username);
             log.info("Contexte tenant défini - Entreprise ID: {}", user.getEntreprise().getId());
 
         } catch (Exception e) {

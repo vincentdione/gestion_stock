@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface CommandeFournisseurRepository extends JpaRepository<CommandeFournisseur,Long> {
+public interface CommandeFournisseurRepository extends TenantAwareRepository<CommandeFournisseur,Long> {
 
     Optional<CommandeFournisseur> findCommandeFournisseurByCode(String code);
 

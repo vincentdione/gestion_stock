@@ -1,24 +1,24 @@
 package com.ovd.gestionstock.services.impl;
 
+import com.ovd.gestionstock.config.TenantContext;
 import com.ovd.gestionstock.dto.ArticleDto;
 import com.ovd.gestionstock.dto.MvtStkDto;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
-import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.models.TypeMvtStk;
+import com.ovd.gestionstock.models.MvtStk;
 import com.ovd.gestionstock.repositories.MvtStkRepository;
 import com.ovd.gestionstock.services.ArticleService;
 import com.ovd.gestionstock.services.MvtStkService;
+import com.ovd.gestionstock.services.TenantSecurityService;
 import com.ovd.gestionstock.validators.MvtStkValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.AccessDeniedException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,24 +27,62 @@ import java.util.stream.Collectors;
 public class MvtStkServiceImpl implements MvtStkService {
 
     private final MvtStkRepository mvtStkRepository;
-
     private final ArticleService articleService;
-
-
+    private final TenantContext tenantContext;
+    private final TenantSecurityService tenantSecurityService;
 
     @Override
     public List<MvtStkDto> getAllMvtStk() {
-        return mvtStkRepository.findAll().stream().map(MvtStkDto::fromEntity).collect(Collectors.toList());
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        return mvtStkRepository.findAll().stream()
+                .filter(mvt -> currentTenant.equals(mvt.getIdEntreprise()))
+                .map(MvtStkDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteMvtStk(Long id) {
+        if (id == null) {
+            log.error("ID mouvement null");
+            return;
+        }
 
+        Optional<MvtStk> mvtOptional = mvtStkRepository.findById(id);
+        if (mvtOptional.isEmpty()) {
+            log.warn("Mouvement introuvable pour l'id {}", id);
+            return;
+        }
+
+        MvtStk mvt = mvtOptional.get();
+        try {
+            tenantSecurityService.validateAccessToResource(mvt.getIdEntreprise());
+        } catch (AccessDeniedException e) {
+            throw new RuntimeException(e);
+        }
+
+        mvtStkRepository.delete(mvt);
     }
 
     @Override
     public MvtStkDto getMvtStkById(Long id) {
-        return null;
+        if (id == null) {
+            return null;
+        }
+
+        Optional<MvtStk> mvt = mvtStkRepository.findById(id);
+        if (mvt.isEmpty()) return null;
+
+        try {
+            tenantSecurityService.validateAccessToResource(mvt.get().getIdEntreprise());
+        } catch (AccessDeniedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return MvtStkDto.fromEntity(mvt.get());
     }
 
     @Override
@@ -55,8 +93,13 @@ public class MvtStkServiceImpl implements MvtStkService {
         }
 
         ArticleDto article = articleService.getArticleById(idArticle);
-        List<Object[]> stockReelByUnite = mvtStkRepository.stockReelArticleByUnite(idArticle);
+        try {
+            tenantSecurityService.validateAccessToResource(article.getIdEntreprise());
+        } catch (AccessDeniedException e) {
+            throw new RuntimeException(e);
+        }
 
+        List<Object[]> stockReelByUnite = mvtStkRepository.stockReelArticleByUnite(idArticle);
         Map<String, BigDecimal> stockByUnite = new HashMap<>();
         for (Object[] result : stockReelByUnite) {
             String unite = (String) result[0];
@@ -70,102 +113,108 @@ public class MvtStkServiceImpl implements MvtStkService {
     @Override
     public BigDecimal stockReelArticle(Long idArticle) {
         if (idArticle == null) {
-            log.warn("ID article est null");
             return BigDecimal.valueOf(-1);
         }
-        articleService.getArticleById(idArticle);
+
+        ArticleDto article = articleService.getArticleById(idArticle);
+        try {
+            tenantSecurityService.validateAccessToResource(article.getIdEntreprise());
+        } catch (AccessDeniedException e) {
+            throw new RuntimeException(e);
+        }
+
         return mvtStkRepository.stockReelArticle(idArticle);
     }
 
     @Override
     public List<MvtStkDto> mvtStockArticle(Long idArticle) {
-        return mvtStkRepository.findAllByArticleId(idArticle).stream().map(MvtStkDto::fromEntity).collect(Collectors.toList());
+        ArticleDto article = articleService.getArticleById(idArticle);
+        try {
+            tenantSecurityService.validateAccessToResource(article.getIdEntreprise());
+        } catch (AccessDeniedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return mvtStkRepository.findAllByArticleId(idArticle).stream()
+                .map(MvtStkDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
     public MvtStkDto entreeMvtStk(MvtStkDto request) {
-
-        return   entreePositive(TypeMvtStk.ENTREE,request);
+        return entreePositive(TypeMvtStk.ENTREE, request);
     }
 
     @Override
     public MvtStkDto sortieMvtStk(MvtStkDto request) {
-
         return sortieNegative(request, TypeMvtStk.SORTIE);
     }
 
     @Override
     public MvtStkDto correctionMvtStkPos(MvtStkDto request) {
-        return entreePositive(TypeMvtStk.CORRECTION_POS,request);
+        return entreePositive(TypeMvtStk.CORRECTION_POS, request);
     }
 
     @Override
     public MvtStkDto correctionMvtStkNeg(MvtStkDto request) {
-
-       return  sortieNegative(request, TypeMvtStk.CORRECTION_NEG);
+        return sortieNegative(request, TypeMvtStk.CORRECTION_NEG);
     }
 
     @Override
     public BigDecimal stockVenduArticle(Long idArticle) {
-        // Recherche de la somme de la quantité pour les mouvements de stock de type "SORTIE"
         BigDecimal stockVendu = mvtStkRepository.sumQuantiteByTypeMvtStkAndArticleId(TypeMvtStk.SORTIE, idArticle);
-
-        if (stockVendu == null) {
-            stockVendu = BigDecimal.ZERO;
-        }
-
-        return stockVendu;
+        return stockVendu != null ? stockVendu : BigDecimal.ZERO;
     }
 
     @Override
     public Map<String, BigDecimal> stockVenduArticleByUnite(Long idArticle, String type) {
-
         TypeMvtStk typeMvtStk = TypeMvtStk.valueOf(type);
-        log.info("==========================================================================================");
-        log.info(type);
-        log.info("==========================================================================================");
-        List<Object[]> stockVenduByUnite = mvtStkRepository.sumQuantiteByTypeMvtStkAndArticleIdGroupByUnite(typeMvtStk, idArticle);
+        List<Object[]> stockVenduByUnite = mvtStkRepository
+                .sumQuantiteByTypeMvtStkAndArticleIdGroupByUnite(typeMvtStk, idArticle);
 
         Map<String, BigDecimal> stockVenduMap = new HashMap<>();
-
         for (Object[] row : stockVenduByUnite) {
             String unite = (String) row[0];
             BigDecimal quantite = (BigDecimal) row[1];
-
             stockVenduMap.put(unite, quantite);
         }
 
         return stockVenduMap;
     }
 
-    private MvtStkDto entreePositive(TypeMvtStk typeMvtStk,MvtStkDto request){
+    private MvtStkDto entreePositive(TypeMvtStk typeMvtStk, MvtStkDto request) {
         List<String> errors = MvtStkValidator.validate(request);
-        if (!errors.isEmpty()){
-            log.error("Article is not valide");
-            throw new InvalidEntityException("Le mouvement du stock n'est pas valide", ErrorCodes.ARTICLE_NOT_FOUND,errors);
+        if (!errors.isEmpty()) {
+            throw new InvalidEntityException("Le mouvement du stock n'est pas valide", ErrorCodes.MVT_STK_NOT_VALID, errors);
+        }
+
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
         }
 
         request.setQuantite(BigDecimal.valueOf(Math.abs(request.getQuantite().doubleValue())));
         request.setTypeMvtStk(typeMvtStk);
+        request.setIdEntreprise(currentTenant);
+
         return MvtStkDto.fromEntity(mvtStkRepository.save(MvtStkDto.toEntity(request)));
     }
 
     private MvtStkDto sortieNegative(MvtStkDto dto, TypeMvtStk typeMvtStk) {
         List<String> errors = MvtStkValidator.validate(dto);
         if (!errors.isEmpty()) {
-            log.error("Article is not valid {}", dto);
             throw new InvalidEntityException("Le mouvement du stock n'est pas valide", ErrorCodes.MVT_STK_NOT_VALID, errors);
         }
 
-        dto.setQuantite(
-                BigDecimal.valueOf(
-                        Math.abs(dto.getQuantite().doubleValue()) * -1
-                )
-        );
-        dto.setTypeMvtStk(typeMvtStk);
-        return MvtStkDto.fromEntity(
-                mvtStkRepository.save(MvtStkDto.toEntity(dto))
-        );
-    }
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
 
+        dto.setQuantite(BigDecimal.valueOf(Math.abs(dto.getQuantite().doubleValue()) * -1));
+        dto.setTypeMvtStk(typeMvtStk);
+        dto.setIdEntreprise(currentTenant);
+
+        return MvtStkDto.fromEntity(mvtStkRepository.save(MvtStkDto.toEntity(dto)));
+    }
 }

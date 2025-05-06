@@ -1,8 +1,10 @@
 package com.ovd.gestionstock.services.impl;
 
+import com.ovd.gestionstock.config.TenantContext;
 import com.ovd.gestionstock.dto.CategoryDto;
 import com.ovd.gestionstock.models.Category;
 import com.ovd.gestionstock.repositories.CategoryRepository;
+import com.ovd.gestionstock.services.TenantSecurityService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,10 +28,16 @@ class CategoryServiceImplTest {
 
     @Mock
     CategoryRepository categoryRepository;
+    @Mock
+    TenantSecurityService tenantSecurityService;
+
+    @Mock
+    TenantContext tenantContext;
+
 
     @BeforeEach
     void setUp() {
-        categoryService = new CategoryServiceImpl(categoryRepository);
+        categoryService = new CategoryServiceImpl(categoryRepository,tenantSecurityService,tenantContext);
     }
 
     @AfterEach

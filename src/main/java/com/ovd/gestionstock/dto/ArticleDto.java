@@ -23,6 +23,7 @@ public class ArticleDto {
     private BigDecimal tauxTval;
     private BigDecimal prixUnitaireTtc;
     private String photo;
+    private Long idEntreprise;
 
     private SousCategoryDto sousCategoryDto;
 //    private UniteDto unite;
@@ -39,6 +40,7 @@ public class ArticleDto {
                 .prixUnitaireHt(article.getPrixUnitaireHt())
                 .tauxTval(article.getTauxTval())
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
+                .idEntreprise(article.getIdEntreprise())
                 .sousCategoryDto(SousCategoryDto.fromEntity(article.getSousCategory()))
 //                .unite(UniteDto.fromEntity(article.getUnite()))
                 .photo(article.getPhoto())
@@ -57,6 +59,7 @@ public class ArticleDto {
                 .prixUnitaireHt(articleDto.getPrixUnitaireHt())
                 .tauxTval(articleDto.getTauxTval())
                 .prixUnitaireTtc(articleDto.getPrixUnitaireTtc())
+                .idEntreprise(articleDto.getIdEntreprise())
                 .sousCategory(SousCategoryDto.toEntity(articleDto.getSousCategoryDto()))
 //                .unite(UniteDto.toEntity(articleDto.getUnite()))
                 .photo(articleDto.getPhoto())

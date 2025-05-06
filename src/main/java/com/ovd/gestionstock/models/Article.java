@@ -24,7 +24,6 @@ public class Article {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
     private String codeArticle;
     private String designation;
     private BigDecimal prixUnitaireHt;

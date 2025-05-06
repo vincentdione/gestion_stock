@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ClientRepository extends JpaRepository<Client,Long> {
+public interface ClientRepository extends TenantAwareRepository<Client,Long> {
 
     List<Client> findByNomContainingIgnoreCaseOrPrenomContainingIgnoreCaseOrNumTelOrEmail(
             String nom, String prenom, String numTel, String email);
