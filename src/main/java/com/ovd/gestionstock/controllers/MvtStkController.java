@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.controllers;
 
 
+import com.ovd.gestionstock.dto.ArticleStockStatsDto;
 import com.ovd.gestionstock.dto.MvtStkDto;
 import com.ovd.gestionstock.models.ArticleStockInfo;
 import com.ovd.gestionstock.models.ArticleStockInfoDto;
@@ -48,4 +49,9 @@ public interface MvtStkController  {
   @GetMapping(value="/mvtstk/stock-info", produces = MediaType.APPLICATION_JSON_VALUE)
   ResponseEntity<List<ArticleStockInfoDto>> getAllArticlesWithStockInfo();
 
+  @GetMapping(value = "/mvtstk/stats", produces = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<Map<Long, ArticleStockStatsDto>> getArticleStockStats();
+
+  @GetMapping(value = "/mvtstk/stats/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<ArticleStockStatsDto> getArticleStats(@PathVariable Long idArticle);
   }

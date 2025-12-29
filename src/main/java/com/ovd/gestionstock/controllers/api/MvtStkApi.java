@@ -2,6 +2,7 @@ package com.ovd.gestionstock.controllers.api;
 
 import com.ovd.gestionstock.controllers.MvtStkController;
 import com.ovd.gestionstock.dto.ArticleDto;
+import com.ovd.gestionstock.dto.ArticleStockStatsDto;
 import com.ovd.gestionstock.dto.MvtStkDto;
 import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.models.ArticleStockInfo;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +27,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 @Tag(name = "mouvements de stock")
 public class MvtStkApi implements MvtStkController {
 
@@ -136,5 +138,22 @@ public class MvtStkApi implements MvtStkController {
         }
 
         return ResponseEntity.ok(articleStockInfoList);
+    }
+
+    @Override
+    public ResponseEntity<Map<Long, ArticleStockStatsDto>> getArticleStockStats() {
+        return ResponseEntity.ok(service.getArticleStockStats());
+    }
+
+    @Override
+    public ResponseEntity<ArticleStockStatsDto> getArticleStats(@PathVariable Long idArticle) {
+        Map<Long, ArticleStockStatsDto> stats = service.getArticleStockStats();
+        ArticleStockStatsDto articleStats = stats.get(idArticle);
+
+        if (articleStats == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(articleStats);
     }
 }

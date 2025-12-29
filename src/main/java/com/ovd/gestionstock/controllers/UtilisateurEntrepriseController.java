@@ -12,26 +12,26 @@ import java.util.List;
 public interface UtilisateurEntrepriseController {
 
     @PreAuthorize("hasAuthority('admin:create')")
-    @PostMapping(value = "/utilisateurs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UtilisateurDto> saveUser(@RequestBody UtilisateurDto request);
+    @PostMapping(value = "/entreprise/utilisateurs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<UtilisateurDto> saveUser(@RequestBody UtilisateurDto request);
 
     @PreAuthorize("hasAuthority('admin:read')")
-    @GetMapping(value = "/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateurs();
+    @GetMapping(value = "/entreprise/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<UtilisateurDto>> getAllUtilisateurs();
 
     @PreAuthorize("hasAuthority('admin:read')")
-    @GetMapping(value = "/utilisateurs/{idUtilisateur}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable("idUtilisateur") Long id);
+    @GetMapping(value = "/entreprise/utilisateurs/{idUtilisateur}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable("idUtilisateur") Long id);
 
     @PreAuthorize("hasAuthority('admin:read')")
-    @GetMapping(value = "/utilisateurs/getUser/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UtilisateurDto> findByUsername(@PathVariable("username") String username);
+    @GetMapping(value = "/entreprise/utilisateurs/getUser/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<UtilisateurDto> findByUsername(@PathVariable("username") String username);
 
 
     @PreAuthorize("hasAuthority('admin:delete')")
     @Hidden
-    @DeleteMapping(value = "/utilisateurs/delete/{idUtilisateur}")
-    public ResponseEntity deleteUtilisateur(@PathVariable("idUtilisateur") Long idUtilisateur);
+    @DeleteMapping(value = "/entreprise/utilisateurs/delete/{idUtilisateur}")
+    ResponseEntity deleteUtilisateur(@PathVariable("idUtilisateur") Long idUtilisateur);
 
 
 }

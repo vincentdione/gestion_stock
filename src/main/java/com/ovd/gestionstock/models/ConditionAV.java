@@ -20,7 +20,6 @@ public class ConditionAV {
     @GeneratedValue
     private Long id;
 
-
     private BigDecimal quantite;
 
     private BigDecimal prixUnitaireHt;

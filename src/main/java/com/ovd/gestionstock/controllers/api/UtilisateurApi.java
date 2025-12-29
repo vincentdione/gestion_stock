@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 @Tag(name = "utilisateurs")
 @RequestMapping("/api/v1/admin")
 public class UtilisateurApi {

@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.services;
 
+import com.ovd.gestionstock.auth.AuthenticationResponse;
 import com.ovd.gestionstock.dto.ChangerMotDePasseUtilisateurDto;
 import com.ovd.gestionstock.dto.UtilisateurDto;
 
@@ -15,5 +16,5 @@ public interface UtilisateurEntrepriseService {
     public UtilisateurDto getUtilisateurById(Long id);
     public UtilisateurDto findByUsername(String username);
 
-    public UtilisateurDto createUtilisateur(UtilisateurDto request);
+    public AuthenticationResponse createUtilisateur(UtilisateurDto request);
 }

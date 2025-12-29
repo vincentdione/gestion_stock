@@ -17,20 +17,20 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 @Tag(name = "categories")
 public class CategoryApi {
 
     private final CategoryService categoryService;
 
-    @PreAuthorize("hasAuthority('admin:create')")
+    //@PreAuthorize("hasAuthority('admin:create')")
     @PostMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto request) {
         return ResponseEntity.ok(categoryService.createCategory(request));
 
     }
 
-    @PreAuthorize("hasAuthority('admin:read')")
+    //@PreAuthorize("hasAnyAuthority('admin:read')")
     @GetMapping(value = "/categories/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CategoryDto>> getAllCategorys() {
         return ResponseEntity.ok(categoryService.getAllCategory());

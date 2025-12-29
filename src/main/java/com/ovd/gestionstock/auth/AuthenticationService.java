@@ -6,6 +6,7 @@ import com.ovd.gestionstock.config.JwtService;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
 import com.ovd.gestionstock.models.Entreprise;
+import com.ovd.gestionstock.models.Role;
 import com.ovd.gestionstock.models.Utilisateur;
 import com.ovd.gestionstock.repositories.EntrepriseRepository;
 import com.ovd.gestionstock.repositories.UtilisateurRepository;
@@ -42,8 +43,17 @@ public class AuthenticationService {
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
-    Entreprise entreprise = entrepriseRepository.findById(request.getEntrepriseId())
-            .orElseThrow(() -> new InvalidEntityException("Entreprise non trouvée", ErrorCodes.ENTREPRISE_NOT_FOUND));
+
+    Entreprise entreprise = null;
+
+    // Si l'utilisateur n'est pas SUPER_ADMIN, on cherche l'entreprise
+    if (!Role.SUPER_ADMIN.equals(request.getRole())) {
+      entreprise = entrepriseRepository.findById(request.getEntrepriseId())
+              .orElseThrow(() -> new InvalidEntityException("Entreprise non trouvée", ErrorCodes.ENTREPRISE_NOT_FOUND));
+    }
+//
+//    Entreprise entreprise = entrepriseRepository.findById(request.getEntrepriseId())
+//            .orElseThrow(() -> new InvalidEntityException("Entreprise non trouvée", ErrorCodes.ENTREPRISE_NOT_FOUND));
 
     var user = Utilisateur.builder()
             .nom(request.getNom())
@@ -52,7 +62,7 @@ public class AuthenticationService {
             .email(request.getUsername())
             .password(passwordEncoder.encode(request.getPassword()))
             .role(request.getRole())
-            .entreprise(entreprise) // Associer l'entreprise ici
+            .entreprise(entreprise != null ? entreprise : null)
             .build();
 
     var savedUser = repository.save(user);
@@ -66,8 +76,8 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
-            .entrepriseNom(entreprise.getNom()) // Retourner les informations de l'entreprise
-            .roles(Collections.singletonList(roleName))  // Ajout du nom du rôle principal à la réponse
+            .entrepriseNom(entreprise != null ? entreprise.getNom() : null)
+            .roles(Collections.singletonList(roleName))
             .build();
   }
 

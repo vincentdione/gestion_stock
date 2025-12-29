@@ -8,4 +8,6 @@ import java.util.List;
 public interface ArticleRepository extends TenantAwareRepository<Article,Long> {
 
     List<Article> findAllBySousCategoryId(Long idSousCategory);
+    List<Article> findAllByCodeArticleInAndIdEntreprise(List<String> codes, Long idEntreprise);
+
 }

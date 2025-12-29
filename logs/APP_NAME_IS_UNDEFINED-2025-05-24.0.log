@@ -1,0 +1,41 @@
+2025-05-24 15:43:27.553 [] [] INFO  [restartedMain] c.o.g.GestionStockApplication - Starting GestionStockApplication using Java 17.0.7 with PID 26526 (/Users/mac/Desktop/stock/gestion_stock/target/classes started by mac in /Users/mac/Desktop/stock/gestion_stock)
+2025-05-24 15:43:27.559 [] [] INFO  [restartedMain] c.o.g.GestionStockApplication - The following 1 profile is active: "dev"
+2025-05-24 15:43:27.682 [] [] INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-24 15:43:27.684 [] [] INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-24 15:43:30.027 [] [] INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-24 15:43:30.206 [] [] INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 165 ms. Found 19 JPA repository interfaces.
+2025-05-24 15:43:31.999 [] [] INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (http)
+2025-05-24 15:43:32.012 [] [] INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-24 15:43:32.012 [] [] INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-05-24 15:43:32.111 [] [] INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-24 15:43:32.112 [] [] INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4426 ms
+2025-05-24 15:43:32.749 [] [] INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-05-24 15:43:32.995 [] [] INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5e1b5eb1
+2025-05-24 15:43:32.997 [] [] INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-05-24 15:43:33.196 [] [] INFO  [restartedMain] liquibase.database - Set default schema name to public
+2025-05-24 15:43:33.371 [] [] INFO  [restartedMain] liquibase.lockservice - Successfully acquired change log lock
+2025-05-24 15:43:33.728 [] [] INFO  [restartedMain] liquibase.changelog - Reading from public.databasechangelog
+2025-05-24 15:43:33.807 [] [] INFO  [restartedMain] liquibase.lockservice - Successfully released change log lock
+2025-05-24 15:43:33.941 [] [] INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-24 15:43:34.037 [] [] INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+2025-05-24 15:43:34.452 [] [] INFO  [restartedMain] SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-05-24 15:43:34.682 [] [] WARN  [restartedMain] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-05-24 15:43:34.791 [] [] WARN  [restartedMain] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-05-24 15:43:35.784 [] [] WARN  [restartedMain] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.CommandeClient] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-05-24 15:43:35.894 [] [] INFO  [restartedMain] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' created in EhcacheManager.
+2025-05-24 15:43:35.909 [] [] WARN  [restartedMain] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.Client] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-05-24 15:43:35.914 [] [] INFO  [restartedMain] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' created in EhcacheManager.
+2025-05-24 15:43:37.675 [] [] INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-05-24 15:43:37.695 [] [] INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-24 15:43:39.201 [] [] INFO  [restartedMain] c.o.g.config.SimpleCORSFilter - SimpleCORSFilter init
+2025-05-24 15:43:42.315 [] [] WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-24 15:43:43.021 [] [] INFO  [restartedMain] o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoint(s) beneath base path '/actuator'
+2025-05-24 15:43:43.125 [] [] INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@438be684, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@55501c98, org.springframework.security.web.context.SecurityContextHolderFilter@63596ad4, org.springframework.security.web.header.HeaderWriterFilter@12cac6d3, org.springframework.web.filter.CorsFilter@4448d8e, org.springframework.security.web.authentication.logout.LogoutFilter@2cee77c6, com.ovd.gestionstock.config.JwtAuthenticationFilter@63242336, com.ovd.gestionstock.config.TenantFilter@3f1f8df1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e191847, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7f50a57b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@66d2ad75, org.springframework.security.web.session.SessionManagementFilter@30f985dd, org.springframework.security.web.access.ExceptionTranslationFilter@4062b5ea, org.springframework.security.web.access.intercept.AuthorizationFilter@f332fd2]
+2025-05-24 15:43:43.573 [] [] INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-24 15:43:43.655 [] [] INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (http) with context path ''
+2025-05-24 15:43:43.685 [] [] INFO  [restartedMain] c.o.g.GestionStockApplication - Started GestionStockApplication in 17.247 seconds (process running for 18.524)
+2025-05-24 15:56:30.824 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-24 15:56:30.831 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' removed from EhcacheManager.
+2025-05-24 15:56:30.831 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' removed from EhcacheManager.
+2025-05-24 15:56:30.843 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-05-24 15:56:30.862 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

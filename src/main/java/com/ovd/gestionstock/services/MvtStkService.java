@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.services;
 
+import com.ovd.gestionstock.dto.ArticleStockStatsDto;
 import com.ovd.gestionstock.dto.MvtStkDto;
 import com.ovd.gestionstock.models.MvtStk;
 import com.ovd.gestionstock.models.TypeMvtStk;
@@ -29,6 +30,6 @@ public interface MvtStkService {
      BigDecimal stockVenduArticle(Long idArticle);
 
      Map<String, BigDecimal> stockVenduArticleByUnite(Long idArticle, String type);
-
+     Map<Long, ArticleStockStatsDto> getArticleStockStats();
 
 }

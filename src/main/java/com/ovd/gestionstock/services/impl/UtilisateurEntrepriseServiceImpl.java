@@ -1,5 +1,7 @@
 package com.ovd.gestionstock.services.impl;
 
+import com.ovd.gestionstock.auth.AuthenticationResponse;
+import com.ovd.gestionstock.config.JwtService;
 import com.ovd.gestionstock.config.TenantContext;
 import com.ovd.gestionstock.dto.ChangerMotDePasseUtilisateurDto;
 import com.ovd.gestionstock.dto.UtilisateurDto;
@@ -14,9 +16,14 @@ import com.ovd.gestionstock.repositories.UtilisateurRepository;
 import com.ovd.gestionstock.services.TenantSecurityService;
 import com.ovd.gestionstock.services.UtilisateurEntrepriseService;
 import com.ovd.gestionstock.services.UtilisateurService;
+import com.ovd.gestionstock.token.Token;
+import com.ovd.gestionstock.token.TokenRepository;
+import com.ovd.gestionstock.token.TokenType;
 import com.ovd.gestionstock.validators.UtilisateurValidator;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -36,6 +43,10 @@ public class UtilisateurEntrepriseServiceImpl implements UtilisateurEntrepriseSe
     private final TenantContext tenantContext;
     private final TenantSecurityService tenantSecurityService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenRepository tokenRepository;
+
 
     @Override
     public List<UtilisateurDto> getAllUtilisateur() {
@@ -56,6 +67,7 @@ public class UtilisateurEntrepriseServiceImpl implements UtilisateurEntrepriseSe
     }
 
     @Override
+    @Transactional
     public void deleteUtilisateur(Long id) {
         if (id == null) {
             log.error("ID EST NULL");
@@ -71,7 +83,7 @@ public class UtilisateurEntrepriseServiceImpl implements UtilisateurEntrepriseSe
         if (!utilisateur.getEntreprise().getId().equals(currentTenant)) {
             throw new RuntimeException("Accès refusé. Vous ne pouvez pas supprimer cet utilisateur.");
         }
-
+        tokenRepository.deleteByUtilisateur(utilisateur);
         utilisateurRepository.delete(utilisateur);
     }
 
@@ -125,8 +137,7 @@ public class UtilisateurEntrepriseServiceImpl implements UtilisateurEntrepriseSe
                         ErrorCodes.UTILISATEUR_NOT_FOUND));
     }
 
-    @Override
-    public UtilisateurDto createUtilisateur(UtilisateurDto request) {
+    public AuthenticationResponse createUtilisateur(UtilisateurDto request) {
         Long currentTenant = tenantContext.getCurrentTenant();
         if (currentTenant == null) {
             throw new IllegalStateException("Aucun tenant défini dans le contexte");
@@ -138,25 +149,61 @@ public class UtilisateurEntrepriseServiceImpl implements UtilisateurEntrepriseSe
             throw new InvalidEntityException("Saisissez les champs obligatoires", ErrorCodes.UTILISATEUR_NOT_FOUND);
         }
 
-        if (userAlreadyExists(request.getEmail())) {
-            throw new InvalidEntityException("Un autre utilisateur avec le même email existe déjà", ErrorCodes.UTILISATEUR_ALREADY_EXISTS,
-                    Collections.singletonList("Un autre utilisateur avec le même email existe déjà dans la BDD"));
+
+        // Vérification si un utilisateur avec le même email ou username existe déjà dans cette entreprise
+        if (userAlreadyExists(request.getEmail(), request.getUsername(), currentTenant)) {
+            throw new InvalidEntityException("Un autre utilisateur avec le même email ou username existe déjà dans cette entreprise",
+                    ErrorCodes.UTILISATEUR_ALREADY_EXISTS,
+                    Collections.singletonList("Email ou username déjà utilisé dans cette entreprise"));
         }
 
-        request.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        Utilisateur utilisateur = UtilisateurDto.toEntity(request);
-        utilisateur.setEntreprise(entrepriseRepository.findById(currentTenant)
+        Entreprise entreprise = entrepriseRepository.findById(currentTenant)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Entreprise non trouvée avec l'ID: " + currentTenant,
-                        ErrorCodes.ENTREPRISE_NOT_FOUND)));
+                        ErrorCodes.ENTREPRISE_NOT_FOUND));
 
-        return UtilisateurDto.fromEntity(utilisateurRepository.save(utilisateur));
+        Utilisateur utilisateur = Utilisateur.builder()
+                .nom(request.getNom())
+                .prenom(request.getPrenom())
+                .email(request.getEmail())
+                .username(request.getUsername())
+                .role(request.getRole())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .entreprise(entreprise)
+                .build();
+
+        Utilisateur savedUser = utilisateurRepository.save(utilisateur);
+
+        String accessToken = jwtService.generateToken(savedUser);
+        String refreshToken = jwtService.generateRefreshToken(savedUser);
+        saveUserToken(savedUser, accessToken);
+
+        String roleName = "ROLE_" + utilisateur.getRole().name();
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .entrepriseNom(entreprise.getNom())
+                .roles(Collections.singletonList(roleName))
+                .build();
     }
 
-    private boolean userAlreadyExists(String email) {
-        return utilisateurRepository.existsByEmail(email);
+    private void saveUserToken(Utilisateur utilisateur, String jwtToken) {
+        var token = Token.builder()
+                .utilisateur(utilisateur)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
     }
+
+    private boolean userAlreadyExists(String email, String username, Long entrepriseId) {
+        return utilisateurRepository.existsByEmailAndEntrepriseId(email, entrepriseId)
+                || utilisateurRepository.existsByUsernameAndEntrepriseId(username, entrepriseId)
+                || utilisateurRepository.existsByEmail(email);
+    }
+
 
     private void validate(ChangerMotDePasseUtilisateurDto dto) {
         if (dto == null || !StringUtils.hasText(dto.getMotDePasse())) {

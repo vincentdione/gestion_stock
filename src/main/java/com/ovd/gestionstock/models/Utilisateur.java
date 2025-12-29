@@ -49,7 +49,7 @@ public class Utilisateur implements UserDetails {
     private Role role;
 
 
-    @OneToMany(mappedBy = "utilisateur")
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Token> tokens;
 
     @OneToMany(mappedBy = "utilisateur")

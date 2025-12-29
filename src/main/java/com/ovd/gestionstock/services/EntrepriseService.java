@@ -2,6 +2,7 @@ package com.ovd.gestionstock.services;
 
 import com.ovd.gestionstock.dto.EntrepriseDto;
 import com.ovd.gestionstock.models.Entreprise;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface EntrepriseService {
 
     public EntrepriseDto getEntrepriseById(Long id);
 
-    public EntrepriseDto createEntreprise(EntrepriseDto request);
+    EntrepriseDto createEntreprise(EntrepriseDto request);
 }

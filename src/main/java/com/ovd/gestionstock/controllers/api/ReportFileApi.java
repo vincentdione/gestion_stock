@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Tag(name = "reports")
 @RequestMapping("/api/v1/admin")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class ReportFileApi {
 
     private  final ReportService reportService;

@@ -104,16 +104,25 @@ public class ModePayementServiceImpl implements ModePayementService {
             throw new InvalidEntityException("Les données sont invalides : " + String.join(", ", errors), ErrorCodes.MODE_PAYEMENT_NOT_FOUND);
         }
 
-        if (tenantContext.getCurrentTenant() == null) {
+        Long idEntreprise = tenantContext.getCurrentTenant();
+        if (idEntreprise == null) {
             throw new InvalidOperationException("Aucun tenant défini dans le contexte", ErrorCodes.TENANT_CONTEXT_REQUIRED);
         }
 
+        // Vérifie si un mode de paiement avec le même code existe déjà pour l'entreprise
+        Optional<ModePayement> existingMode = modePayementRepository.findByCodeAndIdEntreprise(modeDto.getCode(), idEntreprise);
+        if (existingMode.isPresent()) {
+            log.warn("Un mode de paiement avec le code '{}' existe déjà pour l'entreprise {}", modeDto.getCode(), idEntreprise);
+            throw new InvalidEntityException("Un mode de paiement avec ce code existe déjà", ErrorCodes.MODE_PAYEMENT_ALREADY_EXISTS);
+        }
+
         ModePayement mode = ModePayementDto.toEntity(modeDto);
-        mode.setIdEntreprise(tenantContext.getCurrentTenant());
+        mode.setIdEntreprise(idEntreprise);
 
         ModePayement savedMode = modePayementRepository.save(mode);
         log.info("Mode de paiement créé avec succès avec l'ID {}", savedMode.getId());
 
         return ModePayementDto.fromEntity(savedMode);
     }
+
 }

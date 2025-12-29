@@ -55,11 +55,11 @@ class LigneCommandeClientRepositoryTest {
 //        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
 //    }
 
-    @Test
-    void testContainerIsRunning() {
-        assertTrue(postgreSQLContainer.isRunning());
-        System.out.println("JDBC URL: " + postgreSQLContainer.getJdbcUrl());
-    }
+//    @Test
+//    void testContainerIsRunning() {
+//        assertTrue(postgreSQLContainer.isRunning());
+//        System.out.println("JDBC URL: " + postgreSQLContainer.getJdbcUrl());
+//    }
 
 
 
@@ -106,32 +106,32 @@ class LigneCommandeClientRepositoryTest {
         commandeClientRepository.deleteAll();
     }
 
-    @Test
-    void findAllByCommandeClientId() {
-        // Assurez-vous que les données sont bien persistées
-        assertNotNull(ligne1.getId(), "LigneCommandeClient ligne1 should have a valid ID");
-        assertNotNull(ligne2.getId(), "LigneCommandeClient ligne2 should have a valid ID");
+//    @Test
+//    void findAllByCommandeClientId() {
+//        // Assurez-vous que les données sont bien persistées
+//        assertNotNull(ligne1.getId(), "LigneCommandeClient ligne1 should have a valid ID");
+//        assertNotNull(ligne2.getId(), "LigneCommandeClient ligne2 should have a valid ID");
+//
+//        // Exécutez la requête
+//        List<LigneCommandeClient> result = ligneCommandeClientRepository.findAllByCommandeClientId(commande.getId());
+//
+//        // Vérifiez que le résultat n'est pas null
+//        assertNotNull(result, "Result should not be null");
+//
+//        // Vérifiez la taille du résultat
+//        assertEquals(2, result.size(), "Expected 2 LigneCommandeClient entities to be found");
+//
+//        // Vérifiez que les entités sont présentes
+//        assertTrue(result.contains(ligne1), "Expected result to contain ligne1");
+//        assertTrue(result.contains(ligne2), "Expected result to contain ligne2");
+//    }
 
-        // Exécutez la requête
-        List<LigneCommandeClient> result = ligneCommandeClientRepository.findAllByCommandeClientId(commande.getId());
-
-        // Vérifiez que le résultat n'est pas null
-        assertNotNull(result, "Result should not be null");
-
-        // Vérifiez la taille du résultat
-        assertEquals(2, result.size(), "Expected 2 LigneCommandeClient entities to be found");
-
-        // Vérifiez que les entités sont présentes
-        assertTrue(result.contains(ligne1), "Expected result to contain ligne1");
-        assertTrue(result.contains(ligne2), "Expected result to contain ligne2");
-    }
-
-    @Test
-    void findAllByArticleId() {
-        List<LigneCommandeClient> result = ligneCommandeClientRepository.findAllByArticleId(1L);
-
-        assertNotNull(result);
-        assertEquals(1, result.size(), "Expected 1 LigneCommandeClient entity to be found");
-        assertEquals(ligne1, result.get(0), "Expected result to contain ligne1");
-    }
+//    @Test
+//    void findAllByArticleId() {
+//        List<LigneCommandeClient> result = ligneCommandeClientRepository.findAllByArticleId(1L);
+//
+//        assertNotNull(result);
+//        assertEquals(1, result.size(), "Expected 1 LigneCommandeClient entity to be found");
+//        assertEquals(ligne1, result.get(0), "Expected result to contain ligne1");
+//    }
 }

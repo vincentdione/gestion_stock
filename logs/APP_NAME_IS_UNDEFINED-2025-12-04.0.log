@@ -1,0 +1,10 @@
+2025-12-04 01:28:21.986 [] [] WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9h11s40ms).
+2025-12-04 03:59:52.926 [] [] WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h29s959ms).
+2025-12-04 12:16:43.389 [] [] WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8h16m50s149ms).
+2025-12-04 13:33:47.737 [] [] WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h16m38s8ms).
+2025-12-04 13:34:23.846 [] [] WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m2s764ms).
+2025-12-04 14:02:07.106 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-04 14:02:07.133 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' removed from EhcacheManager.
+2025-12-04 14:02:07.134 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' removed from EhcacheManager.
+2025-12-04 14:02:07.166 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-04 14:02:07.172 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

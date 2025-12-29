@@ -54,10 +54,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     jwt = authHeader.substring(7).trim();
-    log.info("++++++++++++++++++++++++++++++++++++++++++++++++++");
-    log.info( String.valueOf(authHeader));
-    log.info(jwt);
-    log.info("++++++++++++++++++++++++++++++++++++++++++++++++++");
     if (jwt.isEmpty() || jwt.split("\\.").length != 3) {
       log.error("JWT vide ou malformé détecté : {}", jwt);
       filterChain.doFilter(request, response);

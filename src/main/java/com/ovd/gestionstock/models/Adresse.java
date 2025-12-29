@@ -15,8 +15,6 @@ import java.io.Serializable;
 @Embeddable
 public class Adresse implements Serializable {
 
-
-
     private String adresse1;
     private String adresse2;
     private String ville;

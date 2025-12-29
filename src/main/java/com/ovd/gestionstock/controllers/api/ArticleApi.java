@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('ADMIN','USER','MANAGEMENT')")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 @Tag(name = "articles")
 @RequestMapping("/api/v1/admin")
 public class ArticleApi {

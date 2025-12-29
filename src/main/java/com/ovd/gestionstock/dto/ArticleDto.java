@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -18,6 +19,7 @@ public class ArticleDto {
 
     private Long id;
     private String codeArticle;
+    private String codeBarre;
     private String designation;
     private BigDecimal prixUnitaireHt;
     private BigDecimal tauxTval;
@@ -26,7 +28,8 @@ public class ArticleDto {
     private Long idEntreprise;
 
     private SousCategoryDto sousCategoryDto;
-//    private UniteDto unite;
+    private List<UniteDto> unites;
+
 
     public static ArticleDto fromEntity (Article article){
         if (article == null){
@@ -36,13 +39,21 @@ public class ArticleDto {
         return ArticleDto.builder()
                 .id(article.getId())
                 .codeArticle(article.getCodeArticle())
+                .codeBarre(article.getCodeBarre())
                 .designation(article.getDesignation())
                 .prixUnitaireHt(article.getPrixUnitaireHt())
                 .tauxTval(article.getTauxTval())
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
                 .idEntreprise(article.getIdEntreprise())
                 .sousCategoryDto(SousCategoryDto.fromEntity(article.getSousCategory()))
-//                .unite(UniteDto.fromEntity(article.getUnite()))
+                .unites(
+                        article.getConditions() != null ?
+                                article.getConditions().stream()
+                                        .map(cond -> UniteDto.fromEntity(cond.getUnite()))
+                                        .collect(Collectors.toList())
+                                : null
+                )
+
                 .photo(article.getPhoto())
                 .build();
     }
@@ -55,6 +66,7 @@ public class ArticleDto {
         return Article.builder()
                 .id(articleDto.getId())
                 .codeArticle(articleDto.getCodeArticle())
+                .codeBarre(articleDto.getCodeBarre())
                 .designation(articleDto.getDesignation())
                 .prixUnitaireHt(articleDto.getPrixUnitaireHt())
                 .tauxTval(articleDto.getTauxTval())

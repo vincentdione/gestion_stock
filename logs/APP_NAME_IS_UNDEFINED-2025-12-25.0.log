@@ -1,0 +1,550 @@
+2025-12-25 15:53:59.238 [] [] INFO  [main] c.o.g.GestionStockApplicationTests - Starting GestionStockApplicationTests using Java 17.0.8 with PID 25757 (started by mac in /Users/mac/Desktop/stock/gestion_stock)
+2025-12-25 15:53:59.242 [] [] INFO  [main] c.o.g.GestionStockApplicationTests - The following 1 profile is active: "dev"
+2025-12-25 15:54:00.742 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-25 15:54:00.893 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 140 ms. Found 19 JPA repository interfaces.
+2025-12-25 15:54:01.685 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-25 15:54:02.066 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@39851c5
+2025-12-25 15:54:02.075 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-25 15:54:02.384 [] [] INFO  [main] liquibase.database - Set default schema name to public
+2025-12-25 15:54:02.529 [] [] INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-12-25 15:54:02.851 [] [] INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-12-25 15:54:02.916 [] [] INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-12-25 15:54:03.209 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-25 15:54:03.370 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+2025-12-25 15:54:04.045 [] [] INFO  [main] SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-12-25 15:54:04.339 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:54:04.420 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:54:04.892 [] [] WARN  [main] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.Client] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-12-25 15:54:04.989 [] [] INFO  [main] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' created in EhcacheManager.
+2025-12-25 15:54:05.001 [] [] WARN  [main] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.CommandeClient] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-12-25 15:54:05.005 [] [] INFO  [main] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' created in EhcacheManager.
+2025-12-25 15:54:06.247 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-12-25 15:54:06.256 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:54:07.224 [] [] INFO  [main] c.o.g.config.SimpleCORSFilter - SimpleCORSFilter init
+2025-12-25 15:54:08.541 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-25 15:54:09.090 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2025-12-25 15:54:09.153 [] [] INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@44474e84, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@375c6b98, org.springframework.security.web.context.SecurityContextHolderFilter@3a5ecb62, org.springframework.security.web.header.HeaderWriterFilter@1e0630cc, org.springframework.web.filter.CorsFilter@f22cf0e, org.springframework.security.web.authentication.logout.LogoutFilter@3eb999b2, com.ovd.gestionstock.config.JwtAuthenticationFilter@1abe611c, com.ovd.gestionstock.config.TenantFilter@6b6d68d2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7643c43, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4e2abbac, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@48528d5d, org.springframework.security.web.session.SessionManagementFilter@1b0f3f57, org.springframework.security.web.access.ExceptionTranslationFilter@47fc346e, org.springframework.security.web.access.intercept.AuthorizationFilter@41865dc1]
+2025-12-25 15:54:09.637 [] [] INFO  [main] c.o.g.GestionStockApplicationTests - Started GestionStockApplicationTests in 10.949 seconds (process running for 12.088)
+2025-12-25 15:54:09.821 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.ArticleRepositoryTest]: ArticleRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:54:09.841 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.ArticleRepositoryTest
+2025-12-25 15:54:10.009 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.ClientRepositoryTest]: ClientRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:54:10.012 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.ClientRepositoryTest
+2025-12-25 15:54:10.101 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.CommandeFournisseurRepositoryTest]: CommandeFournisseurRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:54:10.102 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.CommandeFournisseurRepositoryTest
+2025-12-25 15:54:10.162 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.CategoryRepositoryTest]: CategoryRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:54:10.164 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.CategoryRepositoryTest
+2025-12-25 15:54:10.213 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.ConditionAVRepositoryTest]: ConditionAVRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:54:10.225 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.ConditionAVRepositoryTest
+2025-12-25 15:54:10.267 [] [] INFO  [main] o.t.utility.ImageNameSubstitutor - Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2025-12-25 15:54:10.502 [] [] INFO  [main] o.t.d.DockerClientProviderStrategy - Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2025-12-25 15:54:10.813 [] [] INFO  [main] o.t.d.DockerClientProviderStrategy - Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2025-12-25 15:54:10.814 [] [] INFO  [main] o.testcontainers.DockerClientFactory - Docker host IP address is localhost
+2025-12-25 15:54:10.843 [] [] INFO  [main] o.testcontainers.DockerClientFactory - Connected to docker: 
+  Server Version: 24.0.6
+  API Version: 1.43
+  Operating System: Docker Desktop
+  Total Memory: 7856 MB
+2025-12-25 15:54:10.890 [] [] INFO  [main] tc.testcontainers/ryuk:0.4.0 - Pulling docker image: testcontainers/ryuk:0.4.0. Please be patient; this may take some time but only needs to be done once.
+2025-12-25 15:54:12.658 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Starting to pull image
+2025-12-25 15:54:12.676 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2025-12-25 15:54:13.460 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (59 KB/? MB)
+2025-12-25 15:54:13.571 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (3 MB/? MB)
+2025-12-25 15:54:13.579 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (3 MB/5 MB)
+2025-12-25 15:54:13.805 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (4 MB/5 MB)
+2025-12-25 15:54:14.057 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (4 MB/5 MB)
+2025-12-25 15:54:14.154 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (5 MB/5 MB)
+2025-12-25 15:54:14.185 [] [] INFO  [docker-java-stream-611149849] tc.testcontainers/ryuk:0.4.0 - Pull complete. 3 layers, pulled in 1s (downloaded 5 MB at 5 MB/s)
+2025-12-25 15:54:14.241 [] [] INFO  [main] tc.testcontainers/ryuk:0.4.0 - Creating container for image: testcontainers/ryuk:0.4.0
+2025-12-25 15:54:14.595 [] [] INFO  [main] tc.testcontainers/ryuk:0.4.0 - Container testcontainers/ryuk:0.4.0 is starting: c2f59831233e9a3b2dd1a91b0fbc2b2a116e3a729f697868893cf9152e84fcfc
+2025-12-25 15:54:15.979 [] [] INFO  [main] tc.testcontainers/ryuk:0.4.0 - Container testcontainers/ryuk:0.4.0 started in PT5.126465S
+2025-12-25 15:54:16.000 [] [] INFO  [main] o.t.utility.RyukResourceReaper - Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2025-12-25 15:54:16.000 [] [] INFO  [main] o.testcontainers.DockerClientFactory - Checking the system...
+2025-12-25 15:54:16.001 [] [] INFO  [main] o.testcontainers.DockerClientFactory - ✔︎ Docker server version should be at least 1.6.0
+2025-12-25 15:54:16.002 [] [] INFO  [main] tc.postgres:latest - Creating container for image: postgres:latest
+2025-12-25 15:54:16.085 [] [] INFO  [main] tc.postgres:latest - Container postgres:latest is starting: 0de258fd3d67a2e668d604294a2682787ef18ef02ac2f62eba6ea715d11d9663
+2025-12-25 15:54:19.901 [] [] INFO  [main] tc.postgres:latest - Container postgres:latest started in PT3.899063S
+2025-12-25 15:54:19.902 [] [] INFO  [main] tc.postgres:latest - Container is started (JDBC URL: jdbc:postgresql://localhost:50227/test?loggerLevel=OFF)
+2025-12-25 15:54:19.996 [] [] INFO  [main] c.o.g.r.ConditionAVRepositoryTest - Starting ConditionAVRepositoryTest using Java 17.0.8 with PID 25757 (started by mac in /Users/mac/Desktop/stock/gestion_stock)
+2025-12-25 15:54:19.997 [] [] INFO  [main] c.o.g.r.ConditionAVRepositoryTest - The following 1 profile is active: "dev"
+2025-12-25 15:54:20.202 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-25 15:54:20.254 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 50 ms. Found 19 JPA repository interfaces.
+2025-12-25 15:54:20.302 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-25 15:54:20.320 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@5f37597b
+2025-12-25 15:54:20.321 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-25 15:54:20.330 [] [] INFO  [main] liquibase.database - Set default schema name to public
+2025-12-25 15:54:20.360 [] [] INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-12-25 15:54:20.422 [] [] INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-12-25 15:54:20.442 [] [] INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-12-25 15:54:20.466 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-25 15:54:20.475 [] [] INFO  [main] SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-12-25 15:54:20.492 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:54:20.548 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:54:21.063 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-12-25 15:54:21.063 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:54:21.493 [] [] INFO  [main] c.o.g.r.ConditionAVRepositoryTest - Started ConditionAVRepositoryTest in 1.536 seconds (process running for 23.945)
+2025-12-25 15:54:21.890 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.LigneCommandeClientRepositoryTest]: LigneCommandeClientRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:54:21.891 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.LigneCommandeClientRepositoryTest
+2025-12-25 15:54:22.006 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.CommandeClientRepositoryTest]: CommandeClientRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:54:22.008 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.CommandeClientRepositoryTest
+2025-12-25 15:54:22.117 [] [] WARN  [main] c.o.g.s.impl.CategoryServiceImpl - Aucune catégorie trouvée pour le tenant 0
+2025-12-25 15:54:22.153 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:54:22.162 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' removed from EhcacheManager.
+2025-12-25 15:54:22.163 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' removed from EhcacheManager.
+2025-12-25 15:54:22.172 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-25 15:54:22.178 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-25 15:54:22.180 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:54:22.181 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-25 15:54:22.189 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-25 15:55:33.827 [] [] INFO  [main] c.o.g.GestionStockApplicationTests - Starting GestionStockApplicationTests using Java 17.0.8 with PID 27259 (started by mac in /Users/mac/Desktop/stock/gestion_stock)
+2025-12-25 15:55:33.831 [] [] INFO  [main] c.o.g.GestionStockApplicationTests - The following 1 profile is active: "dev"
+2025-12-25 15:55:35.057 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-25 15:55:35.186 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 120 ms. Found 19 JPA repository interfaces.
+2025-12-25 15:55:35.713 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-25 15:55:35.941 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@24405466
+2025-12-25 15:55:35.942 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-25 15:55:36.073 [] [] INFO  [main] liquibase.database - Set default schema name to public
+2025-12-25 15:55:36.161 [] [] INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-12-25 15:55:36.357 [] [] INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-12-25 15:55:36.413 [] [] INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-12-25 15:55:36.530 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-25 15:55:36.604 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+2025-12-25 15:55:36.922 [] [] INFO  [main] SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-12-25 15:55:37.118 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:55:37.162 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:55:37.769 [] [] WARN  [main] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.CommandeClient] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-12-25 15:55:37.863 [] [] INFO  [main] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' created in EhcacheManager.
+2025-12-25 15:55:37.878 [] [] WARN  [main] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.Client] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-12-25 15:55:37.881 [] [] INFO  [main] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' created in EhcacheManager.
+2025-12-25 15:55:38.958 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-12-25 15:55:38.976 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:55:39.778 [] [] INFO  [main] c.o.g.config.SimpleCORSFilter - SimpleCORSFilter init
+2025-12-25 15:55:41.092 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-25 15:55:41.575 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2025-12-25 15:55:41.630 [] [] INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5bc54087, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@50cefed2, org.springframework.security.web.context.SecurityContextHolderFilter@fd42b93, org.springframework.security.web.header.HeaderWriterFilter@31ba0af0, org.springframework.web.filter.CorsFilter@153740c7, org.springframework.security.web.authentication.logout.LogoutFilter@339852ab, com.ovd.gestionstock.config.JwtAuthenticationFilter@6bb24de1, com.ovd.gestionstock.config.TenantFilter@77f5cffd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@491665ab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@9573850, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1164d004, org.springframework.security.web.session.SessionManagementFilter@abc771e, org.springframework.security.web.access.ExceptionTranslationFilter@7ed47927, org.springframework.security.web.access.intercept.AuthorizationFilter@68ac7598]
+2025-12-25 15:55:42.089 [] [] INFO  [main] c.o.g.GestionStockApplicationTests - Started GestionStockApplicationTests in 8.703 seconds (process running for 9.856)
+2025-12-25 15:55:42.270 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.ArticleRepositoryTest]: ArticleRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:55:42.291 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.ArticleRepositoryTest
+2025-12-25 15:55:42.448 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.ClientRepositoryTest]: ClientRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:55:42.450 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.ClientRepositoryTest
+2025-12-25 15:55:42.521 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.CommandeFournisseurRepositoryTest]: CommandeFournisseurRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:55:42.523 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.CommandeFournisseurRepositoryTest
+2025-12-25 15:55:42.585 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.CategoryRepositoryTest]: CategoryRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:55:42.587 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.CategoryRepositoryTest
+2025-12-25 15:55:42.644 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.ConditionAVRepositoryTest]: ConditionAVRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:55:42.657 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.ConditionAVRepositoryTest
+2025-12-25 15:55:42.734 [] [] INFO  [main] o.t.utility.ImageNameSubstitutor - Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2025-12-25 15:55:42.946 [] [] INFO  [main] o.t.d.DockerClientProviderStrategy - Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2025-12-25 15:55:43.218 [] [] INFO  [main] o.t.d.DockerClientProviderStrategy - Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2025-12-25 15:55:43.219 [] [] INFO  [main] o.testcontainers.DockerClientFactory - Docker host IP address is localhost
+2025-12-25 15:55:43.239 [] [] INFO  [main] o.testcontainers.DockerClientFactory - Connected to docker: 
+  Server Version: 24.0.6
+  API Version: 1.43
+  Operating System: Docker Desktop
+  Total Memory: 7856 MB
+2025-12-25 15:55:43.269 [] [] INFO  [main] tc.testcontainers/ryuk:0.4.0 - Creating container for image: testcontainers/ryuk:0.4.0
+2025-12-25 15:55:43.693 [] [] INFO  [main] tc.testcontainers/ryuk:0.4.0 - Container testcontainers/ryuk:0.4.0 is starting: 4b0de9d7b114bdb460eed1b89dbf758da0cb7423b5613739ca51c3a787f4aac1
+2025-12-25 15:55:44.215 [] [] INFO  [main] tc.testcontainers/ryuk:0.4.0 - Container testcontainers/ryuk:0.4.0 started in PT0.966912S
+2025-12-25 15:55:44.223 [] [] INFO  [main] o.t.utility.RyukResourceReaper - Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2025-12-25 15:55:44.224 [] [] INFO  [main] o.testcontainers.DockerClientFactory - Checking the system...
+2025-12-25 15:55:44.225 [] [] INFO  [main] o.testcontainers.DockerClientFactory - ✔︎ Docker server version should be at least 1.6.0
+2025-12-25 15:55:44.226 [] [] INFO  [main] tc.postgres:latest - Creating container for image: postgres:latest
+2025-12-25 15:55:44.288 [] [] INFO  [main] tc.postgres:latest - Container postgres:latest is starting: a9cc20af8bc3d0105c1628146b492618830ee09ab49a346c5bc5e7041139ce7a
+2025-12-25 15:55:46.294 [] [] INFO  [main] tc.postgres:latest - Container postgres:latest started in PT2.068342S
+2025-12-25 15:55:46.295 [] [] INFO  [main] tc.postgres:latest - Container is started (JDBC URL: jdbc:postgresql://localhost:50255/test?loggerLevel=OFF)
+2025-12-25 15:55:46.352 [] [] INFO  [main] c.o.g.r.ConditionAVRepositoryTest - Starting ConditionAVRepositoryTest using Java 17.0.8 with PID 27259 (started by mac in /Users/mac/Desktop/stock/gestion_stock)
+2025-12-25 15:55:46.353 [] [] INFO  [main] c.o.g.r.ConditionAVRepositoryTest - The following 1 profile is active: "dev"
+2025-12-25 15:55:46.471 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-25 15:55:46.525 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 19 JPA repository interfaces.
+2025-12-25 15:55:46.593 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-25 15:55:46.613 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@6b1a2c9f
+2025-12-25 15:55:46.613 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-25 15:55:46.623 [] [] INFO  [main] liquibase.database - Set default schema name to public
+2025-12-25 15:55:46.649 [] [] INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-12-25 15:55:46.709 [] [] INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-12-25 15:55:46.730 [] [] INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-12-25 15:55:46.757 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-25 15:55:46.767 [] [] INFO  [main] SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-12-25 15:55:46.786 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:55:46.821 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:55:47.272 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-12-25 15:55:47.272 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:55:47.708 [] [] INFO  [main] c.o.g.r.ConditionAVRepositoryTest - Started ConditionAVRepositoryTest in 1.385 seconds (process running for 15.476)
+2025-12-25 15:55:48.032 [] [] INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.ovd.gestionstock.repositories.CommandeClientRepositoryTest]: CommandeClientRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-25 15:55:48.034 [] [] INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.ovd.gestionstock.GestionStockApplication for test class com.ovd.gestionstock.repositories.CommandeClientRepositoryTest
+2025-12-25 15:55:48.149 [] [] WARN  [main] c.o.g.s.impl.CategoryServiceImpl - Aucune catégorie trouvée pour le tenant 0
+2025-12-25 15:55:48.201 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:55:48.206 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' removed from EhcacheManager.
+2025-12-25 15:55:48.207 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' removed from EhcacheManager.
+2025-12-25 15:55:48.214 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-25 15:55:48.220 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-25 15:55:48.223 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:55:48.223 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-25 15:55:48.238 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-25 15:57:04.431 [] [] INFO  [restartedMain] c.o.g.GestionStockApplication - Starting GestionStockApplication using Java 17.0.7 with PID 28654 (/Users/mac/Desktop/stock/gestion_stock/target/classes started by mac in /Users/mac/Desktop/stock/gestion_stock)
+2025-12-25 15:57:04.433 [] [] INFO  [restartedMain] c.o.g.GestionStockApplication - The following 1 profile is active: "dev"
+2025-12-25 15:57:04.479 [] [] INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-25 15:57:04.480 [] [] INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-25 15:57:05.831 [] [] INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-25 15:57:05.978 [] [] INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 139 ms. Found 19 JPA repository interfaces.
+2025-12-25 15:57:06.891 [] [] INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (http)
+2025-12-25 15:57:06.900 [] [] INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-25 15:57:06.901 [] [] INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-12-25 15:57:06.971 [] [] INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-12-25 15:57:06.971 [] [] INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2490 ms
+2025-12-25 15:57:07.337 [] [] INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-25 15:57:07.484 [] [] INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1f874f73
+2025-12-25 15:57:07.486 [] [] INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-25 15:57:07.638 [] [] INFO  [restartedMain] liquibase.database - Set default schema name to public
+2025-12-25 15:57:07.718 [] [] INFO  [restartedMain] liquibase.lockservice - Successfully acquired change log lock
+2025-12-25 15:57:07.940 [] [] INFO  [restartedMain] liquibase.changelog - Reading from public.databasechangelog
+2025-12-25 15:57:07.982 [] [] INFO  [restartedMain] liquibase.lockservice - Successfully released change log lock
+2025-12-25 15:57:08.073 [] [] INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-25 15:57:08.114 [] [] INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+2025-12-25 15:57:08.394 [] [] INFO  [restartedMain] SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-12-25 15:57:08.551 [] [] WARN  [restartedMain] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:57:08.609 [] [] WARN  [restartedMain] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-12-25 15:57:08.975 [] [] WARN  [restartedMain] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.CommandeClient] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-12-25 15:57:09.034 [] [] INFO  [restartedMain] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' created in EhcacheManager.
+2025-12-25 15:57:09.044 [] [] WARN  [restartedMain] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.Client] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-12-25 15:57:09.047 [] [] INFO  [restartedMain] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' created in EhcacheManager.
+2025-12-25 15:57:10.130 [] [] INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-12-25 15:57:10.137 [] [] INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-25 15:57:10.918 [] [] INFO  [restartedMain] c.o.g.config.SimpleCORSFilter - SimpleCORSFilter init
+2025-12-25 15:57:11.904 [] [] WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-25 15:57:12.251 [] [] INFO  [restartedMain] o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoint(s) beneath base path '/actuator'
+2025-12-25 15:57:12.300 [] [] INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6d2fd556, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@da800c, org.springframework.security.web.context.SecurityContextHolderFilter@4f5a727b, org.springframework.security.web.header.HeaderWriterFilter@19f48017, org.springframework.web.filter.CorsFilter@4cd126e2, org.springframework.security.web.authentication.logout.LogoutFilter@26a4c0d7, com.ovd.gestionstock.config.JwtAuthenticationFilter@1541aa78, com.ovd.gestionstock.config.TenantFilter@2f6ff695, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7599093e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@121d51a7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@79254855, org.springframework.security.web.session.SessionManagementFilter@4daeea51, org.springframework.security.web.access.ExceptionTranslationFilter@4c66ec03, org.springframework.security.web.access.intercept.AuthorizationFilter@2459383f]
+2025-12-25 15:57:12.586 [] [] INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-12-25 15:57:12.650 [] [] INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (http) with context path ''
+2025-12-25 15:57:12.671 [] [] INFO  [restartedMain] c.o.g.GestionStockApplication - Started GestionStockApplication in 8.992 seconds (process running for 10.032)
+2025-12-25 16:03:57.434 [] [] INFO  [http-nio-8084-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-25 16:03:57.439 [] [] INFO  [http-nio-8084-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-25 16:03:57.455 [] [] INFO  [http-nio-8084-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 15 ms
+2025-12-25 16:03:58.106 [694d525dda2395262971e16cb90b7b14] [ea8a9d01a1fa7f2b] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:03:58.105 [694d525df6fa3cc566150e8a0a8b3381] [8e04a9100a5a4e37] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:03:58.106 [694d525d80c2e4f8658cab50e890dc50] [e94de9f8a145ae79] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:03:58.106 [694d525d026c96606f6caf93dd826f58] [4fd639ee4531f5ac] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:03:58.106 [694d525dd2f10055afa086774779effd] [b856ad83c7daf85a] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:03:58.106 [694d525dc180c94ebd3d51c6bb27e0dc] [5d5980be34b8cb50] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:03:58.115 [694d525d80c2e4f8658cab50e890dc50] [e94de9f8a145ae79] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:03:58.115 [694d525dda2395262971e16cb90b7b14] [ea8a9d01a1fa7f2b] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:03:58.116 [694d525dd2f10055afa086774779effd] [b856ad83c7daf85a] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:03:58.116 [694d525dc180c94ebd3d51c6bb27e0dc] [5d5980be34b8cb50] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:03:58.116 [694d525df6fa3cc566150e8a0a8b3381] [8e04a9100a5a4e37] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:03:58.116 [694d525d026c96606f6caf93dd826f58] [4fd639ee4531f5ac] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:03:58.265 [694d525df6fa3cc566150e8a0a8b3381] [892acc6c2a736277] INFO  [http-nio-8084-exec-10] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:03:58.272 [694d525dda2395262971e16cb90b7b14] [70998f29f69e9f08] WARN  [http-nio-8084-exec-9] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:03:58.273 [694d525dda2395262971e16cb90b7b14] [70998f29f69e9f08] WARN  [http-nio-8084-exec-9] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:03:58.274 [694d525dda2395262971e16cb90b7b14] [70998f29f69e9f08] WARN  [http-nio-8084-exec-9] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:03:58.361 [694d525ec75fa9c373b7cd740ccbfb8a] [55ec4da7f2332c09] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:03:58.366 [694d525ec75fa9c373b7cd740ccbfb8a] [55ec4da7f2332c09] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:03:58.416 [694d525ec75fa9c373b7cd740ccbfb8a] [4ccac2f2f5612f56] INFO  [http-nio-8084-exec-6] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:03:58.619 [] [] WARN  [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@71d84428}] z.r.AsyncReporter$BoundedAsyncReporter - Spans were dropped due to exceptions. All subsequent errors will be logged at FINE level.
+2025-12-25 16:03:58.619 [] [] WARN  [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@71d84428}] z.r.AsyncReporter$BoundedAsyncReporter - Dropped 3 spans due to ResourceAccessException(I/O error on POST request for "http://localhost:9411/api/v2/spans": Connection refused)
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:9411/api/v2/spans": Connection refused
+	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:888)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:868)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:764)
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:646)
+	at org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender$RestTemplateHttpPostCall.doExecute(ZipkinRestTemplateSender.java:68)
+	at org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender$RestTemplateHttpPostCall.doExecute(ZipkinRestTemplateSender.java:48)
+	at zipkin2.Call$Base.execute(Call.java:391)
+	at zipkin2.reporter.AsyncReporter$BoundedAsyncReporter.flush(AsyncReporter.java:299)
+	at zipkin2.reporter.AsyncReporter$Flusher.run(AsyncReporter.java:378)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:597)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:178)
+	at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:531)
+	at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:636)
+	at java.base/sun.net.www.http.HttpClient.<init>(HttpClient.java:279)
+	at java.base/sun.net.www.http.HttpClient.New(HttpClient.java:384)
+	at java.base/sun.net.www.http.HttpClient.New(HttpClient.java:406)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1309)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1242)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1128)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:1057)
+	at org.springframework.http.client.SimpleBufferingClientHttpRequest.executeInternal(SimpleBufferingClientHttpRequest.java:75)
+	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:862)
+	... 8 common frames omitted
+2025-12-25 16:04:38.001 [694d52856ed44d9abc9b502902ef2d62] [a592b7696a969dfa] INFO  [http-nio-8084-exec-4] c.o.g.auth.AuthenticationService - Authentification réussie pour: ovd
+2025-12-25 16:04:38.215 [694d5286c4149028986b110b14eaaf8e] [1781846589bb7789] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:04:38.216 [694d5286fabeab4e5baa76a0c7103555] [c325b2ef55449809] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:04:38.226 [694d5286fabeab4e5baa76a0c7103555] [c325b2ef55449809] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:04:38.226 [694d5286c4149028986b110b14eaaf8e] [1781846589bb7789] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:04:38.243 [694d5286e27eae70205660775b814b94] [4b3e0cc5d5b3338c] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:04:38.273 [694d5286bb1d9d5208e39250e0ff3ff4] [80b51bbce2650256] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:04:38.274 [694d5286e27eae70205660775b814b94] [4b3e0cc5d5b3338c] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:04:38.278 [694d528671017b19e740322d0450881a] [07c28fc11ee047d3] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:04:38.281 [694d5286bb1d9d5208e39250e0ff3ff4] [80b51bbce2650256] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:04:38.284 [694d52867bb6cb7150c09735b2ad67fd] [4835c895320742cf] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:04:38.286 [694d528671017b19e740322d0450881a] [07c28fc11ee047d3] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:04:38.295 [694d52867bb6cb7150c09735b2ad67fd] [4835c895320742cf] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:04:38.300 [694d5286bb1d9d5208e39250e0ff3ff4] [14b0fbc4cccd891d] WARN  [http-nio-8084-exec-8] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:04:38.301 [694d5286bb1d9d5208e39250e0ff3ff4] [14b0fbc4cccd891d] WARN  [http-nio-8084-exec-8] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:04:38.302 [694d5286bb1d9d5208e39250e0ff3ff4] [14b0fbc4cccd891d] WARN  [http-nio-8084-exec-8] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:04:38.342 [694d52867bb6cb7150c09735b2ad67fd] [9771b205d5357222] INFO  [http-nio-8084-exec-5] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:04:38.379 [694d5286d4f1fcee8dc4cd98fff608ab] [594a04491de8782e] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:04:38.390 [694d5286d4f1fcee8dc4cd98fff608ab] [594a04491de8782e] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:04:38.490 [694d5286d4f1fcee8dc4cd98fff608ab] [1e948231f4a03fbe] INFO  [http-nio-8084-exec-3] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:14:20.149 [694d54cbf630049bb858b9de398dfc69] [088f7b7d0797b050] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:14:20.154 [694d54cb2597e1a2893a6f6fd5e53af6] [10672301ca0aed1d] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:14:20.152 [694d54cbaa106688a6564abd7842fa7e] [8ccb8672e36dbda4] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:14:20.157 [694d54cb0dce8e5f980835b4663cd19a] [f16c099ec08a3451] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:14:20.159 [694d54cb9d4eff7f014b80d3639b58a6] [e8696f185051afe5] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:14:20.165 [694d54cb9b0b2408423ca8f3ca51bb59] [5913773db7c65f6c] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:14:20.166 [694d54cbaa106688a6564abd7842fa7e] [8ccb8672e36dbda4] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:14:20.167 [694d54cb9d4eff7f014b80d3639b58a6] [e8696f185051afe5] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:14:20.167 [694d54cb2597e1a2893a6f6fd5e53af6] [10672301ca0aed1d] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:14:20.167 [694d54cbf630049bb858b9de398dfc69] [088f7b7d0797b050] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:14:20.167 [694d54cb0dce8e5f980835b4663cd19a] [f16c099ec08a3451] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:14:20.173 [694d54cb9b0b2408423ca8f3ca51bb59] [5913773db7c65f6c] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:14:20.223 [694d54cbf630049bb858b9de398dfc69] [9579e4c0c2fb4f72] WARN  [http-nio-8084-exec-10] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:14:20.224 [694d54cbf630049bb858b9de398dfc69] [9579e4c0c2fb4f72] WARN  [http-nio-8084-exec-10] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:14:20.225 [694d54cbf630049bb858b9de398dfc69] [9579e4c0c2fb4f72] WARN  [http-nio-8084-exec-10] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:14:20.247 [694d54cb9d4eff7f014b80d3639b58a6] [8bade699784d58a5] INFO  [http-nio-8084-exec-4] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:14:20.260 [694d54cc474aef58daa3a8508444b80c] [af1268cc1b63df85] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:14:20.266 [694d54cc474aef58daa3a8508444b80c] [af1268cc1b63df85] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:14:20.306 [694d54cc474aef58daa3a8508444b80c] [ceb89509a949c26a] INFO  [http-nio-8084-exec-2] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:15:00.897 [694d54f454f216db20fdbcb1c42e93ad] [8c2989bbb4b241c9] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:15:00.896 [694d54f45eb53c82e35a535acd8c10c1] [92c7dbcd8bdcc7df] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:15:00.915 [694d54f45eb53c82e35a535acd8c10c1] [92c7dbcd8bdcc7df] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:15:00.916 [694d54f454f216db20fdbcb1c42e93ad] [8c2989bbb4b241c9] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:15:00.922 [694d54f400396edfb3d9ad26d2db0fcb] [911d3f75e3d18250] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:15:00.933 [694d54f400396edfb3d9ad26d2db0fcb] [911d3f75e3d18250] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:15:01.213 [694d54f526f86c1083fc87bb4b2d7e67] [219508d155012f42] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:15:01.261 [694d54f526f86c1083fc87bb4b2d7e67] [219508d155012f42] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:15:01.367 [694d54f5addc252f3b5db3f320a41c40] [01aca5d5170d3dae] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:15:01.375 [694d54f5addc252f3b5db3f320a41c40] [01aca5d5170d3dae] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:15:01.417 [694d54f53261c98f83496d1968fa58ea] [0d64cfe8c6f46c35] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:15:01.424 [694d54f53261c98f83496d1968fa58ea] [0d64cfe8c6f46c35] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:49.923 [694d559da3984bd99f9aaa503f3b45c3] [faf38de2d61c494e] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:49.923 [694d559dc603a8da41bc9e651d5e92d0] [7bbe0eceaf3c49b2] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:49.925 [694d559df147e9ab9b652b8dc303a1bb] [41932b33228c6563] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:49.937 [694d559da3984bd99f9aaa503f3b45c3] [faf38de2d61c494e] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:49.937 [694d559df147e9ab9b652b8dc303a1bb] [41932b33228c6563] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:49.940 [694d559dc603a8da41bc9e651d5e92d0] [7bbe0eceaf3c49b2] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:50.665 [694d559e98b91fcfdaa804f7fad2ccc9] [1fe6116230111e05] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:50.688 [694d559e348b88deb96ffe058f725b87] [db96c30a394d1675] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:50.689 [694d559e7ab5c99ae63df0aa3778db0a] [e69ce614740d8810] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:50.691 [694d559e98b91fcfdaa804f7fad2ccc9] [1fe6116230111e05] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:50.695 [694d559e348b88deb96ffe058f725b87] [db96c30a394d1675] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:50.695 [694d559e7ab5c99ae63df0aa3778db0a] [e69ce614740d8810] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:50.705 [694d559e8f15bbb4d08f1d17b08df755] [14c0a7c136c2bf76] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:50.711 [694d559e844ca87b0d1a4ca851a02f4a] [c2fe5e9f27b49208] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:50.713 [694d559e4e8f7fc769df3d6a12187b10] [0611007515599d3a] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:50.713 [694d559e8f15bbb4d08f1d17b08df755] [14c0a7c136c2bf76] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:50.716 [694d559e844ca87b0d1a4ca851a02f4a] [c2fe5e9f27b49208] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:50.720 [694d559e4e8f7fc769df3d6a12187b10] [0611007515599d3a] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:17:50.726 [694d559e348b88deb96ffe058f725b87] [174da5e45ef1274d] WARN  [http-nio-8084-exec-9] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:17:50.727 [694d559e348b88deb96ffe058f725b87] [174da5e45ef1274d] WARN  [http-nio-8084-exec-9] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:17:50.727 [694d559e348b88deb96ffe058f725b87] [174da5e45ef1274d] WARN  [http-nio-8084-exec-9] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:17:50.758 [694d559e844ca87b0d1a4ca851a02f4a] [f7ba8ef7d3d45c13] INFO  [http-nio-8084-exec-1] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:17:50.770 [694d559e8f15bbb4d08f1d17b08df755] [e5fb9afea602cd62] INFO  [http-nio-8084-exec-8] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:17:50.890 [694d559e57f2e61636229ac6d065fa3c] [761c9b8f9ba574dc] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:17:50.902 [694d559e57f2e61636229ac6d065fa3c] [761c9b8f9ba574dc] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:02.903 [694d57c647fc502b5a4d0321f47cd55b] [df891a71b8ed5c87] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:27:02.903 [694d57c6c4baa30a954d39ebfbdd917b] [c7bfa00b52d22b72] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:27:02.902 [694d57c66818c561d04c1782b582ba3b] [ea83abe37d2d6083] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:27:02.902 [694d57c60496d7048ffa3d8bbedda114] [28576f96b0243bfe] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:27:02.903 [694d57c69c5e2331d67858d8ed849cd8] [387ad536b124b2b2] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:27:02.904 [694d57c67597090956599a762a24a1e8] [e6ebdc245ce06793] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:27:02.912 [694d57c647fc502b5a4d0321f47cd55b] [df891a71b8ed5c87] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:02.916 [694d57c67597090956599a762a24a1e8] [e6ebdc245ce06793] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:02.916 [694d57c60496d7048ffa3d8bbedda114] [28576f96b0243bfe] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:02.916 [694d57c66818c561d04c1782b582ba3b] [ea83abe37d2d6083] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:02.917 [694d57c69c5e2331d67858d8ed849cd8] [387ad536b124b2b2] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:02.916 [694d57c6c4baa30a954d39ebfbdd917b] [c7bfa00b52d22b72] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:02.954 [694d57c647fc502b5a4d0321f47cd55b] [65d89ae55a6b1986] WARN  [http-nio-8084-exec-8] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:27:02.954 [694d57c647fc502b5a4d0321f47cd55b] [65d89ae55a6b1986] WARN  [http-nio-8084-exec-8] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:27:02.955 [694d57c647fc502b5a4d0321f47cd55b] [65d89ae55a6b1986] WARN  [http-nio-8084-exec-8] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:27:03.007 [694d57c60496d7048ffa3d8bbedda114] [e3d61ffdd9981c37] INFO  [http-nio-8084-exec-3] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:27:03.019 [694d57c6287e5c521889f03652079576] [df897d4a861cb3ec] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:27:03.025 [694d57c6287e5c521889f03652079576] [df897d4a861cb3ec] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:27:03.062 [694d57c6287e5c521889f03652079576] [89d749bf51ce3753] INFO  [http-nio-8084-exec-8] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:28:41.453 [694d58290b79c2de11a691b31c449bfe] [3398974678e4272a] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:28:41.455 [694d58296738e309b5d451e122a94100] [a6ea4a5e85a2cd61] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:28:41.455 [694d582934383802a4119199ee1391d4] [cd953a7611430f02] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:28:41.456 [694d5829541fcaa81a2092e523dea66c] [741fb48de7e7532f] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:28:41.457 [694d5829cd78d574612fbb85b4786bdb] [53f2beaedfde4ea2] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:28:41.463 [694d58296738e309b5d451e122a94100] [a6ea4a5e85a2cd61] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:28:41.463 [694d58290b79c2de11a691b31c449bfe] [3398974678e4272a] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:28:41.463 [694d5829cd78d574612fbb85b4786bdb] [53f2beaedfde4ea2] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:28:41.464 [694d582934383802a4119199ee1391d4] [cd953a7611430f02] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:28:41.464 [694d5829541fcaa81a2092e523dea66c] [741fb48de7e7532f] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:28:41.504 [694d5829cd78d574612fbb85b4786bdb] [9a79d5acd7217065] WARN  [http-nio-8084-exec-7] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:28:41.505 [694d5829cd78d574612fbb85b4786bdb] [9a79d5acd7217065] WARN  [http-nio-8084-exec-7] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:28:41.505 [694d5829cd78d574612fbb85b4786bdb] [9a79d5acd7217065] WARN  [http-nio-8084-exec-7] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:28:41.531 [694d582917d695f2abcc28f7cfcad039] [b022327ed85e9070] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:28:41.546 [694d58290b79c2de11a691b31c449bfe] [cf0d853ddcfad522] INFO  [http-nio-8084-exec-10] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:28:41.548 [694d582917d695f2abcc28f7cfcad039] [b022327ed85e9070] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:28:41.552 [694d5829de9de8e40d657c6bfb9b4bf2] [88452e61cadd0f73] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:28:41.559 [694d5829de9de8e40d657c6bfb9b4bf2] [88452e61cadd0f73] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:28:41.611 [694d5829de9de8e40d657c6bfb9b4bf2] [b7770b502c9b0319] INFO  [http-nio-8084-exec-4] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:29:11.740 [694d5847158007c690646f4ba3749bff] [0febdf0c4fadedf4] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:29:11.756 [694d5847e442bf62ccc630fdb1308e28] [b1a6261f0d5adb60] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:29:11.766 [694d5847158007c690646f4ba3749bff] [0febdf0c4fadedf4] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:29:11.768 [694d5847e442bf62ccc630fdb1308e28] [b1a6261f0d5adb60] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:29:11.782 [694d5847a3e45101d96a4c634dc4759a] [7b8e44978694c038] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:29:11.790 [694d5847a3e45101d96a4c634dc4759a] [7b8e44978694c038] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:29:11.930 [694d5847f1e08c31aacb5c684d019a08] [a08f91401700e695] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:29:11.942 [694d5847f1e08c31aacb5c684d019a08] [a08f91401700e695] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:29:12.037 [694d58475e80b728d8d27e6d9d3d3882] [88c07f185203decb] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:29:12.054 [694d58475e80b728d8d27e6d9d3d3882] [88c07f185203decb] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:29:12.132 [694d5848fa4f3203034e031a1ee66144] [832f8667a4d921ba] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:29:12.158 [694d5848fa4f3203034e031a1ee66144] [832f8667a4d921ba] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.113 [694d5c54aa6f0f92135974778f5156f6] [65545296434f6c45] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.112 [694d5c54cd467e9875e812b951ff1a3b] [c3b46597996b4d0d] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.108 [694d5c54ad0611dbf83995ac0e0f3946] [21aeec0ac185f085] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.125 [694d5c54ad0611dbf83995ac0e0f3946] [21aeec0ac185f085] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.125 [694d5c54cd467e9875e812b951ff1a3b] [c3b46597996b4d0d] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.126 [694d5c54aa6f0f92135974778f5156f6] [65545296434f6c45] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.460 [694d5c55ba62402cbee34a9541d090f5] [e4b5f55ecf493810] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.465 [694d5c55ba62402cbee34a9541d090f5] [e4b5f55ecf493810] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.495 [694d5c55a0d7b1234bb31280c5c7ac22] [f045f2395249fae5] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.499 [694d5c55e8ca6a3613f4d45b123464e8] [20ff660a89e4db74] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.501 [694d5c55a0d7b1234bb31280c5c7ac22] [f045f2395249fae5] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.502 [694d5c5561ca5c3f8362fd709175c475] [422623f02126aec3] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.503 [694d5c55a03f82b2c787d033c1759636] [2f25506283cb9788] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.503 [694d5c55e8ca6a3613f4d45b123464e8] [20ff660a89e4db74] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.518 [694d5c55a03f82b2c787d033c1759636] [2f25506283cb9788] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.518 [694d5c5561ca5c3f8362fd709175c475] [422623f02126aec3] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.797 [694d5c5561ca5c3f8362fd709175c475] [2e5d153cff3fa788] WARN  [http-nio-8084-exec-5] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:46:29.798 [694d5c5561ca5c3f8362fd709175c475] [2e5d153cff3fa788] WARN  [http-nio-8084-exec-5] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:46:29.799 [694d5c5561ca5c3f8362fd709175c475] [2e5d153cff3fa788] WARN  [http-nio-8084-exec-5] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:46:29.814 [694d5c552e81b9c54f94d924c8924b75] [d146d71302442b48] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.816 [694d5c55a03f82b2c787d033c1759636] [8d9c2f707b520bcd] INFO  [http-nio-8084-exec-2] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:46:29.817 [694d5c55e8ca6a3613f4d45b123464e8] [4276f6fd9e252109] INFO  [http-nio-8084-exec-6] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:46:29.817 [694d5c5506ef15110a26dc538733a75a] [f127649a0dfe4adf] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:29.820 [694d5c552e81b9c54f94d924c8924b75] [d146d71302442b48] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:29.824 [694d5c5506ef15110a26dc538733a75a] [f127649a0dfe4adf] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:42.595 [694d5c62d6ab77238d1a114ce02c987f] [82514edd0540b47d] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:42.595 [694d5c621e1bf78d02c512aa7af14850] [a71a0420be8c9faf] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:42.602 [694d5c6264f00861e45cd951f9ece4b7] [0f6df1e08738444a] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:42.604 [694d5c621e1bf78d02c512aa7af14850] [a71a0420be8c9faf] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:42.605 [694d5c62d6ab77238d1a114ce02c987f] [82514edd0540b47d] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:42.610 [694d5c6264f00861e45cd951f9ece4b7] [0f6df1e08738444a] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:42.855 [694d5c62bed1f528b11fd31aa28ec563] [b2bd7d4ad85376d5] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:42.870 [694d5c62bed1f528b11fd31aa28ec563] [b2bd7d4ad85376d5] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:42.920 [694d5c622a1bedf213795fc0fb4adb3a] [f5da56af3096b4bf] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:42.935 [694d5c622a1bedf213795fc0fb4adb3a] [f5da56af3096b4bf] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:46:43.035 [694d5c62ce31447c6c7fbf1949b06cc6] [bd0185b49da61815] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:46:43.044 [694d5c62ce31447c6c7fbf1949b06cc6] [bd0185b49da61815] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:08.336 [694d5c7ce0ffc6a14d3282755c1da984] [f248525c2d679f14] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:08.336 [694d5c7c519e0520a5d1adb1ec9eda34] [531a6975ee7953e6] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:08.351 [694d5c7c8ed129ed7cdf5db8f14283ba] [90f27fb16d2f72b6] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:08.365 [694d5c7c519e0520a5d1adb1ec9eda34] [531a6975ee7953e6] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:08.365 [694d5c7ce0ffc6a14d3282755c1da984] [f248525c2d679f14] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:08.367 [694d5c7c8ed129ed7cdf5db8f14283ba] [90f27fb16d2f72b6] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:08.841 [694d5c7cf02f36c0bce584a4350ff625] [1a896a01f0bc8fd8] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:08.853 [694d5c7cf02f36c0bce584a4350ff625] [1a896a01f0bc8fd8] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:09.052 [694d5c7d0e9c9a5a19fcd2098b13aa42] [6b46a630750d72a1] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:09.061 [694d5c7d0e9c9a5a19fcd2098b13aa42] [6b46a630750d72a1] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:09.266 [694d5c7d0e3fd7ec4755e04dd07d1d57] [3b8c0f0c1fdbf38d] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:09.268 [694d5c7d8cd6229f663968ef679f74c0] [c892b04fac52f165] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:09.270 [694d5c7d71d456a38323f84507189b7b] [b5afd9445a8a363c] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:09.271 [694d5c7d0e3fd7ec4755e04dd07d1d57] [3b8c0f0c1fdbf38d] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:09.274 [694d5c7d8cd6229f663968ef679f74c0] [c892b04fac52f165] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:09.275 [694d5c7d71d456a38323f84507189b7b] [b5afd9445a8a363c] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:09.276 [694d5c7d93cb42de365780c5966c089f] [f853418c3e64c3a9] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:09.281 [694d5c7d93cb42de365780c5966c089f] [f853418c3e64c3a9] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:09.328 [694d5c7d71d456a38323f84507189b7b] [a626c1f1382515b6] WARN  [http-nio-8084-exec-1] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:47:09.353 [694d5c7d71d456a38323f84507189b7b] [a626c1f1382515b6] WARN  [http-nio-8084-exec-1] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:47:09.354 [694d5c7d71d456a38323f84507189b7b] [a626c1f1382515b6] WARN  [http-nio-8084-exec-1] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:47:09.366 [694d5c7d0e3fd7ec4755e04dd07d1d57] [09a114a5243a0503] INFO  [http-nio-8084-exec-10] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:47:09.536 [694d5c7dc3de4ebd9d06a0d9732eba5c] [1bb71b06f341964a] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:09.548 [694d5c7dc3de4ebd9d06a0d9732eba5c] [1bb71b06f341964a] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:09.764 [694d5c7dc3de4ebd9d06a0d9732eba5c] [239e294d5ca82666] INFO  [http-nio-8084-exec-3] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:47:16.485 [694d5c84ef2baccb4c6de04125736229] [bacb2b274d95127e] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:16.489 [694d5c848280cab4d7ab35a676bfcb00] [3f10b387a6c91c5b] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:16.490 [694d5c84440d2acb5362ebc422c2a9cf] [162d1e68b6fe4dbe] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:16.493 [694d5c84ef2baccb4c6de04125736229] [bacb2b274d95127e] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:16.497 [694d5c84440d2acb5362ebc422c2a9cf] [162d1e68b6fe4dbe] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:16.497 [694d5c848280cab4d7ab35a676bfcb00] [3f10b387a6c91c5b] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:16.638 [694d5c8401df40dfa2fd173c27e4bd23] [612730e76e0c462d] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:16.645 [694d5c844b500bf4e9812a7adaa8129f] [147fd2477ebe1751] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:16.647 [694d5c842fe8d3ba8d351aa13654a9a0] [6f2f71d41e70cf03] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:16.661 [694d5c8401df40dfa2fd173c27e4bd23] [612730e76e0c462d] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:16.661 [694d5c844b500bf4e9812a7adaa8129f] [147fd2477ebe1751] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:16.661 [694d5c842fe8d3ba8d351aa13654a9a0] [6f2f71d41e70cf03] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.120 [694d5c9c2afbd26f7bd27db7d62ee3dd] [7c30499e92890df7] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.122 [694d5c9cfe45eacddbdc712e3dc59fef] [890290800887165b] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.123 [694d5c9c86aa33d88973b8ea0ad63851] [309fbb5d1162d3ba] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.128 [694d5c9c2afbd26f7bd27db7d62ee3dd] [7c30499e92890df7] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.128 [694d5c9c86aa33d88973b8ea0ad63851] [309fbb5d1162d3ba] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.128 [694d5c9cfe45eacddbdc712e3dc59fef] [890290800887165b] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.285 [694d5c9c67ecb71ed097509d5acf909f] [414f6418b9c3e9ca] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.294 [694d5c9c67ecb71ed097509d5acf909f] [414f6418b9c3e9ca] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.331 [694d5c9c872152f93f85e256d371d622] [3740d1548cc12936] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.333 [694d5c9c6dc1e477efea6de421e36158] [2596ed4dc4033559] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.333 [694d5c9cf21a4d3ce2aa40e1656ca80d] [8afaf9405a9d57ec] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.333 [694d5c9c633e18664dd8752b7ff56dca] [a2eb65f7677f3823] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.333 [694d5c9c86402b367aa3112d34943bf7] [e9039ab589aa01ca] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.338 [694d5c9c872152f93f85e256d371d622] [3740d1548cc12936] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.340 [694d5c9c6dc1e477efea6de421e36158] [2596ed4dc4033559] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.341 [694d5c9cf21a4d3ce2aa40e1656ca80d] [8afaf9405a9d57ec] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.341 [694d5c9c86402b367aa3112d34943bf7] [e9039ab589aa01ca] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.341 [694d5c9c633e18664dd8752b7ff56dca] [a2eb65f7677f3823] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.351 [694d5c9c872152f93f85e256d371d622] [3faf28f13b4ac20a] WARN  [http-nio-8084-exec-4] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:47:40.351 [694d5c9c872152f93f85e256d371d622] [3faf28f13b4ac20a] WARN  [http-nio-8084-exec-4] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:47:40.352 [694d5c9c872152f93f85e256d371d622] [3faf28f13b4ac20a] WARN  [http-nio-8084-exec-4] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:47:40.370 [694d5c9c633e18664dd8752b7ff56dca] [083e1671ca316e6a] INFO  [http-nio-8084-exec-1] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:47:40.379 [694d5c9ca9311af4cd8307393bce86e9] [5429a076f2a28ed3] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:47:40.391 [694d5c9ca9311af4cd8307393bce86e9] [5429a076f2a28ed3] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:47:40.414 [694d5c9ca9311af4cd8307393bce86e9] [ee2558c319317ff6] INFO  [http-nio-8084-exec-10] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:48:04.664 [694d5cb46524791f59bdc56c6b33d982] [7842353cb0d4c5c6] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:04.665 [694d5cb4ba569266d4782bf35745fe18] [0eb4991370fb5e23] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:04.665 [694d5cb40951328603d5790a7c82a6f9] [e2c71ee2941dcb93] INFO  [http-nio-8084-exec-4] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:04.668 [694d5cb44a8393eda1db4330eaeda4fd] [f9f859eaad910b33] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:04.676 [694d5cb47169c83085080d4bcc55e64d] [8a6a42df0f28b33f] INFO  [http-nio-8084-exec-7] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:04.678 [694d5cb4ba569266d4782bf35745fe18] [0eb4991370fb5e23] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:04.679 [694d5cb40951328603d5790a7c82a6f9] [e2c71ee2941dcb93] INFO  [http-nio-8084-exec-4] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:04.680 [694d5cb4891768e05fb49ab9ffe608b8] [622b5d5fcd584302] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:04.682 [694d5cb46524791f59bdc56c6b33d982] [7842353cb0d4c5c6] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:04.683 [694d5cb44a8393eda1db4330eaeda4fd] [f9f859eaad910b33] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:04.692 [694d5cb4891768e05fb49ab9ffe608b8] [622b5d5fcd584302] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:04.692 [694d5cb47169c83085080d4bcc55e64d] [8a6a42df0f28b33f] INFO  [http-nio-8084-exec-7] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:04.722 [694d5cb4ba569266d4782bf35745fe18] [4558794732ed0ccf] INFO  [http-nio-8084-exec-1] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:48:04.734 [694d5cb48c2de8166682661bebf11c0e] [8168599b003e5498] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:04.734 [694d5cb4891768e05fb49ab9ffe608b8] [2bcadb97e0cfa3bf] INFO  [http-nio-8084-exec-3] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:48:04.740 [694d5cb48c2de8166682661bebf11c0e] [8168599b003e5498] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:04.757 [694d5cb48c2de8166682661bebf11c0e] [1c8d4582c679d904] WARN  [http-nio-8084-exec-2] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:48:04.757 [694d5cb48c2de8166682661bebf11c0e] [1c8d4582c679d904] WARN  [http-nio-8084-exec-2] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:48:04.757 [694d5cb48c2de8166682661bebf11c0e] [1c8d4582c679d904] WARN  [http-nio-8084-exec-2] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:48:09.955 [694d5cb94ad48ce6c04e1de75bcd4dfb] [4a0bdab878ca14f7] INFO  [http-nio-8084-exec-1] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:09.961 [694d5cb94ad48ce6c04e1de75bcd4dfb] [4a0bdab878ca14f7] INFO  [http-nio-8084-exec-1] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:09.974 [694d5cb92ebdca2ec1debd39d461fbcd] [dcde402aaf09c4b8] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:09.976 [694d5cb96aaeb78290dbbcaed3918423] [b9c026c04990e87a] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:09.979 [694d5cb9b26a6b1d4b9ca7424def673c] [33a5b39ff4b4c330] INFO  [http-nio-8084-exec-9] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:09.987 [694d5cb9b26a6b1d4b9ca7424def673c] [33a5b39ff4b4c330] INFO  [http-nio-8084-exec-9] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:09.987 [694d5cb96aaeb78290dbbcaed3918423] [b9c026c04990e87a] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:09.988 [694d5cb9b217571cc727152036aaae17] [a2699ab3cf2a8dc5] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:09.988 [694d5cb9b537580846ead67e4f3ecb40] [f375fc4c022007f6] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:09.989 [694d5cb92ebdca2ec1debd39d461fbcd] [dcde402aaf09c4b8] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:09.993 [694d5cb9b217571cc727152036aaae17] [a2699ab3cf2a8dc5] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:10.021 [694d5cb92ebdca2ec1debd39d461fbcd] [e5ae4eeeeb1c44b0] WARN  [http-nio-8084-exec-3] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 2, Tenant actuel: 1
+2025-12-25 16:48:10.021 [694d5cb92ebdca2ec1debd39d461fbcd] [e5ae4eeeeb1c44b0] WARN  [http-nio-8084-exec-3] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 4, Tenant actuel: 1
+2025-12-25 16:48:10.021 [694d5cb92ebdca2ec1debd39d461fbcd] [e5ae4eeeeb1c44b0] WARN  [http-nio-8084-exec-3] c.o.g.services.TenantSecurityService - Tentative d'accès non autorisée. Tenant attendu: 6, Tenant actuel: 1
+2025-12-25 16:48:10.064 [694d5cbab2cc2b7b3585882c28d0cf89] [8a18f2dbb5836889] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:10.070 [694d5cbab2cc2b7b3585882c28d0cf89] [8a18f2dbb5836889] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:10.102 [694d5cbab2cc2b7b3585882c28d0cf89] [dbcc0672786940ad] INFO  [http-nio-8084-exec-6] c.o.g.s.i.CommandeClientServiceImpl - 4135.0000
+2025-12-25 16:48:10.213 [694d5cb9b537580846ead67e4f3ecb40] [f375fc4c022007f6] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:10.257 [694d5cb9b537580846ead67e4f3ecb40] [87d0787ac6d92d95] INFO  [http-nio-8084-exec-10] c.o.g.s.i.CommandeFournisseurServiceImpl - 21995.0000
+2025-12-25 16:48:25.305 [694d5cc9f4aeedb7c50f95a3b7461bbb] [16d88c7de6bdd071] INFO  [http-nio-8084-exec-8] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:25.309 [694d5cc9decfbc7166d271726a51fcb3] [3f7ebca678e40967] INFO  [http-nio-8084-exec-2] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:25.310 [694d5cc93f2891440d7d55b5a2dd2657] [73724f891a2fd1b3] INFO  [http-nio-8084-exec-3] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:25.317 [694d5cc9f4aeedb7c50f95a3b7461bbb] [16d88c7de6bdd071] INFO  [http-nio-8084-exec-8] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:25.318 [694d5cc93f2891440d7d55b5a2dd2657] [73724f891a2fd1b3] INFO  [http-nio-8084-exec-3] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:25.318 [694d5cc9decfbc7166d271726a51fcb3] [3f7ebca678e40967] INFO  [http-nio-8084-exec-2] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:25.411 [694d5cc9f4211fb24dd4fb14a33ad748] [a1afebcad6198b06] INFO  [http-nio-8084-exec-6] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:25.425 [694d5cc9f4211fb24dd4fb14a33ad748] [a1afebcad6198b06] INFO  [http-nio-8084-exec-6] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:25.446 [694d5cc93589e2709d9cbf40d3453130] [a0a9c928c5869528] INFO  [http-nio-8084-exec-10] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:25.449 [694d5cc9dcadff10ab6174846840e579] [983b3e8c0f7e37ca] INFO  [http-nio-8084-exec-5] c.o.g.config.JwtAuthenticationFilter - JWT valide pour l'utilisateur ovd
+2025-12-25 16:48:25.454 [694d5cc93589e2709d9cbf40d3453130] [a0a9c928c5869528] INFO  [http-nio-8084-exec-10] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 16:48:25.455 [694d5cc9dcadff10ab6174846840e579] [983b3e8c0f7e37ca] INFO  [http-nio-8084-exec-5] c.o.gestionstock.config.TenantFilter - Contexte tenant défini - Entreprise ID: 1
+2025-12-25 23:55:48.172 [] [] WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h48m10s66ms).

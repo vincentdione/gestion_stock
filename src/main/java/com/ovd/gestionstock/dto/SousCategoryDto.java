@@ -7,9 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Builder
 @Data
 @AllArgsConstructor
@@ -17,40 +14,45 @@ import java.util.List;
 public class SousCategoryDto {
 
     private Long id;
-
     private String code;
-
-    private String designation;
-
+    private String designation;  // Changé de 'designation' à 'nom' pour cohérence
     private CategoryDto category;
-
+    private String categoryCode;  // Nouveau champ pour l'importation
 
     public static SousCategoryDto fromEntity(SousCategory sousCategory) {
-        if ( sousCategory == null){
+        if (sousCategory == null) {
             return null;
         }
-        // Category <- CategoryDto
-        return  SousCategoryDto.builder()
+
+        return SousCategoryDto.builder()
                 .id(sousCategory.getId())
                 .code(sousCategory.getCode())
                 .designation(sousCategory.getDesignation())
                 .category(CategoryDto.fromEntity(sousCategory.getCategory()))
+                .categoryCode(sousCategory.getCategory() != null ?
+                        sousCategory.getCategory().getCode() : null)
                 .build();
     }
 
     public static SousCategory toEntity(SousCategoryDto sousCategoryDto) {
-        if ( sousCategoryDto == null){
+        if (sousCategoryDto == null) {
             return null;
         }
 
-        SousCategory sousCategory = new SousCategory();
-        sousCategory.setId(sousCategoryDto.getId());
-        sousCategory.setCode(sousCategoryDto.getCode());
-        sousCategory.setCategory(CategoryDto.toEntity(sousCategoryDto.getCategory()));
-        sousCategory.setDesignation(sousCategoryDto.getDesignation());
-
-        return sousCategory;
+        return SousCategory.builder()
+                .id(sousCategoryDto.getId())
+                .code(sousCategoryDto.getCode())
+                .designation(sousCategoryDto.getDesignation())
+                .category(CategoryDto.toEntity(sousCategoryDto.getCategory()))
+                .build();
     }
 
-
+    // Méthode builder personnalisée pour l'importation
+    public static SousCategoryDto importBuilder(String code, String nom, String categoryCode) {
+        return SousCategoryDto.builder()
+                .code(code)
+                .designation(nom)
+                .categoryCode(categoryCode)
+                .build();
+    }
 }

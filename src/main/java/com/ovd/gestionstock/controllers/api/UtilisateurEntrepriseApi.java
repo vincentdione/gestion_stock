@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.controllers.api;
 
+import com.ovd.gestionstock.auth.AuthenticationResponse;
 import com.ovd.gestionstock.dto.UtilisateurDto;
 import com.ovd.gestionstock.services.UtilisateurEntrepriseService;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -25,7 +26,7 @@ public class UtilisateurEntrepriseApi {
 
     @PreAuthorize("hasAuthority('admin:create')")
     @PostMapping(value = "/entreprise/utilisateurs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UtilisateurDto> saveUser(@RequestBody  UtilisateurDto request) {
+    public ResponseEntity<AuthenticationResponse> saveUser(@RequestBody  UtilisateurDto request) {
         return ResponseEntity.ok(utilisateurService.createUtilisateur(request));
     }
 
@@ -51,10 +52,10 @@ public class UtilisateurEntrepriseApi {
     }
 
     @PreAuthorize("hasAuthority('admin:delete')")
-    @Hidden
     @DeleteMapping(value = "/entreprise/utilisateurs/delete/{idUtilisateur}")
     public ResponseEntity deleteUtilisateur(@PathVariable("idUtilisateur") Long idUtilisateur) {
         utilisateurService.deleteUtilisateur(idUtilisateur);
         return ResponseEntity.ok().build();
     }
+
 }

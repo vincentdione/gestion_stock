@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CategoryController {
 
-    @PreAuthorize("hasAuthority('admin:create')")
+    //@PreAuthorize("hasAuthority('admin:create')")
     @PostMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ApiOperation(value = "Enregistrer une catégorie (Ajouter / Modifier)", notes = "Cette Méthode permet d'enregistrer ou modifier une catégorie", response = CategoryDto.class)
 //    @ApiResponses(value = {
@@ -22,7 +22,7 @@ public interface CategoryController {
 //    })
     public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto request);
 
-    @PreAuthorize("hasAuthority('admin:read')")
+    //@PreAuthorize("hasAuthority('admin:read')")
     @GetMapping(value = "/categories/all", produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ApiOperation(value = "Afficher la liste des catégories ", notes = "Cette Méthode permet de rechercher et renvoyer la liste de toutes les catégories", responseContainer = "List<CategoryDto>")
 //    @ApiResponses(value = {

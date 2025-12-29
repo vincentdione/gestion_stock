@@ -55,7 +55,11 @@ public class JwtService {
     // Ajout du rôle et de l'entreprise
     if (userDetails instanceof Utilisateur) {
       Utilisateur user = (Utilisateur) userDetails;
-      extraClaims.put("entrepriseId", user.getEntreprise().getId());
+      if (user.getEntreprise() != null) {
+        extraClaims.put("entrepriseId", user.getEntreprise().getId());
+      } else {
+        extraClaims.put("entrepriseId", null);
+      }
     }
     return buildToken(extraClaims, userDetails, jwtExpiration);
   }

@@ -107,4 +107,19 @@ public class CategoryServiceImpl implements CategoryService {
         Category savedCategory = categoryRepository.save(category);
         return CategoryDto.fromEntity(savedCategory);
     }
+
+    @Override
+    public CategoryDto getOrCreateCategory(String code, String defaultName) {
+        Long tenantId = tenantContext.getCurrentTenant();
+
+        return categoryRepository.findByCodeAndIdEntreprise(code, tenantId)
+                .map(CategoryDto::fromEntity)
+                .orElseGet(() -> {
+                    CategoryDto newCategory = CategoryDto.builder()
+                            .code(code)
+                            .designation(defaultName)
+                            .build();
+                    return createCategory(newCategory);
+                });
+    }
 }

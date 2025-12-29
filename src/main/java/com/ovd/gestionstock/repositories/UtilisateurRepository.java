@@ -17,4 +17,7 @@ public interface UtilisateurRepository extends TenantUtilisateurAwareRepository<
 //    Optional<Utilisateur> existsByIdAndEntreprise(@Param("id") Long id, @Param("idEntreprise") Long idEntreprise);
 //
     Boolean existsByEmail(String email);
+    boolean existsByEmailAndEntrepriseId(String email, Long entrepriseId);
+    boolean existsByUsernameAndEntrepriseId(String username, Long entrepriseId);
+
 }

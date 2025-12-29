@@ -18,6 +18,7 @@ import static com.ovd.gestionstock.models.Permission.*;
 public enum Role {
 
     USER(Collections.emptySet()),
+    SUPER_ADMIN(Collections.emptySet()),
     LIVREUR(Collections.emptySet()),
     ADMIN(
             Set.of(

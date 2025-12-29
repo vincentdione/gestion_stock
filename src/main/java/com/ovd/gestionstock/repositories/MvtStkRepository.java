@@ -25,4 +25,6 @@ public interface MvtStkRepository extends TenantAwareRepository<MvtStk, Long> {
 
     List<MvtStk> findAllByArticleId(Long id);
 
+    List<MvtStk> findAllByIdEntreprise(Long idEntreprise);
+
 }

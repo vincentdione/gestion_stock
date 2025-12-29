@@ -2,6 +2,7 @@ package com.ovd.gestionstock.services.impl;
 
 import com.ovd.gestionstock.config.TenantContext;
 import com.ovd.gestionstock.dto.ArticleDto;
+import com.ovd.gestionstock.dto.ArticleStockStatsDto;
 import com.ovd.gestionstock.dto.MvtStkDto;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
@@ -182,6 +183,66 @@ public class MvtStkServiceImpl implements MvtStkService {
         return stockVenduMap;
     }
 
+    @Override
+    public Map<Long, ArticleStockStatsDto> getArticleStockStats() {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        List<MvtStk> allMouvements = mvtStkRepository.findAllByIdEntreprise(currentTenant);
+        Map<Long, ArticleStockStatsDto> statsMap = new HashMap<>();
+
+        for (MvtStk mvt : allMouvements) {
+            Long articleId = mvt.getArticle().getId();
+            ArticleStockStatsDto stats = statsMap.computeIfAbsent(articleId, id -> {
+                ArticleDto article = articleService.getArticleById(id);
+                return new ArticleStockStatsDto(
+                        articleId,
+                        article.getDesignation(),
+                        article.getPrixUnitaireHt(),       // Prix d'achat HT
+                        article.getPrixUnitaireTtc(),      // Prix de vente TTC
+                        BigDecimal.ZERO,                  // Stock restant
+                        BigDecimal.ZERO,                   // Quantité vendue
+                        BigDecimal.ZERO,                   // Montant total vendu (CA)
+                        BigDecimal.ZERO,                   // Montant total acheté
+                        BigDecimal.ZERO                     // Bénéfice
+                );
+            });
+
+            if (mvt.getTypeMvtStk() == TypeMvtStk.ENTREE || mvt.getTypeMvtStk() == TypeMvtStk.CORRECTION_POS) {
+                BigDecimal quantite = mvt.getQuantite();
+                stats.setStockRestant(stats.getStockRestant().add(quantite));
+                // Calcul du coût d'achat pour les entrées
+                stats.setMontantTotalAchete(stats.getMontantTotalAchete().add(
+                        quantite.multiply(stats.getPrixUnitaireHt())
+                ));
+            }
+            else if (mvt.getTypeMvtStk() == TypeMvtStk.SORTIE) {
+                BigDecimal quantiteAbs = mvt.getQuantite().abs();
+                stats.setQuantiteVendue(stats.getQuantiteVendue().add(quantiteAbs));
+
+                // Calcul du chiffre d'affaires (prix de vente TTC)
+                BigDecimal ca = quantiteAbs.multiply(
+                        stats.getPrixUnitaireTtc() != null ?
+                                stats.getPrixUnitaireTtc() : stats.getPrixUnitaireHt()
+                );
+                stats.setMontantTotal(stats.getMontantTotal().add(ca));
+
+                // Calcul du coût des marchandises vendues (CMV)
+                BigDecimal cmv = quantiteAbs.multiply(stats.getPrixUnitaireHt());
+
+                // Mise à jour du stock et du bénéfice
+                stats.setStockRestant(stats.getStockRestant().subtract(quantiteAbs));
+                stats.setBenefice(stats.getMontantTotal().subtract(stats.getMontantTotalAchete()));
+            }
+            else if (mvt.getTypeMvtStk() == TypeMvtStk.CORRECTION_NEG) {
+                stats.setStockRestant(stats.getStockRestant().subtract(mvt.getQuantite().abs()));
+            }
+        }
+
+        return statsMap;
+    }
     private MvtStkDto entreePositive(TypeMvtStk typeMvtStk, MvtStkDto request) {
         List<String> errors = MvtStkValidator.validate(request);
         if (!errors.isEmpty()) {

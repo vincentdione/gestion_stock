@@ -5,10 +5,8 @@ import com.ovd.gestionstock.dto.LigneCommandeClientDto;
 import com.ovd.gestionstock.dto.LigneCommandeFournisseurDto;
 import com.ovd.gestionstock.dto.LigneVenteDto;
 import com.ovd.gestionstock.utils.Constants;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

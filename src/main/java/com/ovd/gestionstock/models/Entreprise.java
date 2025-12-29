@@ -23,6 +23,9 @@ public class Entreprise {
     private Long id;
 
     private String nom;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_info_id")
+    private FileInfo logo;
     private String description;
     private String codeFiscal;
     private String siteWeb;

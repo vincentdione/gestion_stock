@@ -25,6 +25,7 @@ public class Article {
     private Long id;
 
     private String codeArticle;
+    private String codeBarre;
     private String designation;
     private BigDecimal prixUnitaireHt;
     private BigDecimal tauxTval;

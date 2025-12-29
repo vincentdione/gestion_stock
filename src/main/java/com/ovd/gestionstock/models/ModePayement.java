@@ -22,7 +22,6 @@ public class ModePayement {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
     private String code;
     private String designation;
 

@@ -1,5 +1,6 @@
 package com.ovd.gestionstock.token;
 
+import com.ovd.gestionstock.models.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,4 +17,6 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
   List<Token> findAllValidTokenByUser(Long id);
 
   Optional<Token> findByToken(String token);
+  void deleteByUtilisateur(Utilisateur utilisateur);
+
 }

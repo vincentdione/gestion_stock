@@ -1,0 +1,34 @@
+2025-06-07 14:54:39.182 [] [] INFO  [main] c.o.g.GestionStockApplication - Starting GestionStockApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/app.jar started by root in /app)
+2025-06-07 14:54:39.221 [] [] INFO  [main] c.o.g.GestionStockApplication - The following 1 profile is active: "dev"
+2025-06-07 14:54:45.472 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-07 14:54:46.121 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 584 ms. Found 19 JPA repository interfaces.
+2025-06-07 14:54:51.250 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (http)
+2025-06-07 14:54:51.304 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-07 14:54:51.309 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2025-06-07 14:54:52.559 [] [] INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-07 14:54:52.563 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 13150 ms
+2025-06-07 14:54:54.276 [] [] INFO  [main] c.o.g.config.SimpleCORSFilter - SimpleCORSFilter init
+2025-06-07 14:54:54.679 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-07 14:54:56.077 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6a0659ac
+2025-06-07 14:54:56.094 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-07 14:54:56.547 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-07 14:54:56.905 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+2025-06-07 14:54:57.863 [] [] INFO  [main] SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2025-06-07 14:54:58.530 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-06-07 14:54:58.602 [] [] WARN  [main] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name code_seq
+2025-06-07 14:54:59.502 [] [] WARN  [main] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.Client] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-06-07 14:54:59.766 [] [] INFO  [main] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' created in EhcacheManager.
+2025-06-07 14:54:59.813 [] [] WARN  [main] org.hibernate.orm.cache - HHH90001006: Missing cache[com.ovd.gestionstock.models.CommandeClient] was created on-the-fly. The created cache will use a provider-specific default configuration: make sure you defined one. You can disable this warning by setting 'hibernate.javax.cache.missing_cache_strategy' to 'create'.
+2025-06-07 14:54:59.825 [] [] INFO  [main] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' created in EhcacheManager.
+2025-06-07 14:55:02.542 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-07 14:55:02.561 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-07 14:55:09.232 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-07 14:55:10.786 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2025-06-07 14:55:10.948 [] [] INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@265c0752, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7d4b32d1, org.springframework.security.web.context.SecurityContextHolderFilter@2cd2c764, org.springframework.security.web.header.HeaderWriterFilter@25e203e6, org.springframework.web.filter.CorsFilter@7a75183d, org.springframework.security.web.authentication.logout.LogoutFilter@3c9cfcde, com.ovd.gestionstock.config.JwtAuthenticationFilter@5d22ed6c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1f1c7fde, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2b409174, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2acbe46d, org.springframework.security.web.session.SessionManagementFilter@703a2bc9, org.springframework.security.web.access.ExceptionTranslationFilter@34c6b52e, org.springframework.security.web.access.intercept.AuthorizationFilter@516155b5]
+2025-06-07 14:55:11.790 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (http) with context path ''
+2025-06-07 14:55:11.861 [] [] INFO  [main] c.o.g.GestionStockApplication - Started GestionStockApplication in 35.18 seconds (process running for 38.98)
+2025-06-07 14:55:15.689 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-07 14:55:15.701 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.Client' removed from EhcacheManager.
+2025-06-07 14:55:15.705 [] [] INFO  [SpringApplicationShutdownHook] org.ehcache.core.EhcacheManager - Cache 'com.ovd.gestionstock.models.CommandeClient' removed from EhcacheManager.
+2025-06-07 14:55:15.736 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-07 14:55:15.751 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

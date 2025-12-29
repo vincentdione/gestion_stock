@@ -5,12 +5,21 @@ cors:
   allowed-headers: "*"
   exposed-headers: "*"
 
+file:
+  upload-dir: ./uploads
+  max-file-size: 10MB
+  max-request-size: 10MB
 
 spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}
   application:
     name: stock-sn
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
 
   liquibase:
 #    url: jdbc:postgresql://${POSTGRES_SQL_HOST}:${POSTGRES_SQL_PORT}/${POSTGRES_SQL_DB}
@@ -198,26 +207,26 @@ application:
 #  port: 8082
 
 
-#springfox:
-#  documentation:
-#    swagger:
-#      v2:
-#        path: /swagger-ui.html
-#      enabled: true
-#  swagger-ui:
-#    config:
-#      deepLinking: true
-#      displayOperationId: false
-#      defaultModelsExpandDepth: 1
-#      defaultModelExpandDepth: 1
-#      defaultModelRendering: example
-#      displayRequestDuration: false
-#      docExpansion: none
-#      filter: false
-#      maxDisplayedTags: null
-#      operationsSorter: alpha
-#      showExtensions: false
-#      tagsSorter: alpha
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /swagger-ui.html
+      enabled: true
+  swagger-ui:
+    config:
+      deepLinking: true
+      displayOperationId: false
+      defaultModelsExpandDepth: 1
+      defaultModelExpandDepth: 1
+      defaultModelRendering: example
+      displayRequestDuration: false
+      docExpansion: none
+      filter: false
+      maxDisplayedTags: null
+      operationsSorter: alpha
+      showExtensions: false
+      tagsSorter: alpha
 #web:
 #  cors:
 #    allowed-origins: "http://localhost:4200"

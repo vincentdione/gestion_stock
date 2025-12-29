@@ -14,5 +14,7 @@ public interface SousCategoryService {
     public SousCategoryDto getCategoryById(Long id);
 
     public SousCategoryDto createSousCategory(SousCategoryDto sousCategoryDto);
-
+    SousCategoryDto getOrCreateSousCategory(String sousCategoryCode,
+                            String sousCategoryName,
+                            String categoryCode);
 }
