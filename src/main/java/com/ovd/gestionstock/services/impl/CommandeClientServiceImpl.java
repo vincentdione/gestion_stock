@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.services.impl;
 
 import com.ovd.gestionstock.config.TenantContext;
+import com.ovd.gestionstock.criteria.CommandeClientSearchCriteria;
 import com.ovd.gestionstock.dto.*;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
@@ -10,10 +11,14 @@ import com.ovd.gestionstock.repositories.*;
 import com.ovd.gestionstock.services.CommandeClientService;
 import com.ovd.gestionstock.services.MvtStkService;
 import com.ovd.gestionstock.services.TenantSecurityService;
+import com.ovd.gestionstock.specifications.CommandeClientSpecification;
 import com.ovd.gestionstock.validators.ArticleValidator;
 import com.ovd.gestionstock.validators.CommandeClientValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -370,6 +375,48 @@ public class CommandeClientServiceImpl implements CommandeClientService {
 
         return commandeClients
                 .stream()
+                .map(CommandeClientDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommandeClientDto> searchCommandesClient(CommandeClientSearchCriteria criteria) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+        Specification<CommandeClient> specification =
+                CommandeClientSpecification.withCriteria(criteria, currentTenant);
+        List<CommandeClient> commandes = commandeClientRepository.findAll(specification);
+
+        return commandes.stream()
+                .map(CommandeClientDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CommandeClientDto> searchCommandesClientPage(CommandeClientSearchCriteria criteria, Pageable pageable) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+        Specification<CommandeClient> specification =
+                CommandeClientSpecification.withCriteria(criteria, currentTenant);
+        Page<CommandeClient> commandePage = commandeClientRepository.findAll(specification, pageable);
+        return commandePage.map(CommandeClientDto::fromEntity);
+    }
+
+    @Override
+    public List<CommandeClientDto> searchCommandesClientByText(String searchText) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+        Specification<CommandeClient> specification = Specification
+                .where(CommandeClientSpecification.belongsToEntreprise(currentTenant))
+                .and(CommandeClientSpecification.searchByText(searchText));
+        List<CommandeClient> commandes = commandeClientRepository.findAll(specification);
+        return commandes.stream()
                 .map(CommandeClientDto::fromEntity)
                 .collect(Collectors.toList());
     }

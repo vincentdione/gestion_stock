@@ -1,10 +1,12 @@
 package com.ovd.gestionstock.services;
 
+import com.ovd.gestionstock.criteria.CommandeClientSearchCriteria;
 import com.ovd.gestionstock.dto.CommandeClientDto;
 import com.ovd.gestionstock.dto.LigneCommandeClientDto;
 import com.ovd.gestionstock.models.CommandeClient;
 import com.ovd.gestionstock.models.CommandeEtat;
-import com.ovd.gestionstock.models.CommandeFournisseur;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,5 +33,7 @@ public interface CommandeClientService {
 
     List<CommandeClientDto> getCommandesByClient(String nom, String email, String codeCommande);
 
-
+    List<CommandeClientDto> searchCommandesClient(CommandeClientSearchCriteria criteria);
+    Page<CommandeClientDto> searchCommandesClientPage(CommandeClientSearchCriteria criteria, Pageable pageable);
+    List<CommandeClientDto> searchCommandesClientByText(String searchText);
 }

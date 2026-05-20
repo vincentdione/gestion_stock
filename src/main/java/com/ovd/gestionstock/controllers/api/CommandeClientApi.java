@@ -1,13 +1,21 @@
 package com.ovd.gestionstock.controllers.api;
 
 import com.ovd.gestionstock.controllers.CommandeClientController;
+import com.ovd.gestionstock.criteria.CommandeClientSearchCriteria;
 import com.ovd.gestionstock.dto.CommandeClientDto;
 import com.ovd.gestionstock.dto.CommandeFournisseurDto;
 import com.ovd.gestionstock.dto.LigneCommandeClientDto;
 import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.services.CommandeClientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +30,7 @@ import java.util.stream.Collectors;
 @Tag(name = "commandeClients")
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+@Slf4j
 public class CommandeClientApi  {
 
     private  final CommandeClientService commandeClientService;
@@ -101,6 +110,40 @@ public class CommandeClientApi  {
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String codeCommande) {
         return ResponseEntity.ok(commandeClientService.getCommandesByClient(nom, email, codeCommande));
+    }
+
+    // =============================================
+    // NOUVELLES MÉTHODES DE RECHERCHE AVANCÉE
+    // =============================================
+
+    @PostMapping(value = "/commandeClients/search/avancee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Recherche avancée de commandes clients avec critères")
+    public ResponseEntity<List<CommandeClientDto>> searchCommandesClientAvancee(
+            @Parameter(description = "Critères de recherche", required = true)
+            @RequestBody CommandeClientSearchCriteria criteria) {
+        log.info("Recherche commandes clients avec critères: {}", criteria);
+        return ResponseEntity.ok(commandeClientService.searchCommandesClient(criteria));
+    }
+
+    @PostMapping(value = "/commandeClients/search/page", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Recherche paginée de commandes clients avec critères")
+    public ResponseEntity<Page<CommandeClientDto>> searchCommandesClientPage(
+            @Parameter(description = "Critères de recherche", required = true)
+            @RequestBody CommandeClientSearchCriteria criteria,
+            @Parameter(description = "Paramètres de pagination")
+            @PageableDefault(size = 20, sort = "dateCommande", direction = Sort.Direction.DESC) Pageable pageable) {
+        log.info("Recherche paginée commandes clients avec critères: {}, page: {}, size: {}",
+                criteria, pageable.getPageNumber(), pageable.getPageSize());
+        return ResponseEntity.ok(commandeClientService.searchCommandesClientPage(criteria, pageable));
+    }
+
+    @GetMapping(value = "/commandeClients/search/text", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Recherche rapide de commandes clients par texte")
+    public ResponseEntity<List<CommandeClientDto>> searchCommandesClientByText(
+            @Parameter(description = "Texte de recherche (code, nom client, email, téléphone)")
+            @RequestParam(required = false) String searchText) {
+        log.info("Recherche rapide commandes clients avec texte: {}", searchText);
+        return ResponseEntity.ok(commandeClientService.searchCommandesClientByText(searchText));
     }
 
 }

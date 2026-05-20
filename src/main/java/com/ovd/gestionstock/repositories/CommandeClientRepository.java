@@ -1,9 +1,8 @@
 package com.ovd.gestionstock.repositories;
 
 import com.ovd.gestionstock.models.CommandeClient;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +17,6 @@ public interface CommandeClientRepository extends TenantAwareRepository<Commande
     Optional<CommandeClient> findByClientNom(String nom);
 
     Optional<CommandeClient> findByClientEmail(String email);
+
+    List<CommandeClient> findByDateCommandeBetweenAndIdEntreprise(Date dateDebut, Date dateFin, Long idEntreprise);
 }

@@ -22,7 +22,7 @@ public class Unite {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String nom;
     private String designation;
 

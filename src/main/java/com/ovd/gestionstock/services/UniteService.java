@@ -14,4 +14,5 @@ public interface UniteService {
     List<UniteDto> findAllByIdArticle (Long idArticle);
 
     public UniteDto createUnite(UniteDto unite);
+    UniteDto getOrCreateUnite(String nom, String designation);
 }

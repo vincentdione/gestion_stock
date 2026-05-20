@@ -25,7 +25,7 @@ public class ArticleImportApi {
     private final ArticleImportService articleImportService;
 
     @PostMapping(value = "/import/csv", consumes = "multipart/form-data")
-    public ResponseEntity<List<ArticleDto>> importCsv(
+    public ResponseEntity<List<ArticleDto>> importArticleCsv(
             @RequestPart("file") MultipartFile file) throws IOException {
         return ResponseEntity.ok(articleImportService.importArticlesFromCsv(file));
     }

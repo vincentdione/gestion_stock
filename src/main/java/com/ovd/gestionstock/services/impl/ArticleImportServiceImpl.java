@@ -13,6 +13,7 @@ import com.ovd.gestionstock.exceptions.ErrorCodes;
 import com.ovd.gestionstock.exceptions.InvalidEntityException;
 import com.ovd.gestionstock.models.Article;
 import com.ovd.gestionstock.repositories.ArticleRepository;
+import com.ovd.gestionstock.repositories.SousCategoryRepository;
 import com.ovd.gestionstock.services.ArticleImportService;
 import com.ovd.gestionstock.services.CategoryService;
 import com.ovd.gestionstock.services.SousCategoryService;
@@ -44,7 +45,7 @@ public class ArticleImportServiceImpl implements ArticleImportService {
     private final CategoryService categoryService;
     private final TenantContext tenantContext;
     private final ArticleRepository articleRepository;
-
+    private final SousCategoryRepository sousCategoryRepository;
 
     @Override
     public List<ArticleDto> importArticlesFromExcel(MultipartFile file) throws IOException {
@@ -62,11 +63,17 @@ public class ArticleImportServiceImpl implements ArticleImportService {
         // Vérification des articles existants en base
         Set<String> existingArticleCodes = getExistingArticleCodes(csvArticles);
 
-        return csvArticles.stream()
+        // Importer uniquement les articles qui n'existent pas
+        List<ArticleDto> importedArticles = csvArticles.stream()
                 .filter(csv -> !existingArticleCodes.contains(csv.getCodeArticle()))
                 .map(this::mapToArticleDto)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+
+        log.info("Importation terminée - {} articles importés sur {}",
+                importedArticles.size(), csvArticles.size());
+
+        return importedArticles;
     }
 
     private void checkForDuplicateArticleCodes(Set<ArticleCsvRepresentation> csvArticles) {
@@ -114,13 +121,12 @@ public class ArticleImportServiceImpl implements ArticleImportService {
 
     private ArticleDto mapToArticleDto(ArticleCsvRepresentation csv) {
         try {
-
-
+            log.info("Traitement de l'article: {}", csv.getCodeArticle());
 
             // 1. Gérer la catégorie parente
             CategoryDto categoryDto = categoryService.getOrCreateCategory(
                     csv.getCategoryCode(),
-                    "Catégorie " + csv.getCategoryCode()
+                    csv.getCategoryCode() // ou un nom plus approprié si disponible
             );
 
             if (categoryDto == null) {
@@ -130,7 +136,8 @@ public class ArticleImportServiceImpl implements ArticleImportService {
                 );
             }
 
-            // Gestion de la sous-catégorie
+            // 2. Gestion de la sous-catégorie
+            // Utilisez getOrCreateSousCategory qui gère déjà correctement les relations
             SousCategoryDto sousCategoryDto = sousCategoryService.getOrCreateSousCategory(
                     csv.getSousCategoryCode(),
                     csv.getSousCategoryName(),
@@ -144,21 +151,36 @@ public class ArticleImportServiceImpl implements ArticleImportService {
                 );
             }
 
-            // Créer et persister l'article
-            ArticleDto articleDto =  ArticleDto.builder()
+            // 3. Créer l'article DTO
+            ArticleDto articleDto = ArticleDto.builder()
                     .codeArticle(csv.getCodeArticle())
                     .designation(csv.getDesignation())
-                    .prixUnitaireHt(new BigDecimal(csv.getPrixUnitaireHt()))
-                    .tauxTval(new BigDecimal(csv.getTauxTval()))
-                    .prixUnitaireTtc(new BigDecimal(csv.getPrixUnitaireTtc()))
+                    .prixUnitaireHt(parseBigDecimal(csv.getPrixUnitaireHt()))
+                    .tauxTval(parseBigDecimal(csv.getTauxTval()))
+                    .prixUnitaireTtc(parseBigDecimal(csv.getPrixUnitaireTtc()))
                     .photo(csv.getPhoto())
                     .sousCategoryDto(sousCategoryDto)
                     .idEntreprise(tenantContext.getCurrentTenant())
                     .build();
+
+            log.info("Création de l'article: {}", articleDto.getCodeArticle());
+
+            // 4. Sauvegarder l'article via le service
             return articleService.createArticle(articleDto);
+
         } catch (Exception e) {
-            log.error("Erreur lors du mappage de l'article CSV: {}", e.getMessage());
+            log.error("Erreur lors du mappage de l'article CSV {}: {}",
+                    csv.getCodeArticle(), e.getMessage(), e);
             return null;
+        }
+    }
+
+    private BigDecimal parseBigDecimal(String value) {
+        try {
+            return new BigDecimal(value.trim().replace(",", "."));
+        } catch (Exception e) {
+            log.error("Erreur de parsing du nombre: {}", value);
+            return BigDecimal.ZERO;
         }
     }
 }

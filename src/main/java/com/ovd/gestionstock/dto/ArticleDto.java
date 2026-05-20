@@ -1,7 +1,6 @@
 package com.ovd.gestionstock.dto;
 
 import com.ovd.gestionstock.models.Article;
-import com.ovd.gestionstock.models.Unite;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,9 +29,8 @@ public class ArticleDto {
     private SousCategoryDto sousCategoryDto;
     private List<UniteDto> unites;
 
-
-    public static ArticleDto fromEntity (Article article){
-        if (article == null){
+    public static ArticleDto fromEntity(Article article) {
+        if (article == null) {
             return null;
         }
 
@@ -45,25 +43,23 @@ public class ArticleDto {
                 .tauxTval(article.getTauxTval())
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
                 .idEntreprise(article.getIdEntreprise())
-                .sousCategoryDto(SousCategoryDto.fromEntity(article.getSousCategory()))
-                .unites(
-                        article.getConditions() != null ?
-                                article.getConditions().stream()
-                                        .map(cond -> UniteDto.fromEntity(cond.getUnite()))
-                                        .collect(Collectors.toList())
-                                : null
-                )
-
+                .sousCategoryDto(article.getSousCategory() != null ?
+                        SousCategoryDto.fromEntity(article.getSousCategory()) : null)
+                .unites(article.getConditions() != null ?
+                        article.getConditions().stream()
+                                .map(cond -> UniteDto.fromEntity(cond.getUnite()))
+                                .collect(Collectors.toList())
+                        : null)
                 .photo(article.getPhoto())
                 .build();
     }
 
-    public static Article toEntity (ArticleDto articleDto){
-        if (articleDto == null){
+    public static Article toEntity(ArticleDto articleDto) {
+        if (articleDto == null) {
             return null;
         }
 
-        return Article.builder()
+        Article article = Article.builder()
                 .id(articleDto.getId())
                 .codeArticle(articleDto.getCodeArticle())
                 .codeBarre(articleDto.getCodeBarre())
@@ -72,12 +68,31 @@ public class ArticleDto {
                 .tauxTval(articleDto.getTauxTval())
                 .prixUnitaireTtc(articleDto.getPrixUnitaireTtc())
                 .idEntreprise(articleDto.getIdEntreprise())
-                .sousCategory(SousCategoryDto.toEntity(articleDto.getSousCategoryDto()))
-//                .unite(UniteDto.toEntity(articleDto.getUnite()))
                 .photo(articleDto.getPhoto())
                 .build();
 
+        // Gérer la sous-catégorie séparément pour éviter les problèmes de référence
+        if (articleDto.getSousCategoryDto() != null) {
+            article.setSousCategory(SousCategoryDto.toEntity(articleDto.getSousCategoryDto()));
+        }
+
+        return article;
     }
 
-
+    // Méthode builder statique pour l'importation
+    public static ArticleDto importBuilder(String codeArticle, String designation,
+                                           BigDecimal prixUnitaireHt, BigDecimal tauxTval,
+                                           BigDecimal prixUnitaireTtc, String photo,
+                                           SousCategoryDto sousCategoryDto, Long idEntreprise) {
+        return ArticleDto.builder()
+                .codeArticle(codeArticle)
+                .designation(designation)
+                .prixUnitaireHt(prixUnitaireHt)
+                .tauxTval(tauxTval)
+                .prixUnitaireTtc(prixUnitaireTtc)
+                .photo(photo)
+                .sousCategoryDto(sousCategoryDto)
+                .idEntreprise(idEntreprise)
+                .build();
+    }
 }

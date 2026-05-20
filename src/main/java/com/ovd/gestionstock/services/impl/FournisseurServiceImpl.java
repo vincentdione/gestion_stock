@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.services.impl;
 
 import com.ovd.gestionstock.config.TenantContext;
+import com.ovd.gestionstock.criteria.FournisseurSearchCriteria;
 import com.ovd.gestionstock.dto.FournisseurDto;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
@@ -9,15 +10,18 @@ import com.ovd.gestionstock.models.Fournisseur;
 import com.ovd.gestionstock.repositories.FournisseurRepository;
 import com.ovd.gestionstock.services.FournisseurService;
 import com.ovd.gestionstock.services.TenantSecurityService;
+import com.ovd.gestionstock.specifications.FournisseurSpecification;
 import com.ovd.gestionstock.validators.FournisseurValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -107,4 +111,51 @@ public class FournisseurServiceImpl implements FournisseurService {
 
         return FournisseurDto.fromEntity(saved);
     }
+
+    @Override
+    public List<FournisseurDto> searchFournisseurs(FournisseurSearchCriteria criteria) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        Specification<Fournisseur> specification = FournisseurSpecification.withCriteria(criteria, currentTenant);
+        List<Fournisseur> fournisseurs = fournisseurRepository.findAll(specification);
+
+        return fournisseurs.stream()
+                .map(FournisseurDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<FournisseurDto> searchFournisseursPage(FournisseurSearchCriteria criteria, Pageable pageable) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        Specification<Fournisseur> specification = FournisseurSpecification.withCriteria(criteria, currentTenant);
+        Page<Fournisseur> fournisseurPage = fournisseurRepository.findAll(specification, pageable);
+
+        return fournisseurPage.map(FournisseurDto::fromEntity);
+    }
+
+    @Override
+    public List<FournisseurDto> searchFournisseursByText(String searchText) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        Specification<Fournisseur> specification = Specification
+                .where(FournisseurSpecification.belongsToEntreprise(currentTenant))
+                .and(FournisseurSpecification.searchByText(searchText));
+
+        List<Fournisseur> fournisseurs = fournisseurRepository.findAll(specification);
+
+        return fournisseurs.stream()
+                .map(FournisseurDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
 }

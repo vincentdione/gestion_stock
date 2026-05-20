@@ -124,4 +124,22 @@ public class UniteServiceImpl implements UniteService {
 
         return UniteDto.fromEntity(savedUnite);
     }
+
+    @Override
+    public UniteDto getOrCreateUnite(String nom, String designation) {
+        Long tenantId = tenantContext.getCurrentTenant();
+
+        Optional<Unite> existingUnite = uniteRepository.findByNomAndIdEntreprise(nom, tenantId);
+        if (existingUnite.isPresent()) {
+            return UniteDto.fromEntity(existingUnite.get());
+        }
+
+        // Créer une nouvelle unité
+        UniteDto newUnite = UniteDto.builder()
+                .nom(nom)
+                .designation(designation != null ? designation : nom)
+                .build();
+
+        return createUnite(newUnite);
+    }
 }

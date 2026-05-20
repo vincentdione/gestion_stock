@@ -1,10 +1,14 @@
 package com.ovd.gestionstock.controllers;
 
+import com.ovd.gestionstock.criteria.CommandeFournisseurSearchCriteria;
 import com.ovd.gestionstock.dto.CommandeFournisseurDto;
 
 import com.ovd.gestionstock.dto.LigneCommandeFournisseurDto;
 import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.utils.Constants;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,5 +61,22 @@ public interface CommandeFournisseurController {
 
     @GetMapping(value = "montant-total-fournisseur", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BigDecimal>  getMontantTotalComFournisseur();
+
+
+    @PostMapping("/commandeFournisseurs/search/avancee")
+    @Operation(summary = "Recherche avancée de commandes fournisseurs avec critères")
+    public ResponseEntity<List<CommandeFournisseurDto>> searchCommandesFournisseur(
+            @RequestBody CommandeFournisseurSearchCriteria criteria);
+
+    @PostMapping("/commandeFournisseurs/search/page")
+    @Operation(summary = "Recherche paginée de commandes fournisseurs avec critères")
+    public ResponseEntity<Page<CommandeFournisseurDto>> searchCommandesFournisseurPage(
+            @RequestBody CommandeFournisseurSearchCriteria criteria,
+            Pageable pageable);
+
+    @GetMapping("/commandeFournisseurs/search/text")
+    @Operation(summary = "Recherche rapide de commandes fournisseurs par texte")
+    public ResponseEntity<List<CommandeFournisseurDto>> searchCommandesFournisseurByText(
+            @RequestParam(required = false) String searchText);
 
 }

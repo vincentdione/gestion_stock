@@ -1,11 +1,12 @@
 package com.ovd.gestionstock.services;
 
-import com.ovd.gestionstock.dto.CommandeClientDto;
+import com.ovd.gestionstock.criteria.CommandeFournisseurSearchCriteria;
 import com.ovd.gestionstock.dto.CommandeFournisseurDto;
 import com.ovd.gestionstock.dto.LigneCommandeFournisseurDto;
 import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.models.CommandeFournisseur;
-import com.ovd.gestionstock.models.Ventes;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -39,5 +40,10 @@ public interface CommandeFournisseurService {
     BigDecimal getMontantTotalComFournisseur(List<CommandeFournisseur> commandes);
 
     List<CommandeFournisseurDto> getCommandesByFournisseur(String nom, String email, String codeCommande);
+
+    // Méthodes de recherche avancée
+    List<CommandeFournisseurDto> searchCommandesFournisseur(CommandeFournisseurSearchCriteria criteria);
+    Page<CommandeFournisseurDto> searchCommandesFournisseurPage(CommandeFournisseurSearchCriteria criteria, Pageable pageable);
+    List<CommandeFournisseurDto> searchCommandesFournisseurByText(String searchText);
 
 }

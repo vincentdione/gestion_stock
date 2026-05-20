@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.services.impl;
 
 import com.ovd.gestionstock.config.TenantContext;
+import com.ovd.gestionstock.criteria.ClientSearchCriteria;
 import com.ovd.gestionstock.dto.ClientDto;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
@@ -9,13 +10,17 @@ import com.ovd.gestionstock.models.Client;
 import com.ovd.gestionstock.repositories.ClientRepository;
 import com.ovd.gestionstock.services.ClientService;
 import com.ovd.gestionstock.services.TenantSecurityService;
+import com.ovd.gestionstock.specifications.ClientSpecification;
 import com.ovd.gestionstock.validators.ClientValidator;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import jakarta.transaction.Transactional;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
@@ -141,6 +146,45 @@ public class ClientServiceImpl implements ClientService {
         // Filtrage tenant
         return clients.stream()
                 .filter(client -> client.getIdEntreprise().equals(currentTenant))
+                .map(ClientDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClientDto> searchClients(ClientSearchCriteria criteria) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+        Specification<Client> specification = ClientSpecification.withCriteria(criteria, currentTenant);
+        List<Client> clients = clientRepository.findAll(specification);
+        return clients.stream()
+                .map(ClientDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ClientDto> searchClientsPage(ClientSearchCriteria criteria, Pageable pageable) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+        Specification<Client> specification = ClientSpecification.withCriteria(criteria, currentTenant);
+        Page<Client> clientPage = clientRepository.findAll(specification, pageable);
+        return clientPage.map(ClientDto::fromEntity);
+    }
+
+    @Override
+    public List<ClientDto> searchClientsByText(String searchText) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+        Specification<Client> specification = Specification
+                .where(ClientSpecification.belongsToEntreprise(currentTenant))
+                .and(ClientSpecification.searchByText(searchText));
+        List<Client> clients = clientRepository.findAll(specification);
+        return clients.stream()
                 .map(ClientDto::fromEntity)
                 .collect(Collectors.toList());
     }

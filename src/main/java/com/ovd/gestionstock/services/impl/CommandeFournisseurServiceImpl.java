@@ -1,6 +1,7 @@
 package com.ovd.gestionstock.services.impl;
 
 import com.ovd.gestionstock.config.TenantContext;
+import com.ovd.gestionstock.criteria.CommandeFournisseurSearchCriteria;
 import com.ovd.gestionstock.dto.*;
 import com.ovd.gestionstock.exceptions.EntityNotFoundException;
 import com.ovd.gestionstock.exceptions.ErrorCodes;
@@ -13,10 +14,14 @@ import com.ovd.gestionstock.repositories.LigneCommandeFournisseurRepository;
 import com.ovd.gestionstock.services.CommandeFournisseurService;
 import com.ovd.gestionstock.services.MvtStkService;
 import com.ovd.gestionstock.services.TenantSecurityService;
+import com.ovd.gestionstock.specifications.CommandeFournisseurSpecification;
 import com.ovd.gestionstock.validators.ArticleValidator;
 import com.ovd.gestionstock.validators.CommandeFournisseurValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -26,7 +31,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
@@ -255,6 +259,58 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
                     .collect(Collectors.toList());
         }
     }
+
+    @Override
+    public List<CommandeFournisseurDto> searchCommandesFournisseur(CommandeFournisseurSearchCriteria criteria) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        Specification<CommandeFournisseur> specification =
+                CommandeFournisseurSpecification.withCriteria(criteria, currentTenant);
+
+        List<CommandeFournisseur> commandes = commandeFournisseurRepository.findAll(specification);
+
+        return commandes.stream()
+                .map(CommandeFournisseurDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CommandeFournisseurDto> searchCommandesFournisseurPage(CommandeFournisseurSearchCriteria criteria, Pageable pageable) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        Specification<CommandeFournisseur> specification =
+                CommandeFournisseurSpecification.withCriteria(criteria, currentTenant);
+
+        Page<CommandeFournisseur> commandePage = commandeFournisseurRepository.findAll(specification, pageable);
+
+        return commandePage.map(CommandeFournisseurDto::fromEntity);
+    }
+
+    @Override
+    public List<CommandeFournisseurDto> searchCommandesFournisseurByText(String searchText) {
+        Long currentTenant = tenantContext.getCurrentTenant();
+        if (currentTenant == null) {
+            throw new IllegalStateException("Aucun tenant défini dans le contexte");
+        }
+
+        Specification<CommandeFournisseur> specification = Specification
+                .where(CommandeFournisseurSpecification.belongsToEntreprise(currentTenant))
+                .and(CommandeFournisseurSpecification.searchByText(searchText));
+
+        List<CommandeFournisseur> commandes = commandeFournisseurRepository.findAll(specification);
+
+        return commandes.stream()
+                .map(CommandeFournisseurDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+
 
     @Override
     public CommandeFournisseurDto updateEtatCommande(Long idCommande, CommandeEtat etatCommande) {

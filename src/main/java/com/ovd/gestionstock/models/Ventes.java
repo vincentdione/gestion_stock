@@ -1,6 +1,5 @@
 package com.ovd.gestionstock.models;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,41 +31,53 @@ public class Ventes {
 
     private String commentaire;
 
+    @Column(name = "nom_client")
+    private String nomClient;
+
+    @Column(name = "prenom_client")
+    private String prenomClient;
+
+    private String adresse;
+
+    private String numero;
+
     @Column(name = "id_entreprise", nullable = false)
     private Long idEntreprise;
 
-    @OneToMany(mappedBy = "vente")
+    @OneToMany(mappedBy = "vente", fetch = FetchType.EAGER) // Changez en EAGER ou utilisez @EntityGraph
     private List<LigneVente> ligneVentes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idModePayement")
     private ModePayement modePayement;
 
+    // Ajoutez ce champ pour stocker le montant total
+    @Transient
+    private BigDecimal montantTotalCache = null;
 
     public BigDecimal getMontantTotal() {
-        BigDecimal montantTotal = BigDecimal.ZERO;
-        System.out.println("///////////////////////////////////////////////"+ligneVentes.size());
+        // Retourner le cache s'il existe
+        if (montantTotalCache != null) {
+            return montantTotalCache;
+        }
 
-        if (ligneVentes != null) {
+        BigDecimal montantTotal = BigDecimal.ZERO;
+
+        if (ligneVentes != null && !ligneVentes.isEmpty()) {
             for (LigneVente ligneVente : ligneVentes) {
                 if (ligneVente.getPrixUnitaire() != null && ligneVente.getQuantite() != null) {
-                    BigDecimal prixUnitaire = new BigDecimal(String.valueOf(ligneVente.getPrixUnitaire()));
+                    BigDecimal prixUnitaire = ligneVente.getPrixUnitaire();
                     BigDecimal quantite = new BigDecimal(String.valueOf(ligneVente.getQuantite()));
                     BigDecimal montantLigne = prixUnitaire.multiply(quantite);
-                    System.out.println("///////////////////////////////////////////////");
-                    System.out.println(prixUnitaire);
-                    System.out.println(quantite);
-                    System.out.println(montantLigne);
-                    System.out.println("///////////////////////////////////////////////");
-
                     montantTotal = montantTotal.add(montantLigne);
-
                 }
             }
         }
+
+        // Cache le résultat
+        montantTotalCache = montantTotal;
         return montantTotal;
     }
-
 
     public int getNombreDeVentes() {
         if (ligneVentes != null) {
@@ -76,4 +86,9 @@ public class Ventes {
         return 0;
     }
 
+    // Méthode pour forcer le calcul
+    public void calculerMontantTotal() {
+        montantTotalCache = null;
+        getMontantTotal();
+    }
 }

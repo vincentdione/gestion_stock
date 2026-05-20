@@ -1,11 +1,15 @@
 package com.ovd.gestionstock.controllers.api;
 
 import com.ovd.gestionstock.controllers.CommandeFournisseurController;
+import com.ovd.gestionstock.criteria.CommandeFournisseurSearchCriteria;
 import com.ovd.gestionstock.dto.*;
 import com.ovd.gestionstock.models.CommandeEtat;
 import com.ovd.gestionstock.services.CommandeFournisseurService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +27,7 @@ import java.util.stream.Collectors;
 @Tag(name = "commandeFournisseurs")
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+@Slf4j
 public class CommandeFournisseurApi implements CommandeFournisseurController {
 
     private  final CommandeFournisseurService commandeFournisseurService;
@@ -87,6 +92,25 @@ public class CommandeFournisseurApi implements CommandeFournisseurController {
             System.out.println("pas de Commandes trouvées !!!");
             return null;
         }
+    }
+
+    @Override
+    public ResponseEntity<List<CommandeFournisseurDto>> searchCommandesFournisseur(CommandeFournisseurSearchCriteria criteria) {
+        log.info("Recherche commandes fournisseurs avec critères: {}", criteria);
+        return ResponseEntity.ok(commandeFournisseurService.searchCommandesFournisseur(criteria));
+    }
+
+    @Override
+    public ResponseEntity<Page<CommandeFournisseurDto>> searchCommandesFournisseurPage(CommandeFournisseurSearchCriteria criteria, Pageable pageable) {
+        log.info("Recherche paginée commandes fournisseurs avec critères: {}, page: {}",
+                criteria, pageable.getPageNumber());
+        return ResponseEntity.ok(commandeFournisseurService.searchCommandesFournisseurPage(criteria, pageable));
+    }
+
+    @Override
+    public ResponseEntity<List<CommandeFournisseurDto>> searchCommandesFournisseurByText(String searchText) {
+        log.info("Recherche rapide commandes fournisseurs avec texte: {}", searchText);
+        return ResponseEntity.ok(commandeFournisseurService.searchCommandesFournisseurByText(searchText));
     }
 
     @GetMapping(value="/search/comfournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)

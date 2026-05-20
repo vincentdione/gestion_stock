@@ -1,7 +1,6 @@
 package com.ovd.gestionstock.models;
 
 
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
